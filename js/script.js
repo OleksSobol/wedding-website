@@ -15,7 +15,7 @@ const AUTH_CONFIG = {
     },
     
     // Development fallback password (for local testing without Netlify CLI)
-    developmentPassword: 'ForeverTogether2026'
+    developmentPassword: 'DevTesting2026'
 };
 
 // NO PASSWORDS STORED IN CLIENT CODE - ALL VALIDATION IS SERVER-SIDE!

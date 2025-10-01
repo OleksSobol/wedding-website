@@ -19,12 +19,11 @@
 3. Drag and drop the ZIP file
 4. Set up custom domain later
 
-### 2. **Set Environment Variable (SECURE PASSWORD):**
-1. In Netlify dashboard → Site settings → Environment variables
-2. Click "Add variable"
-3. **Key:** `WEDDING_PASSWORD`
-4. **Value:** `YourActualWeddingPassword2026` (plaintext, not hash!)
-5. Click "Save"
+2. **Set Environment Variable in Netlify:**
+   - Go to: Site settings → Environment variables
+   - Add: `WEDDING_PASSWORD` = `YourActualWeddingPassword2026`
+   - **Important:** Use your real production password here, not the development one!
+   - **Note:** Development password in code is `DevTesting2026` (different from production)
 
 ### 3. **Configure Custom Domain:**
 1. In Netlify → Domain management → Add custom domain
