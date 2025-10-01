@@ -32,8 +32,33 @@ instance/
 .webassets-cache
 app.db
 
-# VS Code
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# Environment variables (NEVER commit passwords!)
+.env
+.env.local
+.env.production
+
+# Netlify
+.netlify/
+
+# IDE
 .vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build outputs
+dist/
+build/
 
 # Uploads
 app/static/uploads/
