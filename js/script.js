@@ -1,4 +1,4 @@
-// Wedding Website JavaScript - Netlify Secure Authentication
+// Wedding Website JavaScript - Netlify Serverless Authentication
 
 // Authentication Configuration
 const AUTH_CONFIG = {
@@ -14,13 +14,11 @@ const AUTH_CONFIG = {
         }
     },
     
-    // Development fallback password (for local testing without Netlify CLI)
+    // Development fallback password (for local testing)
     developmentPassword: 'DevTesting2026'
 };
 
-// NO PASSWORDS STORED IN CLIENT CODE - ALL VALIDATION IS SERVER-SIDE!
-
-// Secure server-side password validation using Netlify Functions
+// Password validation using Netlify serverless function
 async function checkPassword() {
     const input = document.getElementById('password-input');
     const errorMessage = document.getElementById('error-message');
