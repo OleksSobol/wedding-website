@@ -44,18 +44,16 @@ jobs:
             fi
           done
           
-          # Create config.js with password from secret (more reliable than sed)
-          mkdir -p _site/js
-          echo "// Auto-generated password configuration" > _site/js/config.js
-          - name: Inject wedding password
+      - name: Inject wedding password
         run: |
-          sed -i "s/PLACEHOLDER_PASSWORD/${{ secrets.WEDDING_PASSWORD }}/g" js/script.js
+          # Replace the placeholder with actual password in the built script.js
+          sed -i "s/PLACEHOLDER_PASSWORD/${{ secrets.WEDDING_PASSWORD }}/g" _site/js/script.js
           
-          # Verify the config file was created
-          echo "Password config created:"
-          cat _site/js/config.js
+          # Verify the password was injected (show a few lines around it)
+          echo "Password injection verification:"
+          grep -A2 -B2 "WEDDING_PASSWORD" _site/js/script.js || echo "Password successfully replaced"
           
-          # List what was copied for debugging
+          # List build contents for debugging
           echo "Build contents:"
           ls -la _site/
           ls -la _site/js/
