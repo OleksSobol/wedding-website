@@ -284,6 +284,9 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     max-height: 0;
     overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
     transition: all var(--transition-medium);
     z-index: 999;
   }
@@ -292,6 +295,7 @@ h1, h2, h3, h4, h5, h6 {
     max-height: 400px;
     opacity: 1;
     visibility: visible;
+    transform: translateY(0);
   }
   
   .nav-menu a {

@@ -40,8 +40,8 @@ async function checkPassword() {
         let isValid = false;
         let serverToken = null;
         
-        if (AUTH_CONFIG.isDevelopment && !location.port) {
-            // Development fallback when Netlify CLI is not available
+        if (AUTH_CONFIG.isDevelopment) {
+            // Development fallback when not using Netlify serverless functions
             isValid = input.value === AUTH_CONFIG.developmentPassword;
             if (isValid) {
                 serverToken = generateClientToken();
