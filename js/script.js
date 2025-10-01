@@ -1,10 +1,8 @@
 // Wedding Website JavaScript
 
-// Password Protection - Secure password injection from GitHub Secrets
-// Config.js will set window.WEDDING_PASSWORD in production, fallback for development
-if (typeof window.WEDDING_PASSWORD === 'undefined') {
-    window.WEDDING_PASSWORD = 'PLACEHOLDER_PASSWORD';
-}
+// Password Protection - Secure password injection from GitHub Secrets during build
+const WEDDING_PASSWORD_PLACEHOLDER = 'PLACEHOLDER_PASSWORD';
+window.WEDDING_PASSWORD = WEDDING_PASSWORD_PLACEHOLDER; // This will be replaced during deployment
 
 // Determine if we're in development or production
 const isDevelopment = location.hostname === 'localhost' || location.hostname === '127.0.0.1';

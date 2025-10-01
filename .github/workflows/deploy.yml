@@ -47,7 +47,9 @@ jobs:
           # Create config.js with password from secret (more reliable than sed)
           mkdir -p _site/js
           echo "// Auto-generated password configuration" > _site/js/config.js
-          echo "window.WEDDING_PASSWORD = '${{ secrets.WEDDING_PASSWORD }}';" >> _site/js/config.js
+          - name: Inject wedding password
+        run: |
+          sed -i "s/PLACEHOLDER_PASSWORD/${{ secrets.WEDDING_PASSWORD }}/g" js/script.js
           
           # Verify the config file was created
           echo "Password config created:"
