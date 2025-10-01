@@ -21,9 +21,9 @@
 
 2. **Set Environment Variable in Netlify:**
    - Go to: Site settings → Environment variables
-   - Add: `WEDDING_PASSWORD` = `YourActualWeddingPassword2026`
+   - Add: `WEDDING_PASSWORD` = `<your_secure_production_password>`
    - **Important:** Use your real production password here, not the development one!
-   - **Note:** Development password in code is `DevTesting2026` (different from production)
+   - **Note:** Development password should be set in your local `.env` file (see `.env.example`)
 
 ### 3. **Configure Custom Domain:**
 1. In Netlify → Domain management → Add custom domain
@@ -91,7 +91,7 @@ No passwords ever visible in browser DevTools or source code!
 ## 🎯 Testing
 
 ### Test Authentication:
-1. **Development:** `ForeverTogether2026` 
+1. **Development:** Use the password from your `.env` file 
 2. **Production:** Whatever you set in Netlify environment variable
 
 ### Verify Deployment:
