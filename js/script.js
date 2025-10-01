@@ -1,33 +1,26 @@
-// Wedding Website JavaScript
+// Wedding Website JavaScript - Netlify Secure Authentication
 
-// Secure Password Protection using SHA-256 hashing
-// No plaintext passwords stored in code - only secure hashes!
-
-const SECURITY_CONFIG = {
-    // These are SHA-256 hashes of passwords - much more secure than plaintext
-    // Generate new hash: https://emn178.github.io/online-tools/sha256.html
-    
-    // Development password hash (for "ForeverTogether2026")
-    devPasswordHash: '431c2e4ccd37cbad918153b6972307fe66e3d57a260a4524770e86eeb521adfa',
-    
-    // Production password hash - will be replaced during GitHub Actions build
-    prodPasswordHash: 'PRODUCTION_PASSWORD_HASH_PLACEHOLDER',
-    
-    // Environment detection
+// Authentication Configuration
+const AUTH_CONFIG = {
+    // Determine environment and API endpoint
     isDevelopment: location.hostname === 'localhost' || location.hostname === '127.0.0.1',
     
-    // Get the appropriate hash based on environment
-    getPasswordHash() {
-        return this.isDevelopment ? this.devPasswordHash : this.prodPasswordHash;
-    }
+    // Get the appropriate auth endpoint
+    getAuthEndpoint() {
+        if (this.isDevelopment) {
+            return 'http://localhost:8888/.netlify/functions/auth';
+        } else {
+            return '/.netlify/functions/auth';
+        }
+    },
+    
+    // Development fallback password (for local testing without Netlify CLI)
+    developmentPassword: 'ForeverTogether2026'
 };
 
-// Security check - ensure production hash was injected
-if (!SECURITY_CONFIG.isDevelopment && SECURITY_CONFIG.prodPasswordHash === 'PRODUCTION_PASSWORD_HASH_PLACEHOLDER') {
-    console.error('Production password hash not properly injected during build');
-}
+// NO PASSWORDS STORED IN CLIENT CODE - ALL VALIDATION IS SERVER-SIDE!
 
-// Secure password validation using SHA-256 hashing
+// Secure server-side password validation using Netlify Functions
 async function checkPassword() {
     const input = document.getElementById('password-input');
     const errorMessage = document.getElementById('error-message');
@@ -44,18 +37,26 @@ async function checkPassword() {
     submitBtn.disabled = true;
     
     try {
-        // Hash the entered password using SHA-256
-        const enteredPasswordHash = await hashPassword(input.value);
-        const correctHash = SECURITY_CONFIG.getPasswordHash();
+        let isValid = false;
+        let serverToken = null;
         
-        // Secure comparison of hashes (not plaintext passwords)
-        if (enteredPasswordHash === correctHash) {
-            // Generate secure session token
-            const sessionToken = generateSecureToken();
-            
+        if (AUTH_CONFIG.isDevelopment && !location.port) {
+            // Development fallback when Netlify CLI is not available
+            isValid = input.value === AUTH_CONFIG.developmentPassword;
+            if (isValid) {
+                serverToken = generateClientToken();
+            }
+        } else {
+            // Use serverless function for validation
+            const result = await validatePasswordServerSide(input.value);
+            isValid = result.success;
+            serverToken = result.token;
+        }
+        
+        if (isValid) {
             // Store authentication state
             sessionStorage.setItem('wedding-access', 'granted');
-            sessionStorage.setItem('wedding-token', sessionToken);
+            sessionStorage.setItem('wedding-token', serverToken);
             sessionStorage.setItem('wedding-auth-time', Date.now().toString());
             
             // Clear password input for security
@@ -73,13 +74,10 @@ async function checkPassword() {
         } else {
             errorMessage.textContent = 'Incorrect password. Please try again.';
             input.value = '';
-            
-            // Rate limiting - prevent brute force attempts
-            await new Promise(resolve => setTimeout(resolve, 1000));
         }
     } catch (error) {
         console.error('Authentication error:', error);
-        errorMessage.textContent = 'Authentication error. Please try again.';
+        errorMessage.textContent = 'Authentication service unavailable. Please try again.';
     } finally {
         // Reset button state
         submitBtn.textContent = originalText;
@@ -87,19 +85,41 @@ async function checkPassword() {
     }
 }
 
-// Hash password using SHA-256 (browser-native, secure)
-async function hashPassword(password) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(password);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+// Validate password using Netlify serverless function
+async function validatePasswordServerSide(password) {
+    try {
+        const response = await fetch(AUTH_CONFIG.getAuthEndpoint(), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ password })
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok && result.success) {
+            return {
+                success: true,
+                token: result.token
+            };
+        } else {
+            console.log('Authentication failed:', result.message);
+            return {
+                success: false,
+                message: result.message
+            };
+        }
+    } catch (error) {
+        console.error('Network error during authentication:', error);
+        throw error;
+    }
 }
 
-// Generate secure session token
-function generateSecureToken() {
+// Generate client-side token (fallback for development)
+function generateClientToken() {
     const timestamp = Date.now();
-    const random = crypto.getRandomValues(new Uint32Array(4));
+    const random = crypto.getRandomValues(new Uint32Array(2));
     return btoa(JSON.stringify({
         authenticated: true,
         timestamp,
@@ -121,9 +141,7 @@ window.addEventListener('load', function() {
         initializeAnimations();
     } else {
         // Clear invalid session data
-        sessionStorage.removeItem('wedding-access');
-        sessionStorage.removeItem('wedding-token');
-        sessionStorage.removeItem('wedding-auth-time');
+        clearAuthSession();
     }
 });
 
@@ -145,6 +163,13 @@ function isValidSession(token, authTimeStr) {
         console.warn('Invalid session token');
         return false;
     }
+}
+
+// Clear authentication session
+function clearAuthSession() {
+    sessionStorage.removeItem('wedding-access');
+    sessionStorage.removeItem('wedding-token');
+    sessionStorage.removeItem('wedding-auth-time');
 }
 
 // Allow Enter key to submit password

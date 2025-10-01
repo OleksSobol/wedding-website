@@ -1,0 +1,25 @@
+{
+  "name": "wedding-website",
+  "version": "1.0.0",
+  "description": "Secure wedding website with Netlify serverless authentication",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'Static site - no build step needed'",
+    "deploy": "netlify deploy",
+    "deploy:prod": "netlify deploy --prod"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "keywords": [
+    "wedding",
+    "static-site",
+    "netlify",
+    "serverless"
+  ],
+  "author": "Catherine & Oleksandr",
+  "license": "MIT"
+}

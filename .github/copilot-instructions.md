@@ -83,10 +83,26 @@ To work on the website:
 7. **Photos**: Add images to `images/` folder and update gallery section
 
 ### Deployment Options
-- **GitHub Pages**: Enable in repository settings, deploys automatically
-- **Netlify**: Drag and drop deployment or connect to repository
-- **Vercel**: Connect GitHub repository for automatic deployment
+- **GitHub Pages**: Enable in repository settings, deploys automatically (100GB soft limit)
+- **Netlify**: Drag and drop deployment or connect to repository (100GB/month free)
+- **Vercel**: Connect GitHub repository for automatic deployment (100GB/month free)
 - **Custom Domain**: Configure DNS to point to hosting provider
+
+### Hosting Provider Comparison for Wedding Sites
+| Platform | Free Bandwidth | Functions | Database | Best For |
+|----------|----------------|-----------|----------|----------|
+| GitHub Pages | 100GB* | ❌ | ❌ | Simple static sites |
+| Netlify | 100GB | ✅ | Add-on | Static + serverless |
+| Vercel | 100GB | ✅ | Add-on | Modern web apps |
+| Firebase | 10GB | ✅ | ✅ | Real-time features |
+
+*Soft limit, rarely enforced for wedding sites
+
+### Bandwidth Reality Check
+- **100GB = 20,000+ visitors** for typical wedding sites
+- **Wedding guest count:** Usually 100-300 people
+- **Conclusion:** Free tiers are more than sufficient for wedding websites
+- **Cost if exceeded:** $20-40 per additional 100GB (extremely unlikely for weddings)
 
 ## Integration Points
 - **Google Forms**: RSVP data collection and management
@@ -101,6 +117,45 @@ To work on the website:
 - Use lazy loading for gallery images
 - Implement service worker for offline functionality (optional)
 - Monitor Core Web Vitals for user experience
+
+## Bandwidth Optimization Guidelines
+
+### Understanding Bandwidth for Wedding Sites
+Wedding websites typically require minimal bandwidth compared to hosting provider limits:
+- **Typical wedding site per visit:** 1-10MB (HTML + CSS + JS + images)
+- **Expected traffic:** 100-300 guests × 2-5 visits = 500-1,500 monthly visits
+- **Bandwidth usage:** Usually under 15GB/month (well within 100GB free limits)
+
+### Image Optimization Strategies
+1. **Compress images aggressively:**
+   - Original photo: 3MB → Optimized: 300KB (90% reduction)
+   - Use tools like TinyPNG, ImageOptim, or Squoosh
+   
+2. **Modern image formats:**
+   - WebP instead of JPEG/PNG (30-50% smaller file sizes)
+   - SVG for icons, graphics, and simple illustrations
+   - Progressive JPEG for large photos
+
+3. **Responsive images:**
+   ```html
+   <img src="photo-800.webp" 
+        srcset="photo-400.webp 400w, photo-800.webp 800w, photo-1200.webp 1200w"
+        sizes="(max-width: 600px) 400px, (max-width: 1000px) 800px, 1200px"
+        alt="Wedding photo">
+   ```
+
+### File Size Targets for Wedding Sites
+- **Total page size:** < 2MB for good mobile experience
+- **Individual photos:** 200-500KB max after optimization
+- **CSS file:** < 50KB (minified)
+- **JavaScript file:** < 100KB (minified)
+- **Fonts:** Limit to 2-3 font families, subset when possible
+
+### Bandwidth Monitoring
+- Use browser DevTools Network tab to audit page size
+- Test on 3G connection simulation for mobile experience
+- Monitor hosting provider's bandwidth usage dashboard
+- Set up alerts before reaching 80% of bandwidth limits
 
 ## Security Notes
 - Password protection is client-side only (for convenience, not security)
