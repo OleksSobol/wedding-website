@@ -31,14 +31,30 @@ jobs:
         
       - name: Build with password injection
         run: |
-          # Create a copy of the original files
-          cp -r . _site
+          # Create build directory
+          mkdir -p _site
+          
+          # Copy all files except hidden directories and _site itself
+          find . -maxdepth 1 -name ".*" -prune -o -name "_site" -prune -o -type f -exec cp {} _site/ \;
+          
+          # Copy directories (css, js, images, etc.) but exclude hidden ones
+          for dir in */; do
+            if [[ "$dir" != "_site/" ]] && [[ "$dir" != .* ]]; then
+              cp -r "$dir" _site/
+            fi
+          done
           
           # Inject the password into the JavaScript file
-          sed -i "s|window\.WEDDING_PASSWORD = 'PLACEHOLDER_PASSWORD';|window.WEDDING_PASSWORD = '${{ secrets.WEDDING_PASSWORD }}';|g" _site/js/script.js
+          if [ -f "_site/js/script.js" ]; then
+            sed -i "s|window\.WEDDING_PASSWORD = 'PLACEHOLDER_PASSWORD';|window.WEDDING_PASSWORD = '${{ secrets.WEDDING_PASSWORD }}';|g" _site/js/script.js
+            echo "Password injection completed"
+          else
+            echo "Warning: js/script.js not found"
+          fi
           
-          # Ensure the password was injected (for debugging, remove in production)
-          echo "Password injection completed"
+          # List what was copied for debugging
+          echo "Build contents:"
+          ls -la _site/
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
