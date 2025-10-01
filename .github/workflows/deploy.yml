@@ -44,17 +44,19 @@ jobs:
             fi
           done
           
-          # Inject the password into the JavaScript file
-          if [ -f "_site/js/script.js" ]; then
-            sed -i "s|window\.WEDDING_PASSWORD = 'PLACEHOLDER_PASSWORD';|window.WEDDING_PASSWORD = '${{ secrets.WEDDING_PASSWORD }}';|g" _site/js/script.js
-            echo "Password injection completed"
-          else
-            echo "Warning: js/script.js not found"
-          fi
+          # Create config.js with password from secret (more reliable than sed)
+          mkdir -p _site/js
+          echo "// Auto-generated password configuration" > _site/js/config.js
+          echo "window.WEDDING_PASSWORD = '${{ secrets.WEDDING_PASSWORD }}';" >> _site/js/config.js
+          
+          # Verify the config file was created
+          echo "Password config created:"
+          cat _site/js/config.js
           
           # List what was copied for debugging
           echo "Build contents:"
           ls -la _site/
+          ls -la _site/js/
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
