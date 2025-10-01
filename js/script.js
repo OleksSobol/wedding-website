@@ -14,8 +14,9 @@ const AUTH_CONFIG = {
         }
     },
     
-    // Development fallback password (for local testing)
-    developmentPassword: 'wedding2026'
+    // Development fallback password (for local testing only)
+    // In production, this is overridden by server-side validation
+    developmentPassword: 'dev-fallback'
 };
 
 // Password validation using Netlify serverless function

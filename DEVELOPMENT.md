@@ -18,7 +18,7 @@ python3 -m http.server 8000
 # OR with Netlify CLI for full serverless testing
 netlify dev
 
-# Test password: wedding2026
+# Test password: [Set via WEDDING_PASSWORD environment variable]
 ```
 
 #### **Git Workflow**
@@ -35,7 +35,7 @@ git push origin main
 ### **Architecture**
 
 #### **Authentication System**
-- **Local Development:** Fallback password `wedding2026`
+- **Local Development:** Fallback password `[set in environment]`
 - **Production:** Netlify serverless function with environment variable
 - **Security:** No passwords stored in client code
 - **Flow:** Client → Netlify Function → Session token
