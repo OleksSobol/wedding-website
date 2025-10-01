@@ -4,7 +4,7 @@
 
 # Configure secrets scanning to exclude documentation and example files
 [build.environment]
-  SECRETS_SCAN_OMIT_PATHS = "NETLIFY_MIGRATION.md,.env.example"
+  SECRETS_SCAN_OMIT_PATHS = "NETLIFY_MIGRATION.md,.env.example,DEVELOPMENT.md,README.md"
 
 
 # Redirect all requests to index.html for client-side routing
