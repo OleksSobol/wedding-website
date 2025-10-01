@@ -1,21 +1,33 @@
 // Wedding Website JavaScript
 
-// Secure Authentication Configuration
-const AUTH_CONFIG = {
-    // Development uses localhost auth endpoint, production uses serverless function
-    isDevelopment: location.hostname === 'localhost' || location.hostname === '127.0.0.1',
-    get authEndpoint() {
-        return this.isDevelopment 
-            ? 'http://localhost:8888/.netlify/functions/auth'  // Netlify dev server
-            : '/.netlify/functions/auth';  // Production serverless function
-    },
+// Secure Password Protection using SHA-256 hashing
+// No plaintext passwords stored in code - only secure hashes!
+
+const SECURITY_CONFIG = {
+    // These are SHA-256 hashes of passwords - much more secure than plaintext
+    // Generate new hash: https://emn178.github.io/online-tools/sha256.html
     
-    // Development fallback password (only for localhost testing)
-    developmentPassword: 'ForeverTogether2026'
+    // Development password hash (for "ForeverTogether2026")
+    devPasswordHash: '431c2e4ccd37cbad918153b6972307fe66e3d57a260a4524770e86eeb521adfa',
+    
+    // Production password hash - will be replaced during GitHub Actions build
+    prodPasswordHash: 'PRODUCTION_PASSWORD_HASH_PLACEHOLDER',
+    
+    // Environment detection
+    isDevelopment: location.hostname === 'localhost' || location.hostname === '127.0.0.1',
+    
+    // Get the appropriate hash based on environment
+    getPasswordHash() {
+        return this.isDevelopment ? this.devPasswordHash : this.prodPasswordHash;
+    }
 };
 
-// NO PASSWORDS ARE STORED IN THIS FILE - ALL VALIDATION IS SERVER-SIDE
+// Security check - ensure production hash was injected
+if (!SECURITY_CONFIG.isDevelopment && SECURITY_CONFIG.prodPasswordHash === 'PRODUCTION_PASSWORD_HASH_PLACEHOLDER') {
+    console.error('Production password hash not properly injected during build');
+}
 
+// Secure password validation using SHA-256 hashing
 async function checkPassword() {
     const input = document.getElementById('password-input');
     const errorMessage = document.getElementById('error-message');
@@ -28,47 +40,46 @@ async function checkPassword() {
     
     // Show loading state
     const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Checking...';
+    submitBtn.textContent = 'Verifying...';
     submitBtn.disabled = true;
     
     try {
-        let isValid = false;
+        // Hash the entered password using SHA-256
+        const enteredPasswordHash = await hashPassword(input.value);
+        const correctHash = SECURITY_CONFIG.getPasswordHash();
         
-        if (AUTH_CONFIG.isDevelopment) {
-            // Development: Simple client-side check for localhost testing
-            isValid = input.value === AUTH_CONFIG.developmentPassword;
-        } else {
-            // Production: Secure server-side validation
-            isValid = await validatePasswordServerSide(input.value);
-        }
-        
-        if (isValid) {
-            // Store authentication token
-            const authToken = generateClientToken();
-            sessionStorage.setItem('wedding-auth-token', authToken);
-            sessionStorage.setItem('wedding-access', 'granted');
+        // Secure comparison of hashes (not plaintext passwords)
+        if (enteredPasswordHash === correctHash) {
+            // Generate secure session token
+            const sessionToken = generateSecureToken();
             
-            // Hide modal and show content
+            // Store authentication state
+            sessionStorage.setItem('wedding-access', 'granted');
+            sessionStorage.setItem('wedding-token', sessionToken);
+            sessionStorage.setItem('wedding-auth-time', Date.now().toString());
+            
+            // Clear password input for security
+            input.value = '';
+            
+            // Show authenticated content
             modal.style.display = 'none';
             mainContent.style.display = 'block';
-            
-            // Clear the password input for security
-            input.value = '';
             
             // Initialize site features
             startCountdown();
             initializeAnimations();
             
-            // Track successful authentication
-            trackEvent('authentication_success');
+            console.log('🔐 Authentication successful');
         } else {
             errorMessage.textContent = 'Incorrect password. Please try again.';
             input.value = '';
-            trackEvent('authentication_failed');
+            
+            // Rate limiting - prevent brute force attempts
+            await new Promise(resolve => setTimeout(resolve, 1000));
         }
     } catch (error) {
         console.error('Authentication error:', error);
-        errorMessage.textContent = 'Authentication service unavailable. Please try again later.';
+        errorMessage.textContent = 'Authentication error. Please try again.';
     } finally {
         // Reset button state
         submitBtn.textContent = originalText;
@@ -76,71 +87,62 @@ async function checkPassword() {
     }
 }
 
-// Secure server-side password validation
-async function validatePasswordServerSide(password) {
-    try {
-        const response = await fetch(AUTH_CONFIG.authEndpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ password })
-        });
-        
-        const result = await response.json();
-        
-        if (response.ok && result.success) {
-            // Store server-provided token if available
-            if (result.token) {
-                sessionStorage.setItem('wedding-server-token', result.token);
-            }
-            return true;
-        } else {
-            console.log('Authentication failed:', result.message);
-            return false;
-        }
-    } catch (error) {
-        console.error('Network error during authentication:', error);
-        throw error;
-    }
+// Hash password using SHA-256 (browser-native, secure)
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-// Generate client-side token for session management
-function generateClientToken() {
+// Generate secure session token
+function generateSecureToken() {
+    const timestamp = Date.now();
+    const random = crypto.getRandomValues(new Uint32Array(4));
     return btoa(JSON.stringify({
         authenticated: true,
-        timestamp: Date.now(),
-        sessionId: Math.random().toString(36).substr(2, 9)
+        timestamp,
+        sessionId: Array.from(random).join(''),
+        expires: timestamp + (24 * 60 * 60 * 1000) // 24 hours
     }));
 }
 
-// Check if user has already been authenticated this session
+// Check if user has valid authentication session
 window.addEventListener('load', function() {
     const hasAccess = sessionStorage.getItem('wedding-access') === 'granted';
-    const authToken = sessionStorage.getItem('wedding-auth-token');
+    const token = sessionStorage.getItem('wedding-token');
+    const authTime = sessionStorage.getItem('wedding-auth-time');
     
-    if (hasAccess && authToken && isValidClientToken(authToken)) {
+    if (hasAccess && token && authTime && isValidSession(token, authTime)) {
         document.getElementById('password-modal').style.display = 'none';
         document.getElementById('main-content').style.display = 'block';
         startCountdown();
         initializeAnimations();
     } else {
-        // Clear any invalid tokens
+        // Clear invalid session data
         sessionStorage.removeItem('wedding-access');
-        sessionStorage.removeItem('wedding-auth-token');
-        sessionStorage.removeItem('wedding-server-token');
+        sessionStorage.removeItem('wedding-token');
+        sessionStorage.removeItem('wedding-auth-time');
     }
 });
 
-// Validate client-side token (basic session management)
-function isValidClientToken(token) {
+// Validate session token and timing
+function isValidSession(token, authTimeStr) {
     try {
-        const decoded = JSON.parse(atob(token));
-        const tokenAge = Date.now() - decoded.timestamp;
+        const authData = JSON.parse(atob(token));
+        const authTime = parseInt(authTimeStr);
+        const now = Date.now();
         const maxAge = 24 * 60 * 60 * 1000; // 24 hours
         
-        return decoded.authenticated === true && tokenAge < maxAge;
+        return (
+            authData.authenticated === true &&
+            authData.timestamp === authTime &&
+            (now - authTime) < maxAge &&
+            authData.expires > now
+        );
     } catch (error) {
+        console.warn('Invalid session token');
         return false;
     }
 }

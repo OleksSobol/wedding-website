@@ -44,19 +44,31 @@ jobs:
             fi
           done
           
-      - name: Inject wedding password
+      - name: Generate secure password hash
         run: |
-          # Replace the placeholder with actual password in the built script.js
-          sed -i "s/PLACEHOLDER_PASSWORD/${{ secrets.WEDDING_PASSWORD }}/g" _site/js/script.js
+          # Generate SHA-256 hash of the password (much more secure than plaintext)
+          PASSWORD_HASH=$(echo -n "${{ secrets.WEDDING_PASSWORD }}" | sha256sum | cut -d' ' -f1)
+          echo "Generated secure hash for password"
           
-          # Verify the password was injected (show a few lines around it)
-          echo "Password injection verification:"
-          grep -A2 -B2 "WEDDING_PASSWORD" _site/js/script.js || echo "Password successfully replaced"
+          # Replace the placeholder with the password hash in script.js
+          sed -i "s/PRODUCTION_PASSWORD_HASH_PLACEHOLDER/$PASSWORD_HASH/g" _site/js/script.js
           
-          # List build contents for debugging
-          echo "Build contents:"
-          ls -la _site/
-          ls -la _site/js/
+          # Verify the hash was injected (show partial hash for security)
+          echo "Hash injection verification:"
+          if grep -q "$PASSWORD_HASH" _site/js/script.js; then
+            echo "✅ Password hash successfully injected (first 8 chars: ${PASSWORD_HASH:0:8}...)"
+          else
+            echo "❌ Hash injection failed"
+            exit 1
+          fi
+          
+          # Ensure no plaintext passwords remain
+          if grep -i "PLACEHOLDER\|ForeverTogether" _site/js/script.js; then
+            echo "❌ Found placeholder text - security risk!"
+            exit 1
+          fi
+          
+          echo "🔐 Security check passed - no plaintext passwords in deployed code"
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
