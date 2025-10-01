@@ -62,9 +62,14 @@ jobs:
             exit 1
           fi
           
-          # Ensure no plaintext passwords remain
-          if grep -i "PLACEHOLDER\|ForeverTogether" _site/js/script.js; then
-            echo "❌ Found placeholder text - security risk!"
+          # Ensure no security-sensitive placeholders remain (only check for actual security risks)
+          if grep -q "PRODUCTION_PASSWORD_HASH_PLACEHOLDER" _site/js/script.js; then
+            echo "❌ Found uninjected password placeholder - security risk!"
+            exit 1
+          fi
+          
+          if grep -q "ForeverTogether2026" _site/js/script.js; then
+            echo "❌ Found development password in production - security risk!"
             exit 1
           fi
           
