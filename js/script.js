@@ -120,7 +120,7 @@ function initializeAnimations() {
     }, observerOptions);
     
     // Observe elements that should animate
-    const animateElements = document.querySelectorAll('.detail-card, .photo-item, section h2');
+    const animateElements = document.querySelectorAll('.detail-card, .photo-item, .story-item, section h2');
     animateElements.forEach(el => observer.observe(el));
 }
 
@@ -152,11 +152,63 @@ function createPhotoPlaceholders() {
 // Initialize photo management when DOM is loaded
 document.addEventListener('DOMContentLoaded', createPhotoPlaceholders);
 
-// Mobile Menu Toggle (for future enhancement)
+// Mobile Menu Toggle
 function toggleMobileMenu() {
     const navMenu = document.querySelector('.nav-menu');
-    navMenu.classList.toggle('active');
+    const hamburger = document.querySelector('.hamburger');
+    
+    if (navMenu && hamburger) {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    }
 }
+
+// Close mobile menu when clicking on links
+document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    const navMenu = document.querySelector('.nav-menu');
+    const hamburger = document.querySelector('.hamburger');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+    });
+});
+
+// Accommodation Card Toggle
+function toggleAccommodation(card) {
+    const isExpanded = card.classList.contains('expanded');
+    
+    // Close all other cards
+    const allCards = document.querySelectorAll('.accommodation-card');
+    allCards.forEach(otherCard => {
+        if (otherCard !== card) {
+            otherCard.classList.remove('expanded');
+        }
+    });
+    
+    // Toggle the clicked card
+    if (isExpanded) {
+        card.classList.remove('expanded');
+    } else {
+        card.classList.add('expanded');
+    }
+}
+
+// Close accommodation cards when clicking outside
+document.addEventListener('click', function(event) {
+    const accommodationSection = document.querySelector('#accommodations');
+    if (accommodationSection && !accommodationSection.contains(event.target)) {
+        const allCards = document.querySelectorAll('.accommodation-card');
+        allCards.forEach(card => {
+            card.classList.remove('expanded');
+        });
+    }
+});
 
 // Contact Form Validation (if adding a contact form later)
 function validateContactForm(form) {

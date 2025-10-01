@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Wedding Day</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Password Protection Modal -->
@@ -23,9 +23,19 @@
     <div id="main-content" style="display: none;">
         <!-- Navigation -->
         <nav class="navbar">
+            <div class="nav-brand">
+                <span class="nav-title">C & O</span>
+            </div>
+            <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
             <ul class="nav-menu">
                 <li><a href="#home">Home</a></li>
+                <li><a href="#story">Our Story</a></li>
                 <li><a href="#details">Details</a></li>
+                <li><a href="#accommodations">Stay</a></li>
                 <li><a href="#rsvp">RSVP</a></li>
                 <li><a href="#gallery">Gallery</a></li>
             </ul>
@@ -37,21 +47,50 @@
                 <h1 class="script-font">Cathrine & Oleksandr</h1>
                 <p class="wedding-date">June 20, 2026</p>
                 <div class="countdown" id="countdown">
-                    <div class="time-unit">
-                        <span id="days">000</span>
-                        <label>Days</label>
-                    </div>
-                    <div class="time-unit">
-                        <span id="hours">00</span>
-                        <label>Hours</label>
-                    </div>
-                    <div class="time-unit">
-                        <span id="minutes">00</span>
-                        <label>Minutes</label>
-                    </div>
-                    <div class="time-unit">
-                        <span id="seconds">00</span>
-                        <label>Seconds</label>
+                    <span class="time-unit"><span id="days">000</span> <label>days</label></span>
+                    <span class="time-unit"><span id="hours">00</span> <label>hours</label></span>
+                    <span class="time-unit"><span id="minutes">00</span> <label>minutes</label></span>
+                    <span class="time-unit"><span id="seconds">00</span> <label>seconds</label></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Story -->
+        <section id="story" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Our Story</h2>
+                </div>
+                <div class="story-content">
+                    <div class="story-timeline">
+                        <div class="story-item fade-in">
+                            <div class="story-date">2019</div>
+                            <div class="story-text">
+                                <h3>How We Met</h3>
+                                <p>Our love story began in the most unexpected way. We first crossed paths at a cozy coffee shop in downtown, where Oleksandr was working on his laptop and Cathrine was reading her favorite book. A simple conversation about literature turned into hours of talking, and we both knew there was something special about that moment.</p>
+                            </div>
+                        </div>
+                        <div class="story-item fade-in">
+                            <div class="story-date">2021</div>
+                            <div class="story-text">
+                                <h3>Our First Adventure</h3>
+                                <p>Two years later, we took our first big trip together to the beautiful mountains of Montana. It was during this adventure that we discovered our shared love for nature, hiking, and quiet moments watching the sunset. We knew we wanted to explore the world together, hand in hand.</p>
+                            </div>
+                        </div>
+                        <div class="story-item fade-in">
+                            <div class="story-date">2024</div>
+                            <div class="story-text">
+                                <h3>The Proposal</h3>
+                                <p>On a magical evening in December, Oleksandr surprised Cathrine with a proposal at the very place where we had our first adventure in Montana. Surrounded by snow-covered peaks and twinkling stars, he got down on one knee and asked the question that changed our lives forever. Of course, she said yes!</p>
+                            </div>
+                        </div>
+                        <div class="story-item fade-in">
+                            <div class="story-date">2026</div>
+                            <div class="story-text">
+                                <h3>Our Wedding Day</h3>
+                                <p>Now, we're excited to celebrate our love with our closest family and friends in the breathtaking landscape of Montana. We can't wait to start this new chapter of our lives together and create many more beautiful memories as husband and wife.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,21 +105,130 @@
                 <div class="details-grid">
                     <div class="detail-card">
                         <h3>Ceremony</h3>
+                        <p><strong>Date:</strong> June 20, 2026</p>
                         <p><strong>Time:</strong> 4:00 PM</p>
-                        <p><strong>Location:</strong> St. Mary's Church</p>
-                        <p>123 Wedding Lane, Love City</p>
+                        <p><strong>Location:</strong> The Woodlands At Cottonwood Canyon</p>
+                        <p><a href="https://maps.google.com/?q=141+Old+Timber+Wy,+Bozeman,+MT+59718" target="_blank" rel="noopener noreferrer">141 Old Timber Wy, Bozeman, MT 59718</a></p>
                     </div>
                     <div class="detail-card">
                         <h3>Reception</h3>
+                        <p><strong>Date:</strong> June 20, 2026</p>
                         <p><strong>Time:</strong> 6:00 PM</p>
-                        <p><strong>Location:</strong> Grand Ballroom</p>
-                        <p>456 Celebration Ave, Love City</p>
+                        <p><strong>Location:</strong> The Woodlands At Cottonwood Canyon</p>
+                        <p><a href="https://maps.google.com/?q=141+Old+Timber+Wy,+Bozeman,+MT+59718" target="_blank" rel="noopener noreferrer">141 Old Timber Wy, Bozeman, MT 59718</a></p>
                     </div>
                     <div class="detail-card">
                         <h3>Dress Code</h3>
                         <p>Semi-formal attire</p>
-                        <p>Please avoid white</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Accommodations Section -->
+        <section id="accommodations" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Where to Stay</h2>
+                    <p class="section-subtitle">We've arranged some wonderful accommodation options for our guests</p>
+                </div>
+                <div class="accommodations-grid">
+                    <div class="accommodation-card" onclick="toggleAccommodation(this)">
+                        <div class="accommodation-header">
+                            <h3>The Wilson Hotel</h3>
+                            <div class="accommodation-meta">
+                                <span class="price">$180-250/night</span>
+                                <span class="expand-icon">+</span>
+                            </div>
+                        </div>
+                        <div class="accommodation-summary">
+                            <p>Historic boutique hotel in downtown Bozeman with elegant rooms and modern amenities.</p>
+                        </div>
+                        <div class="accommodation-details">
+                            <div class="details-content">
+                                <p><strong>Distance:</strong> 15 minutes to venue</p>
+                                <p><strong>Amenities:</strong> Free WiFi, fitness center, restaurant, valet parking</p>
+                                <p><strong>Room Types:</strong> King rooms, suites, mountain view rooms available</p>
+                                <p><strong>Booking:</strong> Group rate available under "Cathrine & Oleksandr Wedding"</p>
+                                <p><strong>Reservation:</strong> <a href="tel:+14065551234">(406) 555-1234</a> or <a href="https://wilsonhotel.com" target="_blank">wilsonhotel.com</a></p>
+                                <p><em>Book by May 1st, 2026 for best rates</em></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accommodation-card" onclick="toggleAccommodation(this)">
+                        <div class="accommodation-header">
+                            <h3>Big Sky Resort</h3>
+                            <div class="accommodation-meta">
+                                <span class="price">$220-350/night</span>
+                                <span class="expand-icon">+</span>
+                            </div>
+                        </div>
+                        <div class="accommodation-summary">
+                            <p>Mountain resort with stunning views, perfect for a weekend getaway experience.</p>
+                        </div>
+                        <div class="accommodation-details">
+                            <div class="details-content">
+                                <p><strong>Distance:</strong> 5 minutes to church ceremony, 20 minutes to reception</p>
+                                <p><strong>Amenities:</strong> Ski resort access, spa, multiple restaurants, pool</p>
+                                <p><strong>Room Types:</strong> Lodge rooms, condos, luxury suites with mountain views</p>
+                                <p><strong>Booking:</strong> Mention "Cathrine & Oleksandr Wedding" for group rate</p>
+                                <p><strong>Reservation:</strong> <a href="tel:+14065559876">(406) 555-9876</a> or <a href="https://bigskyresort.com" target="_blank">bigskyresort.com</a></p>
+                                <p><em>Perfect for guests wanting the full Big Sky experience</em></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accommodation-card" onclick="toggleAccommodation(this)">
+                        <div class="accommodation-header">
+                            <h3>Holiday Inn Express</h3>
+                            <div class="accommodation-meta">
+                                <span class="price">$120-160/night</span>
+                                <span class="expand-icon">+</span>
+                            </div>
+                        </div>
+                        <div class="accommodation-summary">
+                            <p>Reliable and comfortable stay with complimentary breakfast and convenient location.</p>
+                        </div>
+                        <div class="accommodation-details">
+                            <div class="details-content">
+                                <p><strong>Distance:</strong> 18 minutes to venue</p>
+                                <p><strong>Amenities:</strong> Free breakfast, WiFi, fitness center, indoor pool</p>
+                                <p><strong>Room Types:</strong> Standard rooms, suites, accessible rooms</p>
+                                <p><strong>Booking:</strong> Group code "COWE26" for special rate</p>
+                                <p><strong>Reservation:</strong> <a href="tel:+14065555678">(406) 555-5678</a> or <a href="https://ihg.com" target="_blank">ihg.com</a></p>
+                                <p><em>Great value option for families</em></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accommodation-card" onclick="toggleAccommodation(this)">
+                        <div class="accommodation-header">
+                            <h3>Mountain View Airbnb</h3>
+                            <div class="accommodation-meta">
+                                <span class="price">$150-300/night</span>
+                                <span class="expand-icon">+</span>
+                            </div>
+                        </div>
+                        <div class="accommodation-summary">
+                            <p>Cozy cabins and homes for groups wanting privacy and a more personal experience.</p>
+                        </div>
+                        <div class="accommodation-details">
+                            <div class="details-content">
+                                <p><strong>Distance:</strong> 10-25 minutes to venue (various locations)</p>
+                                <p><strong>Amenities:</strong> Full kitchens, mountain views, hot tubs (select properties)</p>
+                                <p><strong>Property Types:</strong> 2-6 bedroom cabins, luxury homes, rustic retreats</p>
+                                <p><strong>Booking:</strong> Search "Bozeman, MT" and filter by dates</p>
+                                <p><strong>Reservation:</strong> <a href="https://airbnb.com" target="_blank">airbnb.com</a> or <a href="https://vrbo.com" target="_blank">vrbo.com</a></p>
+                                <p><em>Perfect for groups wanting to stay together</em></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accommodation-note">
+                    <p><strong>Need help with reservations?</strong> Contact us at <a href="mailto:wedding@solstice2026.party">wedding@solstice2026.party</a></p>
+                    <p>We recommend booking by <strong>April 1st, 2026</strong> for the best availability and rates.</p>
                 </div>
             </div>
         </section>
@@ -104,7 +252,7 @@
                 </div>
                 <p class="rsvp-note">
                     <strong>Please RSVP by August 15, 2026</strong><br>
-                    If you have any questions, contact us at wedding@cathrineoleksandr.com
+                    If you have any questions, contact us at wedding@solstice2026.party
                 </p>
             </div>
         </section>
@@ -117,24 +265,53 @@
                 </div>
                 <div class="photo-grid">
                     <div class="photo-item">
-                        <img src="images/photo1.jpg" alt="Our first date" loading="lazy">
-                        <div class="photo-overlay">
-                            <p>First Date - 2022</p>
+                        <div class="placeholder-image" style="background: linear-gradient(45deg, var(--secondary-rose), var(--soft-peach));">
+                            <div class="photo-overlay">
+                                <h4>Our First Date</h4>
+                                <p>Where it all began - 2022</p>
+                            </div>
                         </div>
                     </div>
                     <div class="photo-item">
-                        <img src="images/photo2.jpg" alt="Engagement" loading="lazy">
-                        <div class="photo-overlay">
-                            <p>The Proposal - 2024</p>
+                        <div class="placeholder-image" style="background: linear-gradient(45deg, var(--dusty-rose), var(--secondary-rose));">
+                            <div class="photo-overlay">
+                                <h4>The Proposal</h4>
+                                <p>He asked, she said yes! - 2024</p>
+                            </div>
                         </div>
                     </div>
                     <div class="photo-item">
-                        <img src="images/photo3.jpg" alt="Together" loading="lazy">
-                        <div class="photo-overlay">
-                            <p>Happy Together</p>
+                        <div class="placeholder-image" style="background: linear-gradient(45deg, var(--soft-peach), var(--accent-gold));">
+                            <div class="photo-overlay">
+                                <h4>Engagement Photos</h4>
+                                <p>Celebrating our love</p>
+                            </div>
                         </div>
                     </div>
-                    <!-- Add more photos as needed -->
+                    <div class="photo-item">
+                        <div class="placeholder-image" style="background: linear-gradient(45deg, var(--romantic-pink), var(--dusty-rose));">
+                            <div class="photo-overlay">
+                                <h4>Together</h4>
+                                <p>Happy & in love</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <div class="placeholder-image" style="background: linear-gradient(45deg, var(--soft-lavender), var(--secondary-rose));">
+                            <div class="photo-overlay">
+                                <h4>Adventure Time</h4>
+                                <p>Creating memories</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <div class="placeholder-image" style="background: linear-gradient(45deg, var(--accent-gold), var(--soft-peach));">
+                            <div class="photo-overlay">
+                                <h4>Save the Date</h4>
+                                <p>Coming soon...</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
