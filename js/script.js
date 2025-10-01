@@ -1,7 +1,16 @@
 // Wedding Website JavaScript
 
-// Password Protection
-const PASSWORD = 'ForeverTogether2026'; // Change this to your desired password
+// Password Protection - Secure password injection from GitHub Secrets
+window.WEDDING_PASSWORD = 'PLACEHOLDER_PASSWORD'; // This will be replaced during deployment
+
+// Determine if we're in development or production
+const isDevelopment = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+const PASSWORD = isDevelopment ? 'ForeverTogether2026' : window.WEDDING_PASSWORD;
+
+// Security check for production
+if (!isDevelopment && window.WEDDING_PASSWORD === 'PLACEHOLDER_PASSWORD') {
+    console.error('Password not properly injected in production build');
+}
 
 function checkPassword() {
     const input = document.getElementById('password-input');
