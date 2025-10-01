@@ -41,7 +41,7 @@ python3 -m http.server 8000
 netlify dev
 
 # Visit http://localhost:8000
-# Password: DevTesting2026
+# Password: wedding2026
 ```
 
 ## 🛠️ Tech Stack
@@ -138,7 +138,7 @@ git push origin main
 ### Environment Variables
 ```bash
 # Local (.env)
-WEDDING_PASSWORD=DevTesting2026
+WEDDING_PASSWORD=wedding2026
 
 # Production (Netlify Dashboard)
 WEDDING_PASSWORD=<secure_production_password>
