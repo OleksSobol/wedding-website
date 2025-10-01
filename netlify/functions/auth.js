@@ -1,5 +1,9 @@
+/**
+ * Netlify serverless function for wedding website authentication
+ * Validates passwords securely on the server-side
+ */
 exports.handler = async (event, context) => {
-  // Set CORS headers for all requests
+  // CORS headers for all requests
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -43,8 +47,16 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Get the wedding password from environment variable
+    // Get the password from environment variable
     const correctPassword = process.env.WEDDING_PASSWORD;
+    
+    // Debug logging (temporarily - remove in production)
+    console.log('=== DEBUG INFO ===');
+    console.log('Environment variable exists:', !!correctPassword);
+    console.log('Environment variable length:', correctPassword ? correctPassword.length : 0);
+    console.log('Received password length:', password ? password.length : 0);
+    console.log('All env vars containing WEDDING:', Object.keys(process.env).filter(key => key.includes('WEDDING')));
+    console.log('==================');
     
     if (!correctPassword) {
       console.error('WEDDING_PASSWORD environment variable not set');
@@ -53,7 +65,7 @@ exports.handler = async (event, context) => {
         headers,
         body: JSON.stringify({ 
           success: false,
-          message: 'Server configuration error' 
+          message: 'Server configuration error - WEDDING_PASSWORD not set' 
         })
       };
     }
