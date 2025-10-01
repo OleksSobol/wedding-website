@@ -107,6 +107,20 @@ To work on the website:
 - For true security, consider server-side authentication or hosting platforms with password protection
 - HTTPS is recommended for any production deployment
 
+## Git Workflow Guidelines
+- **Commit After Approved Changes**: When the user approves changes made by the AI agent, always commit the changes with descriptive commit messages
+- **Commit Message Format**: Use conventional commits format: `feat:`, `fix:`, `style:`, `docs:`, etc.
+- **Descriptive Messages**: Include a comprehensive summary of all changes made in the commit message
+- **File Staging**: Add only the files that were actually modified during the current request
+- **Commit Timing**: Commit immediately after user confirms they want to keep the proposed changes
+
+### Example Commit Process:
+1. Make requested changes to files
+2. User approves the changes
+3. `git add <modified-files>`
+4. `git commit -m "feat: descriptive message with bullet points of changes"`
+5. Confirm commit was successful
+
 ---
 
 This static approach provides simplicity, fast loading times, and easy maintenance while still delivering a beautiful and functional wedding website experience.
