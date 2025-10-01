@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Wedding Website{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    {% if session.get('authenticated') %}
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('main.index') }}">Home</a></li>
+            <li><a href="{{ url_for('main.schedule') }}">Schedule</a></li>
+            <li><a href="{{ url_for('main.location') }}">Location</a></li>
+            <li><a href="{{ url_for('rsvp.submit') }}">RSVP</a></li>
+            <li><a href="{{ url_for('gallery.index') }}">Gallery</a></li>
+        </ul>
+    </nav>
+    {% endif %}
+
+    <main>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Our Wedding</p>
+    </footer>
+</body>
+</html>
