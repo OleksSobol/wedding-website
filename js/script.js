@@ -124,9 +124,176 @@ function initializeAnimations() {
     animateElements.forEach(el => observer.observe(el));
 }
 
-// RSVP Form Integration (Google Forms)
-// Replace YOUR_FORM_ID in the HTML with your actual Google Form ID
-// The form will be embedded directly in the iframe
+// RSVP Form Integration and Management
+const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_ACTUAL_FORM_ID/formResponse';
+
+// Toggle guest count visibility based on attendance
+function toggleGuestCount() {
+    const attendance = document.getElementById('attendance').value;
+    const guestCountGroup = document.getElementById('guest-count-group');
+    const additionalGuests = document.getElementById('additional-guests');
+    const guestCountSelect = document.getElementById('guest-count');
+    
+    if (attendance === 'yes') {
+        guestCountGroup.style.display = 'block';
+        guestCountSelect.required = true;
+        
+        // Show additional guests field when more than 1 guest
+        guestCountSelect.addEventListener('change', function() {
+            if (parseInt(this.value) > 1) {
+                additionalGuests.style.display = 'block';
+                document.getElementById('plus-one-names').required = true;
+            } else {
+                additionalGuests.style.display = 'none';
+                document.getElementById('plus-one-names').required = false;
+            }
+        });
+    } else {
+        guestCountGroup.style.display = 'none';
+        additionalGuests.style.display = 'none';
+        guestCountSelect.required = false;
+        document.getElementById('plus-one-names').required = false;
+    }
+}
+
+// Handle RSVP form submission
+function handleRSVPSubmission(event) {
+    event.preventDefault();
+    
+    const form = document.getElementById('rsvp-form');
+    const submitBtn = form.querySelector('.rsvp-submit-btn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnLoader = submitBtn.querySelector('.btn-loader');
+    const successMessage = document.getElementById('rsvp-success');
+    
+    // Show loading state
+    btnText.style.display = 'none';
+    btnLoader.style.display = 'inline';
+    submitBtn.disabled = true;
+    
+    // Collect form data
+    const formData = {
+        name: document.getElementById('guest-name').value,
+        email: document.getElementById('guest-email').value,
+        attendance: document.getElementById('attendance').value,
+        guestCount: document.getElementById('guest-count').value || '0',
+        additionalGuests: document.getElementById('plus-one-names').value,
+        dietaryRestrictions: document.getElementById('dietary-restrictions').value,
+        songRequests: document.getElementById('song-requests').value,
+        specialMessage: document.getElementById('special-message').value,
+        submissionDate: new Date().toISOString()
+    };
+    
+    // Store RSVP locally for display
+    storeRSVP(formData);
+    
+    // Submit to Google Forms (you'll need to set up the actual form)
+    submitToGoogleForms(formData)
+        .then(() => {
+            // Show success message
+            form.style.display = 'none';
+            successMessage.style.display = 'block';
+            
+            // Track successful RSVP
+            trackEvent('rsvp_submitted', {
+                attendance: formData.attendance,
+                guest_count: formData.guestCount
+            });
+            
+            // Send confirmation email (if you have email service)
+            // sendConfirmationEmail(formData);
+        })
+        .catch((error) => {
+            console.error('RSVP submission error:', error);
+            alert('Sorry, there was an error submitting your RSVP. Please try again or contact us directly.');
+            
+            // Reset button state
+            btnText.style.display = 'inline';
+            btnLoader.style.display = 'none';
+            submitBtn.disabled = false;
+        });
+}
+
+// Submit form data to Google Forms
+async function submitToGoogleForms(formData) {
+    // This is a placeholder - you'll need to replace with your actual Google Form field IDs
+    const googleFormData = new FormData();
+    
+    // Map your form fields to Google Forms field IDs (found in the form HTML)
+    // Example mappings - replace with your actual field IDs:
+    googleFormData.append('entry.123456789', formData.name); // Name field
+    googleFormData.append('entry.987654321', formData.email); // Email field
+    googleFormData.append('entry.456789123', formData.attendance); // Attendance field
+    googleFormData.append('entry.789123456', formData.guestCount); // Guest count field
+    googleFormData.append('entry.321654987', formData.additionalGuests); // Additional guests
+    googleFormData.append('entry.654987321', formData.dietaryRestrictions); // Dietary restrictions
+    googleFormData.append('entry.159753468', formData.songRequests); // Song requests
+    googleFormData.append('entry.468135792', formData.specialMessage); // Special message
+    
+    try {
+        // Submit to Google Forms
+        await fetch(GOOGLE_FORM_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: googleFormData
+        });
+        
+        return true;
+    } catch (error) {
+        throw error;
+    }
+}
+
+// Store RSVP data locally for easy viewing
+function storeRSVP(formData) {
+    let rsvps = JSON.parse(localStorage.getItem('wedding-rsvps')) || [];
+    rsvps.push(formData);
+    localStorage.setItem('wedding-rsvps', JSON.stringify(rsvps));
+}
+
+// Get all stored RSVPs (for couple to view)
+function getAllRSVPs() {
+    return JSON.parse(localStorage.getItem('wedding-rsvps')) || [];
+}
+
+// Display RSVPs in a nice format (admin function)
+function displayRSVPList() {
+    const rsvps = getAllRSVPs();
+    const attending = rsvps.filter(rsvp => rsvp.attendance === 'yes');
+    const notAttending = rsvps.filter(rsvp => rsvp.attendance === 'no');
+    
+    console.log('=== WEDDING RSVP SUMMARY ===');
+    console.log(`Total Responses: ${rsvps.length}`);
+    console.log(`Attending: ${attending.length}`);
+    console.log(`Not Attending: ${notAttending.length}`);
+    console.log(`Total Guests Coming: ${attending.reduce((sum, rsvp) => sum + parseInt(rsvp.guestCount || 1), 0)}`);
+    
+    console.log('\n=== ATTENDING GUESTS ===');
+    attending.forEach((rsvp, index) => {
+        console.log(`${index + 1}. ${rsvp.name} (${rsvp.guestCount} guests)`);
+        if (rsvp.additionalGuests) {
+            console.log(`   Additional: ${rsvp.additionalGuests}`);
+        }
+        if (rsvp.dietaryRestrictions) {
+            console.log(`   Dietary: ${rsvp.dietaryRestrictions}`);
+        }
+        if (rsvp.songRequests) {
+            console.log(`   Song Request: ${rsvp.songRequests}`);
+        }
+        console.log(`   Email: ${rsvp.email}`);
+        console.log('---');
+    });
+    
+    return { rsvps, attending, notAttending };
+}
+
+// Initialize RSVP form when DOM loads
+document.addEventListener('DOMContentLoaded', function() {
+    const rsvpForm = document.getElementById('rsvp-form');
+    if (rsvpForm) {
+        rsvpForm.addEventListener('submit', handleRSVPSubmission);
+    }
+});
 
 // Photo Gallery Placeholder Management
 function createPhotoPlaceholders() {
