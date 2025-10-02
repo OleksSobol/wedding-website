@@ -5,6 +5,9 @@ console.log('🔄 Script Version: Google Apps Script v2.0 - October 2, 2025');
 const AUTH_CONFIG = {
     // Determine environment and API endpoint
     isDevelopment: location.hostname === 'localhost' || location.hostname === '127.0.0.1',
+
+    // Temporary to be on github-pages, Remove after
+    password: 'wedding-2026',
     
     // Get the appropriate auth endpoint
     getAuthEndpoint() {
