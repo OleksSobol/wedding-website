@@ -476,31 +476,91 @@ function handleRSVPSubmission(event) {
 
 // Submit form data to Google Forms
 async function submitToGoogleForms(formData) {
-    // This is a placeholder - you'll need to replace with your actual Google Form field IDs
-    const googleFormData = new FormData();
+    // Google Form URL - Your actual Google Form submission URL
+    const GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdXL5A0bYCJz-3KRkiXT1mhKfGxQMrshZ9GIHLzWMtLRCI_LQ/formResponse';
     
-    // Map your form fields to Google Forms field IDs (found in the form HTML)
-    // Example mappings - replace with your actual field IDs:
-    googleFormData.append('entry.123456789', formData.name); // Name field
-    googleFormData.append('entry.987654321', formData.email); // Email field
-    googleFormData.append('entry.456789123', formData.attendance); // Attendance field
-    googleFormData.append('entry.789123456', formData.guestCount); // Guest count field
-    googleFormData.append('entry.321654987', formData.additionalGuest); // Additional guest name
-    googleFormData.append('entry.654987321', formData.dietaryRestrictions); // Dietary restrictions
-    googleFormData.append('entry.159753468', formData.songRequests); // Song requests
-    googleFormData.append('entry.468135792', formData.specialMessage); // Special message
+    // Actual Google Form field IDs extracted from your form source
+    const FORM_FIELD_IDS = {
+        guestName: 'entry.877086558',        // Guest Name field
+        guestEmail: 'entry.1991096355',      // Email Address field
+        attendance: 'entry.777001254',       // Will you be attending? field
+        guestCount: 'entry.455646036',       // Total Guests field
+        plusOneName: 'entry.1551880503',     // Plus One Name field
+        dietaryRestrictions: 'entry.1661827117', // Dietary Restrictions field
+        otherDietary: 'entry.1498135098',    // Other Dietary Details field
+        songRequests: 'entry.2606285',       // Song Requests field
+        specialMessage: 'entry.1010375665'   // Special Message field
+    };
     
     try {
-        // Submit to Google Forms
-        await fetch(GOOGLE_FORM_URL, {
+        // Create FormData for Google Forms submission
+        const googleFormData = new FormData();
+        
+        // Map form data to Google Form fields
+        googleFormData.append(FORM_FIELD_IDS.guestName, formData.name || '');
+        googleFormData.append(FORM_FIELD_IDS.guestEmail, formData.email || '');
+        
+        // Map attendance values to match Google Form options
+        const attendanceValue = formData.attendance === 'yes' ? "Yes, can't wait! 🎉" : 
+                               formData.attendance === 'no' ? "Sorry, can't make it 😢" : '';
+        googleFormData.append(FORM_FIELD_IDS.attendance, attendanceValue);
+        
+        // Map guest count values to match Google Form options  
+        const guestCountValue = formData.guestCount === '1' ? "1 Guest (just me)" :
+                               formData.guestCount === '2' ? "2 Guests (me + 1)" : '';
+        googleFormData.append(FORM_FIELD_IDS.guestCount, guestCountValue);
+        
+        googleFormData.append(FORM_FIELD_IDS.plusOneName, formData.additionalGuest || '');
+        
+        // Handle dietary restrictions (convert array to string)
+        const dietaryString = formData.dietaryRestrictions || '';
+        googleFormData.append(FORM_FIELD_IDS.dietaryRestrictions, dietaryString);
+        
+        // Handle "Other" dietary restrictions
+        if (dietaryString.includes('Other:')) {
+            const otherDietary = dietaryString.split('Other: ')[1] || '';
+            googleFormData.append(FORM_FIELD_IDS.otherDietary, otherDietary);
+        }
+        
+        googleFormData.append(FORM_FIELD_IDS.songRequests, formData.songRequests || '');
+        googleFormData.append(FORM_FIELD_IDS.specialMessage, formData.specialMessage || '');
+        
+        // 🔧 DEBUG: Log all form data being sent (for local testing)
+        console.log('📋 RSVP Submission Debug Info:');
+        console.log('Original form data:', formData);
+        console.log('Google Form mappings:');
+        for (let [key, value] of googleFormData.entries()) {
+            console.log(`  ${key}: "${value}"`);
+        }
+        console.log('🚀 Submitting to:', GOOGLE_FORM_URL);
+        
+        // Check if we're running locally
+        const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+        
+        if (isLocal) {
+            console.log('🏠 LOCAL TESTING MODE: Simulating Google Forms submission...');
+            // Simulate a delay
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            console.log('✅ LOCAL TEST: Form data would be submitted successfully!');
+            console.log('💡 To test actual submission, deploy to your domain');
+            return true;
+        }
+        
+        // Submit to Google Forms (no-cors mode for cross-origin)
+        const response = await fetch(GOOGLE_FORM_URL, {
             method: 'POST',
-            mode: 'no-cors',
+            mode: 'no-cors', // Required for Google Forms
             body: googleFormData
         });
         
+        // Note: no-cors mode means we can't check response status
+        // We assume success if no error is thrown
+        console.log('✅ RSVP submitted to Google Forms successfully');
         return true;
+        
     } catch (error) {
-        throw error;
+        console.error('Error submitting to Google Forms:', error);
+        throw new Error('Failed to submit RSVP to Google Forms');
     }
 }
 
