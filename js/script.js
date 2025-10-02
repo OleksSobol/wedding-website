@@ -474,108 +474,88 @@ function handleRSVPSubmission(event) {
         });
 }
 
-// Submit form data to Google Forms
-async function submitToGoogleForms(formData) {
-    // Google Form URL - Your actual Google Form submission URL
-    const GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1YHuc_Ib_0WhHGN1-hv1qWb1V0o9ctVDLCLxtdjfcGGs/formResponse';
-    
-    // Google Form field IDs (verified from form HTML source)
-    const FORM_FIELD_IDS = {
-        guestName: 'entry.877086558',        // Guest Name field
-        guestEmail: 'entry.1991096355',      // Email Address field (custom field)
-        attendance: 'entry.777001254',       // Will you be attending? field
-        guestCount: 'entry.455646036',       // Total Guests field
-        plusOneName: 'entry.1551880503',     // Plus One Name field
-        dietaryRestrictions: 'entry.1661827117', // Dietary Restrictions field
-        otherDietary: 'entry.1498135098',    // Other Dietary Details field
-        songRequests: 'entry.2606285',       // Song Requests field
-        specialMessage: 'entry.1010375665'   // Special Message field
-        // Note: Form also has auto email collection (no entry ID needed)
-    };
+// Google Sheets API Configuration
+const SHEETS_CONFIG = {
+    SHEET_ID: 'YOUR_GOOGLE_SHEET_ID_HERE', // Replace with your Google Sheet ID
+    API_KEY: 'YOUR_GOOGLE_SHEETS_API_KEY', // Replace with your API key from Google Cloud Console
+    RANGE: 'Sheet1!A:I' // Columns A through I for our data
+};
+
+// Submit form data directly to Google Sheets (much more reliable than Forms!)
+async function submitToGoogleSheets(formData) {
+    const SHEETS_API_URL = `https://sheets.googleapis.com/v4/spreadsheets/${SHEETS_CONFIG.SHEET_ID}/values/${SHEETS_CONFIG.RANGE}:append`;
     
     try {
-        // Create FormData for Google Forms submission
-        const googleFormData = new FormData();
+        // Prepare data row for Google Sheets
+        const rowData = [
+            new Date().toISOString(), // A: Timestamp
+            formData.name || '',      // B: Guest Name
+            formData.email || '',     // C: Email Address
+            formData.attendance || '',// D: Will you be attending?
+            formData.guestCount || '',// E: Total Guests
+            formData.additionalGuest || '', // F: Plus One Name
+            formData.dietaryRestrictions || '', // G: Dietary Restrictions
+            formData.songRequests || '', // H: Song Requests
+            formData.specialMessage || '' // I: Special Message
+        ];
         
-        // Map form data to Google Form fields
-        googleFormData.append(FORM_FIELD_IDS.guestName, formData.name || '');
-        googleFormData.append(FORM_FIELD_IDS.guestEmail, formData.email || '');
-        
-        // Map attendance values to match Google Form options
-        const attendanceValue = formData.attendance === 'yes' ? "Yes, can't wait! 🎉" : 
-                               formData.attendance === 'no' ? "Sorry, can't make it 😢" : '';
-        googleFormData.append(FORM_FIELD_IDS.attendance, attendanceValue);
-        
-        // Map guest count values to match Google Form options  
-        let guestCountValue = '';
-        if (formData.attendance === 'yes') {
-            guestCountValue = formData.guestCount === '1' ? "1 Guest (just me)" :
-                             formData.guestCount === '2' ? "2 Guests (me + 1)" : '';
-        }
-        // For 'no' attendance, leave guest count empty
-        googleFormData.append(FORM_FIELD_IDS.guestCount, guestCountValue);
-        
-        googleFormData.append(FORM_FIELD_IDS.plusOneName, formData.additionalGuest || '');
-        
-        // Handle dietary restrictions (Google Forms expects multiple checkbox values)
-        const dietaryString = formData.dietaryRestrictions || '';
-        if (dietaryString) {
-            // Split dietary restrictions and send each one separately for checkbox field
-            const dietaryArray = dietaryString.split(', ');
-            dietaryArray.forEach(dietary => {
-                if (dietary.startsWith('Other:')) {
-                    // For "Other" option, send the __other_option__ value
-                    googleFormData.append(FORM_FIELD_IDS.dietaryRestrictions, '__other_option__');
-                    // And send the actual other text to the other field
-                    const otherText = dietary.replace('Other: ', '');
-                    googleFormData.append(FORM_FIELD_IDS.otherDietary, otherText);
-                } else if (dietary.trim()) {
-                    // Send regular dietary restriction
-                    googleFormData.append(FORM_FIELD_IDS.dietaryRestrictions, dietary.trim());
-                }
-            });
-        }
-        
-        googleFormData.append(FORM_FIELD_IDS.songRequests, formData.songRequests || '');
-        googleFormData.append(FORM_FIELD_IDS.specialMessage, formData.specialMessage || '');
-        
-        // 🔧 DEBUG: Log all form data being sent (for local testing)
-        console.log('📋 RSVP Submission Debug Info:');
-        console.log('Original form data:', formData);
-        console.log('Google Form mappings:');
-        for (let [key, value] of googleFormData.entries()) {
-            console.log(`  ${key}: "${value}"`);
-        }
-        console.log('🚀 Submitting to:', GOOGLE_FORM_URL);
-        
-        // Check if we're running locally
-        const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-        
-        if (isLocal) {
-            console.log('🏠 LOCAL TESTING MODE: Simulating Google Forms submission...');
-            // Simulate a delay
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            console.log('✅ LOCAL TEST: Form data would be submitted successfully!');
-            console.log('💡 To test actual submission, deploy to your domain');
-            return true;
-        }
-        
-        // Submit to Google Forms (no-cors mode for cross-origin)
-        const response = await fetch(GOOGLE_FORM_URL, {
-            method: 'POST',
-            mode: 'no-cors', // Required for Google Forms
-            body: googleFormData
+        console.log('📊 Submitting RSVP to Google Sheets...');
+        console.log('📋 Data being submitted:', {
+            timestamp: rowData[0],
+            name: rowData[1],
+            email: rowData[2],
+            attendance: rowData[3],
+            guestCount: rowData[4],
+            additionalGuest: rowData[5],
+            dietaryRestrictions: rowData[6],
+            songRequests: rowData[7],
+            specialMessage: rowData[8]
         });
         
-        // Note: no-cors mode means we can't check response status
-        // We assume success if no error is thrown
-        console.log('✅ RSVP submitted to Google Forms successfully');
+        const response = await fetch(`${SHEETS_API_URL}?valueInputOption=RAW&key=${SHEETS_CONFIG.API_KEY}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                values: [rowData]
+            })
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('❌ Google Sheets API error:', errorData);
+            throw new Error(`Google Sheets API error: ${errorData.error?.message || 'Unknown error'}`);
+        }
+        
+        const result = await response.json();
+        console.log('✅ Successfully submitted RSVP to Google Sheets!');
+        console.log('📊 Response:', result);
         return true;
         
     } catch (error) {
-        console.error('Error submitting to Google Forms:', error);
-        throw new Error('Failed to submit RSVP to Google Forms');
+        console.error('❌ Google Sheets submission error:', error);
+        throw error;
     }
+}
+
+// Main submission function - now uses Google Sheets API instead of Forms scraping
+async function submitToGoogleForms(formData) {
+    // Check if we're running locally
+    const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    
+    if (isLocal) {
+        console.log('🏠 LOCAL TESTING MODE: Simulating Google Sheets submission...');
+        console.log('📋 Form data that would be submitted:', formData);
+        // Simulate a delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        console.log('✅ LOCAL TEST: RSVP data would be submitted successfully!');
+        console.log('💡 To test actual submission, deploy to your domain with valid API credentials');
+        return true;
+    }
+    
+    // Use Google Sheets API for reliable submission
+    return await submitToGoogleSheets(formData);
 }
 
 // Store RSVP data locally for easy viewing
