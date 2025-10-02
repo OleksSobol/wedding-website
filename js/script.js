@@ -479,10 +479,10 @@ async function submitToGoogleForms(formData) {
     // Google Form URL - Your actual Google Form submission URL
     const GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1YHuc_Ib_0WhHGN1-hv1qWb1V0o9ctVDLCLxtdjfcGGs/formResponse';
     
-    // Actual Google Form field IDs extracted from your form source
+    // Google Form field IDs (verified from form HTML source)
     const FORM_FIELD_IDS = {
         guestName: 'entry.877086558',        // Guest Name field
-        guestEmail: 'entry.1991096355',      // Email Address field
+        guestEmail: 'entry.1991096355',      // Email Address field (custom field)
         attendance: 'entry.777001254',       // Will you be attending? field
         guestCount: 'entry.455646036',       // Total Guests field
         plusOneName: 'entry.1551880503',     // Plus One Name field
@@ -490,6 +490,7 @@ async function submitToGoogleForms(formData) {
         otherDietary: 'entry.1498135098',    // Other Dietary Details field
         songRequests: 'entry.2606285',       // Song Requests field
         specialMessage: 'entry.1010375665'   // Special Message field
+        // Note: Form also has auto email collection (no entry ID needed)
     };
     
     try {
@@ -516,14 +517,23 @@ async function submitToGoogleForms(formData) {
         
         googleFormData.append(FORM_FIELD_IDS.plusOneName, formData.additionalGuest || '');
         
-        // Handle dietary restrictions (convert array to string)
+        // Handle dietary restrictions (Google Forms expects multiple checkbox values)
         const dietaryString = formData.dietaryRestrictions || '';
-        googleFormData.append(FORM_FIELD_IDS.dietaryRestrictions, dietaryString);
-        
-        // Handle "Other" dietary restrictions
-        if (dietaryString.includes('Other:')) {
-            const otherDietary = dietaryString.split('Other: ')[1] || '';
-            googleFormData.append(FORM_FIELD_IDS.otherDietary, otherDietary);
+        if (dietaryString) {
+            // Split dietary restrictions and send each one separately for checkbox field
+            const dietaryArray = dietaryString.split(', ');
+            dietaryArray.forEach(dietary => {
+                if (dietary.startsWith('Other:')) {
+                    // For "Other" option, send the __other_option__ value
+                    googleFormData.append(FORM_FIELD_IDS.dietaryRestrictions, '__other_option__');
+                    // And send the actual other text to the other field
+                    const otherText = dietary.replace('Other: ', '');
+                    googleFormData.append(FORM_FIELD_IDS.otherDietary, otherText);
+                } else if (dietary.trim()) {
+                    // Send regular dietary restriction
+                    googleFormData.append(FORM_FIELD_IDS.dietaryRestrictions, dietary.trim());
+                }
+            });
         }
         
         googleFormData.append(FORM_FIELD_IDS.songRequests, formData.songRequests || '');
