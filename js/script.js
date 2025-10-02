@@ -476,8 +476,7 @@ function handleRSVPSubmission(event) {
 
 // Google Apps Script Web App Configuration
 const GOOGLE_SCRIPT_CONFIG = {
-    // Replace this with your Google Apps Script Web App URL
-    WEB_APP_URL: 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE'
+    WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbxzxKW3zqlL88Ehh0l-UAKg2-ivBR6gQ-yGtp_wgBOAdaPVAsLSkw0Ca9wBCTeuXT2t/exec'
 };
 
 // Submit form data via Google Apps Script (most reliable method!)
