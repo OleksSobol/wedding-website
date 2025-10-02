@@ -317,7 +317,6 @@ function initializeAnimations() {
 }
 
 // RSVP Form Integration and Management
-const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_ACTUAL_FORM_ID/formResponse';
 
 // Toggle guest count visibility based on attendance
 function toggleGuestCount() {
@@ -476,8 +475,8 @@ function handleRSVPSubmission(event) {
 
 // Google Sheets API Configuration
 const SHEETS_CONFIG = {
-    SHEET_ID: 'YOUR_GOOGLE_SHEET_ID_HERE', // Replace with your Google Sheet ID
-    API_KEY: 'YOUR_GOOGLE_SHEETS_API_KEY', // Replace with your API key from Google Cloud Console
+    SHEET_ID: '1eJR55LarlRcF8xMu1A_uqvvClij13-WkOAaX3MrAVjQ', 
+    API_KEY: 'AIzaSyAv7uhsJUWewSWg_owpVTbNa4qgXyrbFHc', 
     RANGE: 'Sheet1!A:I' // Columns A through I for our data
 };
 
