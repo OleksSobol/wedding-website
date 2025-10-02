@@ -5,9 +5,6 @@ console.log('🔄 Script Version: Google Apps Script v2.0 - October 2, 2025');
 const AUTH_CONFIG = {
     // Determine environment and API endpoint
     isDevelopment: location.hostname === 'localhost' || location.hostname === '127.0.0.1',
-
-    // Temporary to be on github-pages, Remove after
-    password: 'wedding-2026',
     
     // Get the appropriate auth endpoint
     getAuthEndpoint() {
@@ -22,6 +19,16 @@ const AUTH_CONFIG = {
     // In production, this is overridden by server-side validation
     developmentPassword: 'dev-fallback'
 };
+
+// --- GitHub Pages/osobol.com override ---
+(function() {
+    // Detect GitHub Pages or osobol.com/wedding-website
+    const isGitHubPages = location.hostname.endsWith('.github.io');
+    const isOsobolWedding = location.hostname === 'osobol.com' && location.pathname.startsWith('/wedding-website');
+    if (isGitHubPages || isOsobolWedding) {
+        AUTH_CONFIG.password = 'dev-github';
+    }
+})();
 
 // Password validation using Netlify serverless function
 async function checkPassword() {
