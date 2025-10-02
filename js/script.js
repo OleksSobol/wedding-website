@@ -506,8 +506,12 @@ async function submitToGoogleForms(formData) {
         googleFormData.append(FORM_FIELD_IDS.attendance, attendanceValue);
         
         // Map guest count values to match Google Form options  
-        const guestCountValue = formData.guestCount === '1' ? "1 Guest (just me)" :
-                               formData.guestCount === '2' ? "2 Guests (me + 1)" : '';
+        let guestCountValue = '';
+        if (formData.attendance === 'yes') {
+            guestCountValue = formData.guestCount === '1' ? "1 Guest (just me)" :
+                             formData.guestCount === '2' ? "2 Guests (me + 1)" : '';
+        }
+        // For 'no' attendance, leave guest count empty
         googleFormData.append(FORM_FIELD_IDS.guestCount, guestCountValue);
         
         googleFormData.append(FORM_FIELD_IDS.plusOneName, formData.additionalGuest || '');
