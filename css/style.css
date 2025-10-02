@@ -381,12 +381,41 @@ h1, h2, h3, h4, h5, h6 {
 .hero-content .wedding-date {
   color: var(--charcoal) !important;
   font-size: clamp(1.2rem, 3vw, 1.8rem);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
   letter-spacing: 4px;
   font-weight: 300;
   text-shadow: none;
   text-transform: uppercase;
   font-family: var(--font-accent);
+}
+
+.hero-rsvp-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--secondary-rose) 0%, var(--dusty-rose) 100%);
+  color: var(--warm-white);
+  text-decoration: none;
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: var(--radius-xl);
+  font-family: var(--font-accent);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all var(--transition-medium);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: var(--spacing-xl);
+  border: 2px solid transparent;
+}
+
+.hero-rsvp-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-medium);
+  background: linear-gradient(135deg, var(--dusty-rose) 0%, var(--secondary-rose) 100%);
+  border-color: var(--secondary-rose);
+}
+
+.hero-rsvp-btn:active {
+  transform: translateY(-1px);
 }
 
 /* Simple Inline Countdown */
@@ -911,60 +940,80 @@ section:nth-child(odd):not(.hero) {
 }
 
 .form-group label {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-weight: 500;
-  color: var(--sage-dark);
-  margin-bottom: var(--spacing-xs);
-  font-size: 0.95rem;
+  color: var(--charcoal);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1rem;
+  display: block;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
-  padding: 12px 16px;
-  border: 2px solid var(--sage-light);
-  border-radius: 10px;
+  padding: 14px 18px;
+  border: 2px solid var(--light-gray);
+  border-radius: var(--radius-sm);
   font-family: var(--font-body);
   font-size: 1rem;
-  transition: all 0.3s ease;
-  background: white;
+  transition: all var(--transition-medium);
+  background: var(--warm-white);
+  color: var(--charcoal);
+  width: 100%;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--sage-medium);
-  box-shadow: 0 0 0 3px rgba(139, 154, 139, 0.1);
+  border-color: var(--secondary-rose);
+  box-shadow: 0 0 0 3px rgba(168, 184, 160, 0.15);
+  background: var(--warm-white);
 }
 
 .form-group input:required:invalid {
-  border-color: #e74c3c;
+  border-color: var(--error-red);
 }
 
 .form-group input:required:valid {
-  border-color: var(--sage-accent);
+  border-color: var(--success-green);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--soft-gray);
+  font-style: italic;
 }
 
 .rsvp-submit-btn {
-  background: linear-gradient(135deg, var(--sage-medium) 0%, var(--sage-accent) 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--secondary-rose) 0%, var(--dusty-rose) 100%);
+  color: var(--warm-white);
   border: none;
-  padding: 16px 40px;
-  border-radius: 50px;
-  font-family: var(--font-heading);
+  padding: 18px 48px;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-accent);
   font-weight: 600;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: var(--spacing-md);
+  transition: all var(--transition-medium);
+  margin-top: var(--spacing-lg);
   position: relative;
   overflow: hidden;
+  width: 100%;
+  box-shadow: var(--shadow-soft);
 }
 
 .rsvp-submit-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(139, 154, 139, 0.3);
+  box-shadow: var(--shadow-medium);
+  background: linear-gradient(135deg, var(--dusty-rose) 0%, var(--secondary-rose) 100%);
 }
 
 .rsvp-submit-btn:disabled {
@@ -1428,6 +1477,122 @@ button:focus, input:focus, a:focus {
   
   .registry-note {
     padding: var(--spacing-md);
+  }
+}
+
+/* Enhanced RSVP Form Styling */
+.dietary-checkboxes {
+  margin-top: var(--spacing-sm);
+}
+
+.checkbox-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.checkbox-group:hover {
+  background-color: var(--light-gray);
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  margin-right: var(--spacing-xs);
+  accent-color: var(--secondary-rose);
+  cursor: pointer;
+}
+
+.checkbox-group label {
+  margin: 0;
+  cursor: pointer;
+  font-weight: 400;
+  color: var(--charcoal);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+}
+
+.dietary-label {
+  display: block;
+  margin-bottom: var(--spacing-md);
+  color: var(--charcoal);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+#other-dietary-input {
+  margin-top: var(--spacing-sm);
+}
+
+#other-dietary-input input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 2px solid var(--light-gray);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  transition: all var(--transition-medium);
+  font-family: var(--font-body);
+  background: var(--warm-white);
+}
+
+#other-dietary-input input:focus {
+  outline: none;
+  border-color: var(--secondary-rose);
+  box-shadow: 0 0 0 3px rgba(232, 180, 184, 0.15);
+}
+
+/* Form section spacing */
+#dietary-restrictions-group,
+#song-requests-group,
+#special-message-group {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--light-gray);
+}
+
+#additional-guests {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--light-gray);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--secondary-rose);
+}
+
+/* Mobile responsiveness for checkboxes */
+@media (max-width: 767px) {
+  .checkbox-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xs);
+  }
+  
+  .checkbox-group {
+    font-size: 0.85rem;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+@media (max-width: 480px) {
+  .checkbox-row {
+    grid-template-columns: 1fr;
   }
 }
 

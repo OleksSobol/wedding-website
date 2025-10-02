@@ -324,28 +324,82 @@ function toggleGuestCount() {
     const attendance = document.getElementById('attendance').value;
     const guestCountGroup = document.getElementById('guest-count-group');
     const additionalGuests = document.getElementById('additional-guests');
+    const dietaryGroup = document.getElementById('dietary-restrictions-group');
+    const songRequestsGroup = document.getElementById('song-requests-group');
+    const specialMessageGroup = document.getElementById('special-message-group');
     const guestCountSelect = document.getElementById('guest-count');
     
     if (attendance === 'yes') {
         guestCountGroup.style.display = 'block';
+        dietaryGroup.style.display = 'block';
+        songRequestsGroup.style.display = 'block';
+        specialMessageGroup.style.display = 'block';
         guestCountSelect.required = true;
         
-        // Show additional guests field when more than 1 guest
+        // Show additional guest field when 2 guests selected
         guestCountSelect.addEventListener('change', function() {
-            if (parseInt(this.value) > 1) {
+            if (this.value === '2') {
                 additionalGuests.style.display = 'block';
-                document.getElementById('plus-one-names').required = true;
+                document.getElementById('plus-one-name').required = true;
             } else {
                 additionalGuests.style.display = 'none';
-                document.getElementById('plus-one-names').required = false;
+                document.getElementById('plus-one-name').required = false;
+                document.getElementById('plus-one-name').value = '';
             }
         });
-    } else {
+    } else if (attendance === 'no') {
+        // Hide all conditional fields for "no" attendance
         guestCountGroup.style.display = 'none';
         additionalGuests.style.display = 'none';
+        dietaryGroup.style.display = 'none';
+        songRequestsGroup.style.display = 'none';
+        specialMessageGroup.style.display = 'block'; // Keep message field for well wishes
+        
+        // Clear and reset requirements
         guestCountSelect.required = false;
-        document.getElementById('plus-one-names').required = false;
+        document.getElementById('plus-one-name').required = false;
+        
+        // Clear values
+        guestCountSelect.value = '';
+        document.getElementById('plus-one-name').value = '';
+        clearDietaryRestrictions();
+        document.getElementById('song-requests').value = '';
+    } else {
+        // Hide all when no selection
+        guestCountGroup.style.display = 'none';
+        additionalGuests.style.display = 'none';
+        dietaryGroup.style.display = 'none';
+        songRequestsGroup.style.display = 'none';
+        specialMessageGroup.style.display = 'none';
+        guestCountSelect.required = false;
+        document.getElementById('plus-one-name').required = false;
     }
+}
+
+// Toggle other dietary input field
+function toggleOtherDietary() {
+    const otherCheckbox = document.getElementById('other-dietary');
+    const otherInput = document.getElementById('other-dietary-input');
+    const otherText = document.getElementById('other-dietary-text');
+    
+    if (otherCheckbox.checked) {
+        otherInput.style.display = 'block';
+        otherText.required = true;
+    } else {
+        otherInput.style.display = 'none';
+        otherText.required = false;
+        otherText.value = '';
+    }
+}
+
+// Clear all dietary restriction checkboxes
+function clearDietaryRestrictions() {
+    const checkboxes = document.querySelectorAll('input[name="dietary[]"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    document.getElementById('other-dietary-text').value = '';
+    document.getElementById('other-dietary-input').style.display = 'none';
 }
 
 // Handle RSVP form submission
@@ -363,14 +417,28 @@ function handleRSVPSubmission(event) {
     btnLoader.style.display = 'inline';
     submitBtn.disabled = true;
     
+    // Collect dietary restrictions
+    const dietaryRestrictions = [];
+    const dietaryCheckboxes = document.querySelectorAll('input[name="dietary[]"]:checked');
+    dietaryCheckboxes.forEach(checkbox => {
+        if (checkbox.value === 'Other') {
+            const otherText = document.getElementById('other-dietary-text').value;
+            if (otherText.trim()) {
+                dietaryRestrictions.push(`Other: ${otherText}`);
+            }
+        } else {
+            dietaryRestrictions.push(checkbox.value);
+        }
+    });
+
     // Collect form data
     const formData = {
         name: document.getElementById('guest-name').value,
         email: document.getElementById('guest-email').value,
         attendance: document.getElementById('attendance').value,
         guestCount: document.getElementById('guest-count').value || '0',
-        additionalGuests: document.getElementById('plus-one-names').value,
-        dietaryRestrictions: document.getElementById('dietary-restrictions').value,
+        additionalGuest: document.getElementById('plus-one-name').value,
+        dietaryRestrictions: dietaryRestrictions.join(', '),
         songRequests: document.getElementById('song-requests').value,
         specialMessage: document.getElementById('special-message').value,
         submissionDate: new Date().toISOString()
@@ -417,7 +485,7 @@ async function submitToGoogleForms(formData) {
     googleFormData.append('entry.987654321', formData.email); // Email field
     googleFormData.append('entry.456789123', formData.attendance); // Attendance field
     googleFormData.append('entry.789123456', formData.guestCount); // Guest count field
-    googleFormData.append('entry.321654987', formData.additionalGuests); // Additional guests
+    googleFormData.append('entry.321654987', formData.additionalGuest); // Additional guest name
     googleFormData.append('entry.654987321', formData.dietaryRestrictions); // Dietary restrictions
     googleFormData.append('entry.159753468', formData.songRequests); // Song requests
     googleFormData.append('entry.468135792', formData.specialMessage); // Special message
@@ -463,8 +531,8 @@ function displayRSVPList() {
     console.log('\n=== ATTENDING GUESTS ===');
     attending.forEach((rsvp, index) => {
         console.log(`${index + 1}. ${rsvp.name} (${rsvp.guestCount} guests)`);
-        if (rsvp.additionalGuests) {
-            console.log(`   Additional: ${rsvp.additionalGuests}`);
+        if (rsvp.additionalGuest) {
+            console.log(`   Plus One: ${rsvp.additionalGuest}`);
         }
         if (rsvp.dietaryRestrictions) {
             console.log(`   Dietary: ${rsvp.dietaryRestrictions}`);
@@ -476,7 +544,25 @@ function displayRSVPList() {
         console.log('---');
     });
     
-    return { rsvps, attending, notAttending };
+    // Summary of dietary restrictions
+    const dietaryStats = {};
+    attending.forEach(rsvp => {
+        if (rsvp.dietaryRestrictions) {
+            const restrictions = rsvp.dietaryRestrictions.split(', ');
+            restrictions.forEach(restriction => {
+                dietaryStats[restriction] = (dietaryStats[restriction] || 0) + 1;
+            });
+        }
+    });
+    
+    if (Object.keys(dietaryStats).length > 0) {
+        console.log('\n=== DIETARY RESTRICTIONS SUMMARY ===');
+        Object.entries(dietaryStats).forEach(([restriction, count]) => {
+            console.log(`${restriction}: ${count} guests`);
+        });
+    }
+    
+    return { rsvps, attending, notAttending, dietaryStats };
 }
 
 // Initialize RSVP form when DOM loads

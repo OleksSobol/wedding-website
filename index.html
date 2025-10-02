@@ -47,6 +47,7 @@
             <div class="hero-content">
                 <h1 class="script-font">Catherine & Oleksandr</h1>
                 <p class="wedding-date">June 20, 2026</p>
+                <a href="#rsvp" class="hero-rsvp-btn">RSVP Now</a>
                 <div class="countdown" id="countdown">
                     <span class="time-unit"><span id="days">000</span> <label>days</label></span>
                     <span class="time-unit"><span id="hours">00</span> <label>hours</label></span>
@@ -370,34 +371,72 @@
                             <div class="form-group" id="guest-count-group" style="display: none;">
                                 <label for="guest-count">Total Guests (including yourself) *</label>
                                 <select id="guest-count" name="guest-count">
-                                    <option value="1">1 Guest</option>
-                                    <option value="2">2 Guests</option>
-                                    <option value="3">3 Guests</option>
-                                    <option value="4">4 Guests</option>
+                                    <option value="1">1 Guest (just me)</option>
+                                    <option value="2">2 Guests (me + 1)</option>
                                 </select>
                             </div>
                         </div>
 
                         <div id="additional-guests" style="display: none;">
                             <div class="form-group">
-                                <label for="plus-one-names">Names of Additional Guests</label>
-                                <textarea id="plus-one-names" name="plus-one-names" placeholder="Please list the names of your additional guests..." rows="3"></textarea>
+                                <label for="plus-one-name">Name of Your Guest</label>
+                                <input type="text" id="plus-one-name" name="plus-one-name" placeholder="Your guest's full name">
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="dietary-restrictions">Dietary Restrictions or Food Allergies</label>
-                                <textarea id="dietary-restrictions" name="dietary-restrictions" placeholder="Please let us know about any dietary needs..." rows="3"></textarea>
+                        <div class="form-group" id="dietary-restrictions-group" style="display: none;">
+                            <label class="dietary-label">Dietary Restrictions & Food Allergies</label>
+                            <div class="dietary-checkboxes">
+                                <div class="checkbox-row">
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="gluten-free" name="dietary[]" value="Gluten-Free">
+                                        <label for="gluten-free">Gluten-Free</label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="vegetarian" name="dietary[]" value="Vegetarian">
+                                        <label for="vegetarian">Vegetarian</label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="vegan" name="dietary[]" value="Vegan">
+                                        <label for="vegan">Vegan</label>
+                                    </div>
+                                </div>
+                                <div class="checkbox-row">
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="dairy-free" name="dietary[]" value="Dairy-Free">
+                                        <label for="dairy-free">Dairy-Free</label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="nut-allergy" name="dietary[]" value="Nut Allergy">
+                                        <label for="nut-allergy">Nut Allergy</label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="pescatarian" name="dietary[]" value="Pescatarian">
+                                        <label for="pescatarian">Pescatarian</label>
+                                    </div>
+                                </div>
+                                <div class="checkbox-row">
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="shellfish-allergy" name="dietary[]" value="Shellfish Allergy">
+                                        <label for="shellfish-allergy">Shellfish Allergy</label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="other-dietary" name="dietary[]" value="Other" onchange="toggleOtherDietary()">
+                                        <label for="other-dietary">Other</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="other-dietary-input" style="display: none;">
+                                <input type="text" id="other-dietary-text" name="other-dietary-text" placeholder="Please specify other dietary needs or allergies...">
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" id="song-requests-group" style="display: none;">
                             <label for="song-requests">Song Requests for the Reception 🎵</label>
                             <input type="text" id="song-requests" name="song-requests" placeholder="Any songs you'd love to hear at the party?">
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" id="special-message-group" style="display: none;">
                             <label for="special-message">Special Message for Catherine & Oleksandr</label>
                             <textarea id="special-message" name="special-message" placeholder="Share your excitement, memories, or well wishes..." rows="4"></textarea>
                         </div>
@@ -423,7 +462,7 @@
                         <p class="deadline-note">This helps us finalize catering and seating arrangements</p>
                     </div>
                     <div class="rsvp-contact">
-                        <p>Questions? Contact us at <a href="mailto:rsvp@catherineandoleks.com">rsvp@catherineandoleks.com</a></p>
+                        <p>Questions? Contact us at <a href="mailto:rsvp@solstice2026.party">rsvp@solstice2026.party</a></p>
                         <p>Or text Catherine at <a href="tel:+1234567890">(123) 456-7890</a></p>
                     </div>
                 </div>
