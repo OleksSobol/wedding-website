@@ -50,7 +50,14 @@ async function checkPassword() {
         let isValid = false;
         let serverToken = null;
         
-        if (AUTH_CONFIG.isDevelopment) {
+        const isGitHubPages = location.hostname.endsWith('.github.io');
+        const isOsobolWedding = location.hostname === 'osobol.com' && location.pathname.startsWith('/wedding-website');
+        if (isGitHubPages || isOsobolWedding) {
+            isValid = input.value === AUTH_CONFIG.password;
+            if (isValid) {
+                serverToken = generateClientToken();
+            }
+        } else if (AUTH_CONFIG.isDevelopment) {
             // Development fallback when not using Netlify serverless functions
             isValid = input.value === AUTH_CONFIG.developmentPassword;
             if (isValid) {
