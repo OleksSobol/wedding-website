@@ -493,8 +493,8 @@ function handleRSVPSubmission(event) {
 
 // Google Apps Script Web App Configuration
 const GOOGLE_SCRIPT_CONFIG = {
-    WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbxzxKW3zqlL88Ehh0l-UAKg2-ivBR6gQ-yGtp_wgBOAdaPVAsLSkw0Ca9wBCTeuXT2t/exec'
-};  
+    WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbxkb6-TGPpg6eVDkDZ7UoqKIaKZVhndoJZ2VOxcjcLjFK_mA5Fu8INJvEM4rYQB5kLd/exec'
+};               
 
 // Submit form data via Google Apps Script (most reliable method!)
 async function submitToGoogleSheets(formData) {
