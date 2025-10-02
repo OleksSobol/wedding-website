@@ -1,4 +1,5 @@
-// Wedding Website JavaScript - Netlify Serverless Authentication
+// Wedding Website JavaScript - Google Apps Script Version 2.0 (October 2025)
+console.log('🔄 Script Version: Google Apps Script v2.0 - October 2, 2025');
 
 // Authentication Configuration
 const AUTH_CONFIG = {
@@ -473,87 +474,79 @@ function handleRSVPSubmission(event) {
         });
 }
 
-// Google Sheets API Configuration
-const SHEETS_CONFIG = {
-    SHEET_ID: '1eJR55LarlRcF8xMu1A_uqvvClij13-WkOAaX3MrAVjQ', 
-    API_KEY: 'AIzaSyAv7uhsJUWewSWg_owpVTbNa4qgXyrbFHc', 
-    RANGE: 'Sheet1!A:I' // Columns A through I for our data
+// Google Apps Script Web App Configuration
+const GOOGLE_SCRIPT_CONFIG = {
+    // Replace this with your Google Apps Script Web App URL
+    WEB_APP_URL: 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE'
 };
 
-// Submit form data directly to Google Sheets (much more reliable than Forms!)
+// Submit form data via Google Apps Script (most reliable method!)
 async function submitToGoogleSheets(formData) {
-    const SHEETS_API_URL = `https://sheets.googleapis.com/v4/spreadsheets/${SHEETS_CONFIG.SHEET_ID}/values/${SHEETS_CONFIG.RANGE}:append`;
-    
     try {
-        // Prepare data row for Google Sheets
-        const rowData = [
-            new Date().toISOString(), // A: Timestamp
-            formData.name || '',      // B: Guest Name
-            formData.email || '',     // C: Email Address
-            formData.attendance || '',// D: Will you be attending?
-            formData.guestCount || '',// E: Total Guests
-            formData.additionalGuest || '', // F: Plus One Name
-            formData.dietaryRestrictions || '', // G: Dietary Restrictions
-            formData.songRequests || '', // H: Song Requests
-            formData.specialMessage || '' // I: Special Message
-        ];
+        console.log('🚀 USING GOOGLE APPS SCRIPT VERSION (NOT OLD API!)');
+        console.log('🎯 Web App URL:', GOOGLE_SCRIPT_CONFIG.WEB_APP_URL);
         
-        console.log('📊 Submitting RSVP to Google Sheets...');
-        console.log('📋 Data being submitted:', {
-            timestamp: rowData[0],
-            name: rowData[1],
-            email: rowData[2],
-            attendance: rowData[3],
-            guestCount: rowData[4],
-            additionalGuest: rowData[5],
-            dietaryRestrictions: rowData[6],
-            songRequests: rowData[7],
-            specialMessage: rowData[8]
-        });
+        // Prepare data for Google Apps Script
+        const submissionData = {
+            timestamp: new Date().toISOString(),
+            name: formData.name || '',
+            email: formData.email || '',
+            attendance: formData.attendance || '',
+            guestCount: formData.guestCount || '',
+            additionalGuest: formData.additionalGuest || '',
+            dietaryRestrictions: formData.dietaryRestrictions || '',
+            songRequests: formData.songRequests || '',
+            specialMessage: formData.specialMessage || ''
+        };
         
-        const response = await fetch(`${SHEETS_API_URL}?valueInputOption=RAW&key=${SHEETS_CONFIG.API_KEY}`, {
+        console.log('📊 Submitting RSVP via Google Apps Script...');
+        console.log('📋 Data being submitted:', submissionData);
+        
+        const response = await fetch(GOOGLE_SCRIPT_CONFIG.WEB_APP_URL, {
             method: 'POST',
+            mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                values: [rowData]
-            })
+            body: JSON.stringify(submissionData)
         });
         
         if (!response.ok) {
-            const errorData = await response.json();
-            console.error('❌ Google Sheets API error:', errorData);
-            throw new Error(`Google Sheets API error: ${errorData.error?.message || 'Unknown error'}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         
         const result = await response.json();
-        console.log('✅ Successfully submitted RSVP to Google Sheets!');
-        console.log('📊 Response:', result);
-        return true;
+        
+        if (result.success) {
+            console.log('✅ Successfully submitted RSVP to Google Sheets!');
+            console.log('📊 Response:', result);
+            return true;
+        } else {
+            throw new Error(result.error || 'Unknown error from Google Apps Script');
+        }
         
     } catch (error) {
-        console.error('❌ Google Sheets submission error:', error);
+        console.error('❌ Google Apps Script submission error:', error);
         throw error;
     }
 }
 
-// Main submission function - now uses Google Sheets API instead of Forms scraping
+// Main submission function - now uses Google Apps Script instead of Forms scraping
 async function submitToGoogleForms(formData) {
     // Check if we're running locally
     const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
     
     if (isLocal) {
-        console.log('🏠 LOCAL TESTING MODE: Simulating Google Sheets submission...');
+        console.log('🏠 LOCAL TESTING MODE: Simulating Google Apps Script submission...');
         console.log('📋 Form data that would be submitted:', formData);
         // Simulate a delay
         await new Promise(resolve => setTimeout(resolve, 1000));
         console.log('✅ LOCAL TEST: RSVP data would be submitted successfully!');
-        console.log('💡 To test actual submission, deploy to your domain with valid API credentials');
+        console.log('💡 To test actual submission, deploy to your domain with Google Apps Script URL');
         return true;
     }
     
-    // Use Google Sheets API for reliable submission
+    // Use Google Apps Script for reliable submission
     return await submitToGoogleSheets(formData);
 }
 
