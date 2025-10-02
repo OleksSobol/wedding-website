@@ -477,7 +477,7 @@ function handleRSVPSubmission(event) {
 // Submit form data to Google Forms
 async function submitToGoogleForms(formData) {
     // Google Form URL - Your actual Google Form submission URL
-    const GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdXL5A0bYCJz-3KRkiXT1mhKfGxQMrshZ9GIHLzWMtLRCI_LQ/formResponse';
+    const GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1YHuc_Ib_0WhHGN1-hv1qWb1V0o9ctVDLCLxtdjfcGGs/formResponse';
     
     // Actual Google Form field IDs extracted from your form source
     const FORM_FIELD_IDS = {
