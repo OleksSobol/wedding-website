@@ -83,90 +83,91 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Password Protection Modal Component */
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(247, 231, 206, 0.95), rgba(232, 180, 184, 0.95));
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  animation: fadeIn var(--transition-slow);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(247, 231, 206, 0.95), rgba(232, 180, 184, 0.95));
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn var(--transition-slow);
 }
 
 .modal-content {
-  background: var(--warm-white);
-  padding: var(--spacing-xl);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-strong);
-  text-align: center;
-  width: 90%;
-  animation: slideUp 0.6s ease;
+    background: var(--warm-white);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-strong);
+    text-align: center;
+    width: 70%; /* Reduced width to make it narrower */
+    max-width: 500px; /* Added max-width for better responsiveness */
+    animation: slideUp 0.6s ease;
 }
 
 .modal-content h2 {
-  color: var(--charcoal);
-  margin-bottom: var(--spacing-md);
+    color: var(--charcoal);
+    margin-bottom: var(--spacing-md);
 }
 
 .modal-content p {
-  color: var(--soft-gray);
-  margin-bottom: var(--spacing-lg);
-  font-size: 1.1rem;
+    color: var(--soft-gray);
+    margin-bottom: var(--spacing-lg);
+    font-size: 1.1rem;
 }
 
 .modal-content input {
-  width: 100%;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border: 2px solid var(--light-gray);
-  border-radius: var(--radius-md);
-  font-size: 1.1rem;
-  margin-bottom: var(--spacing-md);
-  transition: all var(--transition-medium);
-  font-family: var(--font-body);
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 2px solid var(--light-gray);
+    border-radius: var(--radius-md);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-md);
+    transition: all var(--transition-medium);
+    font-family: var(--font-body);
 }
 
 .modal-content input:focus {
-  outline: none;
-  border-color: var(--secondary-rose);
-  box-shadow: 0 0 0 3px rgba(232, 180, 184, 0.15);
+    outline: none;
+    border-color: var(--secondary-rose);
+    box-shadow: 0 0 0 3px rgba(232, 180, 184, 0.15);
 }
 
 .modal-content input.error {
-  border-color: var(--error-red);
-  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.15);
+    border-color: var(--error-red);
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.15);
 }
 
 .modal-content button {
-  background: linear-gradient(135deg, var(--secondary-rose), var(--accent-gold));
-  color: white;
-  border: none;
-  padding: var(--spacing-sm) var(--spacing-lg);
-  border-radius: var(--radius-md);
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all var(--transition-medium);
-  font-family: var(--font-body);
-  font-weight: 500;
-  width: 100%;
+    background: linear-gradient(135deg, var(--secondary-rose), var(--accent-gold));
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-md);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all var(--transition-medium);
+    font-family: var(--font-body);
+    font-weight: 500;
+    width: 100%;
 }
 
 .modal-content button:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-medium);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
 }
 
 .modal-content button:active {
-  transform: translateY(0);
+    transform: translateY(0);
 }
 
 #error-message {
-  color: var(--error-red);
-  margin-top: var(--spacing-sm);
-  font-size: 0.9rem;
+    color: var(--error-red);
+    margin-top: var(--spacing-sm);
+    font-size: 0.9rem;
 }
 
 /* Navigation Component */
@@ -1226,4 +1227,246 @@ img {
 button:focus, input:focus, a:focus {
   outline: 2px solid var(--secondary-rose);
   outline-offset: 2px;
+}
+
+/* ================================
+   REGISTRY SECTION
+   ================================ */
+
+.registry-section {
+  background: linear-gradient(135deg, var(--cream) 0%, var(--soft-peach) 100%);
+  padding: var(--spacing-2xl) 0;
+}
+
+.registry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.registry-card {
+  background: var(--warm-white);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition-medium);
+  border: 1px solid rgba(168, 184, 160, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.registry-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-medium);
+}
+
+.registry-card.monetary-gift {
+  border: 2px solid var(--primary-color);
+  background: linear-gradient(135deg, var(--warm-white) 0%, var(--cream) 100%);
+}
+
+.registry-icon {
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.registry-icon img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.registry-content {
+  flex-grow: 1;
+  margin-bottom: var(--spacing-md);
+}
+
+.registry-content h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: var(--spacing-sm);
+}
+
+.registry-content p {
+  font-family: var(--font-body);
+  color: var(--soft-gray);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-md);
+}
+
+.registry-details {
+  background: var(--light-gray);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.registry-details p {
+  font-size: 0.9rem;
+  margin-bottom: var(--spacing-xs);
+  color: var(--charcoal);
+}
+
+.registry-details p:last-child {
+  margin-bottom: 0;
+}
+
+.registry-details strong {
+  color: var(--secondary-rose);
+  font-weight: 600;
+}
+
+.registry-actions {
+  width: 100%;
+}
+
+.registry-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--secondary-rose) 0%, var(--dusty-rose) 100%);
+  color: var(--warm-white);
+  text-decoration: none;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-accent);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all var(--transition-medium);
+  width: 100%;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+}
+
+.registry-btn:hover {
+  background: linear-gradient(135deg, var(--dusty-rose) 0%, var(--secondary-rose) 100%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+
+.monetary-gift .registry-btn {
+  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--secondary-rose) 100%);
+}
+
+.monetary-gift .registry-btn:hover {
+  background: linear-gradient(135deg, var(--secondary-rose) 0%, var(--accent-gold) 100%);
+}
+
+.registry-notes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-2xl);
+}
+
+.registry-note {
+  background: var(--warm-white);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--secondary-rose);
+  box-shadow: var(--shadow-soft);
+}
+
+.registry-note h4 {
+  font-family: var(--font-display);
+  color: var(--charcoal);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.registry-note p {
+  font-family: var(--font-body);
+  color: var(--soft-gray);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-sm);
+}
+
+.registry-note p:last-child {
+  margin-bottom: 0;
+}
+
+.registry-note a {
+  color: var(--secondary-rose);
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+.registry-note a:hover {
+  color: var(--dusty-rose);
+}
+
+.registry-note strong {
+  color: var(--charcoal);
+  font-weight: 600;
+}
+
+/* Registry Responsive Design */
+@media (max-width: 768px) {
+  .registry-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  .registry-card {
+    padding: var(--spacing-md);
+  }
+  
+  .registry-notes {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  .registry-note {
+    padding: var(--spacing-md);
+  }
+}
+
+/* Married Celebration Styles (for count-up timer) */
+.married-celebration {
+  text-align: center;
+  padding: var(--spacing-lg);
+  background: linear-gradient(135deg, var(--cream) 0%, var(--soft-peach) 100%);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  margin: var(--spacing-md) 0;
+}
+
+.count-up-display .time-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--warm-white);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-soft);
+  min-width: 80px;
+}
+
+@media (max-width: 768px) {
+  .married-celebration h3 {
+    font-size: 2rem !important;
+  }
+  
+  .count-up-display {
+    gap: 0.5rem !important;
+  }
+  
+  .count-up-display .time-unit {
+    min-width: 70px;
+    padding: var(--spacing-sm);
+  }
+  
+  .count-up-display .time-unit span {
+    font-size: 1.5rem !important;
+  }
 }
