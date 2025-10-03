@@ -831,4 +831,122 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Photo Gallery Lightbox Functionality
+let currentImageIndex = 0;
+const galleryImages = [
+    {
+        src: 'images/gallery/20240113_225918_234.jpg',
+        title: 'Winter Adventures',
+        description: 'Snowy mountain magic - January 2024'
+    },
+    {
+        src: 'images/gallery/20240801_100022_594.jpg', 
+        title: 'Trail Life',
+        description: 'Hiking partners for life - August 2024'
+    },
+    {
+        src: 'images/gallery/IMG20250626155851.jpg',
+        title: 'Continental Divide', 
+        description: 'High altitude adventures - June 2025'
+    },
+    {
+        src: 'images/gallery/IMG_20240120_163247_167.jpg',
+        title: 'Montana Winters',
+        description: 'Embracing the cold together - January 2024'
+    },
+    {
+        src: 'images/gallery/IMG20250627114905.jpg',
+        title: 'Canyon Country',
+        description: 'Desert adventures - June 2025'
+    },
+    {
+        src: 'images/gallery/20240509_193234.jpg',
+        title: 'Road Trip Adventures',
+        description: 'Exploring the open road - May 2024'
+    },
+    {
+        src: 'images/gallery/20250621_103935_181.jpg',
+        title: 'Summit Success!',
+        description: 'On top of the world - June 2025'
+    }
+];
+
+function openLightbox(imageSrc, title, description) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxDescription = document.getElementById('lightbox-description');
+    
+    // Find current image index
+    currentImageIndex = galleryImages.findIndex(img => img.src === imageSrc);
+    
+    // Set image and content
+    lightboxImage.src = imageSrc;
+    lightboxImage.alt = title;
+    lightboxTitle.textContent = title;
+    lightboxDescription.textContent = description;
+    
+    // Show lightbox
+    lightbox.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+    
+    // Track analytics
+    trackEvent('photo_viewed', {
+        photo: title,
+        source: 'gallery'
+    });
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restore scrolling
+}
+
+function nextImage() {
+    currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+    const currentImage = galleryImages[currentImageIndex];
+    
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxDescription = document.getElementById('lightbox-description');
+    
+    lightboxImage.src = currentImage.src;
+    lightboxImage.alt = currentImage.title;
+    lightboxTitle.textContent = currentImage.title;
+    lightboxDescription.textContent = currentImage.description;
+    
+    trackEvent('photo_navigation', { direction: 'next', photo: currentImage.title });
+}
+
+function previousImage() {
+    currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+    const currentImage = galleryImages[currentImageIndex];
+    
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxDescription = document.getElementById('lightbox-description');
+    
+    lightboxImage.src = currentImage.src;
+    lightboxImage.alt = currentImage.title;
+    lightboxTitle.textContent = currentImage.title;
+    lightboxDescription.textContent = currentImage.description;
+    
+    trackEvent('photo_navigation', { direction: 'previous', photo: currentImage.title });
+}
+
+// Keyboard navigation for lightbox
+document.addEventListener('keydown', function(event) {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox.style.display === 'block') {
+        if (event.key === 'Escape') {
+            closeLightbox();
+        } else if (event.key === 'ArrowRight') {
+            nextImage();
+        } else if (event.key === 'ArrowLeft') {
+            previousImage();
+        }
+    }
+});
+
 console.log('Wedding website loaded successfully! 💕🎉');

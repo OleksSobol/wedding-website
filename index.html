@@ -468,52 +468,77 @@
                     <h2 class="section-title">Photo Gallery</h2>
                 </div>
                 <div class="photo-grid">
-                    <div class="photo-item">
-                        <div class="placeholder-image" style="background: linear-gradient(45deg, var(--secondary-rose), var(--soft-peach));">
-                            <div class="photo-overlay">
-                                <h4>Our First Date</h4>
-                                <p>Where it all began - 2022</p>
-                            </div>
+                    <!-- Portrait/Square photos -->
+                    <div class="photo-item" data-size="portrait" onclick="openLightbox('images/gallery/20240113_225918_234.jpg', 'Winter Adventures', 'Snowy mountain magic - January 2024')">
+                        <img src="images/gallery/20240113_225918_234.jpg" alt="Winter adventure in snowy mountains" loading="lazy">
+                        <div class="photo-overlay">
+                            <h4>Winter Adventures</h4>
+                            <p>Snowy mountain magic - January 2024</p>
                         </div>
                     </div>
-                    <div class="photo-item">
-                        <div class="placeholder-image" style="background: linear-gradient(45deg, var(--dusty-rose), var(--secondary-rose));">
-                            <div class="photo-overlay">
-                                <h4>The Proposal</h4>
-                                <p>He asked, she said yes! - 2024</p>
-                            </div>
+                    
+                    <div class="photo-item" data-size="portrait" onclick="openLightbox('images/gallery/20240801_100022_594.jpg', 'Trail Life', 'Hiking partners for life - August 2024')">
+                        <img src="images/gallery/20240801_100022_594.jpg" alt="Backpacking together on mountain trail" loading="lazy">
+                        <div class="photo-overlay">
+                            <h4>Trail Life</h4>
+                            <p>Hiking partners for life - August 2024</p>
                         </div>
                     </div>
-                    <div class="photo-item">
-                        <div class="placeholder-image" style="background: linear-gradient(45deg, var(--soft-peach), var(--accent-gold));">
-                            <div class="photo-overlay">
-                                <h4>Engagement Photos</h4>
-                                <p>Celebrating our love</p>
-                            </div>
+                    
+                    <div class="photo-item" data-size="portrait" onclick="openLightbox('images/gallery/IMG20250626155851.jpg', 'Continental Divide', 'High altitude adventures - June 2025')">
+                        <img src="images/gallery/IMG20250626155851.jpg" alt="Happy couple on Continental Divide Trail" loading="lazy">
+                        <div class="photo-overlay">
+                            <h4>Continental Divide</h4>
+                            <p>High altitude adventures - June 2025</p>
                         </div>
                     </div>
-                    <div class="photo-item">
-                        <div class="placeholder-image" style="background: linear-gradient(45deg, var(--romantic-pink), var(--dusty-rose));">
-                            <div class="photo-overlay">
-                                <h4>Together</h4>
-                                <p>Happy & in love</p>
-                            </div>
+                    
+                    <div class="photo-item" data-size="portrait" onclick="openLightbox('images/gallery/IMG_20240120_163247_167.jpg', 'Montana Winters', 'Embracing the cold together - January 2024')">
+                        <img src="images/gallery/IMG_20240120_163247_167.jpg" alt="Winter mountain selfie with snowy landscape" loading="lazy">
+                        <div class="photo-overlay">
+                            <h4>Montana Winters</h4>
+                            <p>Embracing the cold together - January 2024</p>
                         </div>
                     </div>
-                    <div class="photo-item">
-                        <div class="placeholder-image" style="background: linear-gradient(45deg, var(--soft-lavender), var(--secondary-rose));">
-                            <div class="photo-overlay">
-                                <h4>Adventure Time</h4>
-                                <p>Creating memories</p>
-                            </div>
+                    
+                    <div class="photo-item" data-size="portrait" onclick="openLightbox('images/gallery/IMG20250627114905.jpg', 'Canyon Country', 'Desert adventures - June 2025')">
+                        <img src="images/gallery/IMG20250627114905.jpg" alt="Backpacking through canyon landscape" loading="lazy">
+                        <div class="photo-overlay">
+                            <h4>Canyon Country</h4>
+                            <p>Desert adventures - June 2025</p>
                         </div>
                     </div>
-                    <div class="photo-item">
-                        <div class="placeholder-image" style="background: linear-gradient(45deg, var(--accent-gold), var(--soft-peach));">
-                            <div class="photo-overlay">
-                                <h4>Save the Date</h4>
-                                <p>Coming soon...</p>
-                            </div>
+                    
+                    <!-- Landscape photos - these get special treatment -->
+                    <div class="photo-item landscape" data-size="landscape" onclick="openLightbox('images/gallery/20240509_193234.jpg', 'Road Trip Adventures', 'Exploring the open road - May 2024')">
+                        <img src="images/gallery/20240509_193234.jpg" alt="Road trip selfie with mountains in background" loading="lazy">
+                        <div class="photo-overlay">
+                            <h4>Road Trip Adventures</h4>
+                            <p>Exploring the open road - May 2024</p>
+                        </div>
+                    </div>
+                    
+                    <div class="photo-item landscape" data-size="landscape" onclick="openLightbox('images/gallery/20250621_103935_181.jpg', 'Summit Success!', 'On top of the world - June 2025')">
+                        <img src="images/gallery/20250621_103935_181.jpg" alt="Victory pose on mountain summit with endless views" loading="lazy">
+                        <div class="photo-overlay">
+                            <h4>Summit Success!</h4>
+                            <p>On top of the world - June 2025</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lightbox Modal -->
+                <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+                    <div class="lightbox-content" onclick="event.stopPropagation()">
+                        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+                        <img id="lightbox-image" src="" alt="">
+                        <div class="lightbox-caption">
+                            <h4 id="lightbox-title"></h4>
+                            <p id="lightbox-description"></p>
+                        </div>
+                        <div class="lightbox-nav">
+                            <button class="lightbox-prev" onclick="previousImage()">&larr; Previous</button>
+                            <button class="lightbox-next" onclick="nextImage()">Next &rarr;</button>
                         </div>
                     </div>
                 </div>
@@ -528,6 +553,6 @@
         </footer>
     </div>
 
-    <script src="js/script.js?v=100220266"></script>
+    <script src="js/script.js?v=100220267"></script>
 </body>
 </html>
