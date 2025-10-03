@@ -496,13 +496,23 @@ function handleRSVPSubmission(event) {
         guest_count: formDataObj.guestCount
     });
     
-    // Let the form submit normally to Google Apps Script
-    // The page will redirect/refresh after submission
-    console.log('🚀 Submitting RSVP form directly to Google Apps Script (no CORS!)...');
+    // Let the form submit to hidden iframe (stays on current page)
+    console.log('🚀 Submitting RSVP form to Google Apps Script via hidden iframe...');
     console.log('📋 Form will POST to:', form.action);
     
-    // Note: Form will submit and page will redirect to Google's response page
-    // To show a custom success message, we'd need to handle the redirect
+    // Show success message after a brief delay (assuming submission succeeds)
+    setTimeout(() => {
+        const successMessage = document.getElementById('rsvp-success');
+        form.style.display = 'none';
+        successMessage.style.display = 'block';
+        
+        console.log('✅ RSVP submitted successfully!');
+        
+        // Reset button state in case user wants to go back
+        btnText.style.display = 'inline';
+        btnLoader.style.display = 'none';
+        submitBtn.disabled = false;
+    }, 2000); // 2 second delay to allow form submission to complete
 }
 
 // Google Apps Script Web App Configuration (for reference)

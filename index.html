@@ -333,7 +333,7 @@
                 </div>
                 
                 <div class="rsvp-form-wrapper">
-                    <form id="rsvp-form" class="custom-rsvp-form" action="https://script.google.com/macros/s/AKfycbyDJyGcC7W9nUBUMWA3mXUhLbfUzlw1Kp3k2cI9Zgj4k8nsRNLYzORua3LTAHx5Oozp/exec" method="POST">
+                                        <form id="rsvp-form" class="custom-rsvp-form" action="https://script.google.com/macros/s/AKfycbyF3VWeBwdRveRyScBYMNi2k-oKFezDqnm-JLOXVtzJL0b3IYTWIP1W7LTqwbSmz9Yn/exec" method="POST" target="hidden-iframe">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="guest-name">Full Name *</label>
@@ -456,6 +456,9 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Hidden iframe to capture form submission without leaving the page -->
+            <iframe name="hidden-iframe" style="display: none;"></iframe>
         </section>
 
         <!-- Photo Gallery -->
@@ -525,6 +528,6 @@
         </footer>
     </div>
 
-    <script src="js/script.js?v=100220264"></script>
+    <script src="js/script.js?v=100220265"></script>
 </body>
 </html>
