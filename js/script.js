@@ -466,6 +466,24 @@ function handleRSVPSubmission(event) {
         // Simulate success after delay
         setTimeout(() => {
             const successMessage = document.getElementById('rsvp-success');
+            const successTitle = successMessage.querySelector('h3');
+            const successTexts = successMessage.querySelectorAll('p');
+            
+            // Customize message based on attendance for local testing too
+            const attendance = document.getElementById('attendance').value;
+            
+            if (attendance === 'no') {
+                // "No" response - disappointed but understanding
+                successTitle.textContent = '💔 We\'ll Miss You!';
+                successTexts[0].textContent = 'Thank you for letting us know. We understand you can\'t make it, but we\'ll definitely miss celebrating with you!';
+                successTexts[1].textContent = 'We\'ll be sure to share photos and stories from the big day. ❤️';
+            } else {
+                // "Yes" response - excited message
+                successTitle.textContent = '🎉 Thank You!';
+                successTexts[0].textContent = 'Your RSVP has been received! We\'re so excited to celebrate with you in Montana.';
+                successTexts[1].textContent = 'You should receive a confirmation email shortly.';
+            }
+            
             form.style.display = 'none';
             successMessage.style.display = 'block';
             
@@ -503,6 +521,24 @@ function handleRSVPSubmission(event) {
     // Show success message after a brief delay (assuming submission succeeds)
     setTimeout(() => {
         const successMessage = document.getElementById('rsvp-success');
+        const successTitle = successMessage.querySelector('h3');
+        const successTexts = successMessage.querySelectorAll('p');
+        
+        // Customize message based on attendance
+        const attendance = document.getElementById('attendance').value;
+        
+        if (attendance === 'no') {
+            // "No" response - disappointed but understanding
+            successTitle.textContent = '💔 We\'ll Miss You!';
+            successTexts[0].textContent = 'Thank you for letting us know. We understand you can\'t make it, but we\'ll definitely miss celebrating with you!';
+            successTexts[1].textContent = 'We\'ll be sure to share photos and stories from the big day. ❤️';
+        } else {
+            // "Yes" response - excited message
+            successTitle.textContent = '🎉 Thank You!';
+            successTexts[0].textContent = 'Your RSVP has been received! We\'re so excited to celebrate with you in Montana.';
+            successTexts[1].textContent = 'You should receive a confirmation email shortly.';
+        }
+        
         form.style.display = 'none';
         successMessage.style.display = 'block';
         
