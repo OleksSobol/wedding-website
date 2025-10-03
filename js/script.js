@@ -421,35 +421,63 @@ function clearDietaryRestrictions() {
 
 // Handle RSVP form submission
 function handleRSVPSubmission(event) {
-    event.preventDefault();
-    
     const form = document.getElementById('rsvp-form');
     const submitBtn = form.querySelector('.rsvp-submit-btn');
     const btnText = submitBtn.querySelector('.btn-text');
     const btnLoader = submitBtn.querySelector('.btn-loader');
-    const successMessage = document.getElementById('rsvp-success');
     
-    // Show loading state
-    btnText.style.display = 'none';
-    btnLoader.style.display = 'inline';
-    submitBtn.disabled = true;
-    
-    // Collect dietary restrictions
+    // Collect dietary restrictions and populate hidden field
     const dietaryRestrictions = [];
     const dietaryCheckboxes = document.querySelectorAll('input[name="dietary[]"]:checked');
     dietaryCheckboxes.forEach(checkbox => {
         if (checkbox.value === 'Other') {
             const otherText = document.getElementById('other-dietary-text').value;
             if (otherText.trim()) {
-                dietaryRestrictions.push(`Other: ${otherText}`);
+                dietaryRestrictions.push(`Other: ${otherText.trim()}`);
             }
         } else {
             dietaryRestrictions.push(checkbox.value);
         }
     });
-
-    // Collect form data
-    const formData = {
+    
+    // Populate hidden fields before submission
+    document.getElementById('dietary-restrictions-hidden').value = dietaryRestrictions.join(', ');
+    document.getElementById('timestamp-hidden').value = new Date().toISOString();
+    
+    // Show loading state
+    btnText.style.display = 'none';
+    btnLoader.style.display = 'inline';
+    submitBtn.disabled = true;
+    
+    // For local testing, prevent submission and show success
+    const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    if (isLocal) {
+        event.preventDefault();
+        
+        console.log('🏠 LOCAL TESTING MODE: Form would submit to Google Apps Script...');
+        console.log('📋 Form action:', form.action);
+        console.log('📋 Form data that would be submitted:');
+        
+        const formData = new FormData(form);
+        for (let [key, value] of formData.entries()) {
+            console.log(`  ${key}: ${value}`);
+        }
+        
+        // Simulate success after delay
+        setTimeout(() => {
+            const successMessage = document.getElementById('rsvp-success');
+            form.style.display = 'none';
+            successMessage.style.display = 'block';
+            
+            console.log('✅ LOCAL TEST: Form submission simulated successfully!');
+            console.log('💡 To test actual submission, deploy to your domain');
+        }, 1000);
+        
+        return;
+    }
+    
+    // Store RSVP locally for display (before submission)
+    const formDataObj = {
         name: document.getElementById('guest-name').value,
         email: document.getElementById('guest-email').value,
         attendance: document.getElementById('attendance').value,
@@ -460,41 +488,30 @@ function handleRSVPSubmission(event) {
         specialMessage: document.getElementById('special-message').value,
         submissionDate: new Date().toISOString()
     };
+    storeRSVP(formDataObj);
     
-    // Store RSVP locally for display
-    storeRSVP(formData);
+    // Track the submission attempt
+    trackEvent('rsvp_submitted', {
+        attendance: formDataObj.attendance,
+        guest_count: formDataObj.guestCount
+    });
     
-    // Submit to Google Forms (you'll need to set up the actual form)
-    submitToGoogleForms(formData)
-        .then(() => {
-            // Show success message
-            form.style.display = 'none';
-            successMessage.style.display = 'block';
-            
-            // Track successful RSVP
-            trackEvent('rsvp_submitted', {
-                attendance: formData.attendance,
-                guest_count: formData.guestCount
-            });
-            
-            // Send confirmation email (if you have email service)
-            // sendConfirmationEmail(formData);
-        })
-        .catch((error) => {
-            console.error('RSVP submission error:', error);
-            alert('Sorry, there was an error submitting your RSVP. Please try again or contact us directly.');
-            
-            // Reset button state
-            btnText.style.display = 'inline';
-            btnLoader.style.display = 'none';
-            submitBtn.disabled = false;
-        });
+    // Let the form submit normally to Google Apps Script
+    // The page will redirect/refresh after submission
+    console.log('🚀 Submitting RSVP form directly to Google Apps Script (no CORS!)...');
+    console.log('📋 Form will POST to:', form.action);
+    
+    // Note: Form will submit and page will redirect to Google's response page
+    // To show a custom success message, we'd need to handle the redirect
 }
 
-// Google Apps Script Web App Configuration
+// Google Apps Script Web App Configuration (for reference)
 const GOOGLE_SCRIPT_CONFIG = {
     WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbxkb6-TGPpg6eVDkDZ7UoqKIaKZVhndoJZ2VOxcjcLjFK_mA5Fu8INJvEM4rYQB5kLd/exec'
-};               
+};
+
+// Note: Form now submits directly to Google Apps Script URL (no CORS issues!)
+// The form action attribute handles the submission instead of JavaScript fetch()               
 
 // Submit form data via Google Apps Script (most reliable method!)
 async function submitToGoogleSheets(formData) {

@@ -333,15 +333,15 @@
                 </div>
                 
                 <div class="rsvp-form-wrapper">
-                    <form id="rsvp-form" class="custom-rsvp-form">
+                    <form id="rsvp-form" class="custom-rsvp-form" action="https://script.google.com/macros/s/AKfycbyDJyGcC7W9nUBUMWA3mXUhLbfUzlw1Kp3k2cI9Zgj4k8nsRNLYzORua3LTAHx5Oozp/exec" method="POST">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="guest-name">Full Name *</label>
-                                <input type="text" id="guest-name" name="guest-name" required>
+                                <input type="text" id="guest-name" name="name" required>
                             </div>
                             <div class="form-group">
                                 <label for="guest-email">Email Address *</label>
-                                <input type="email" id="guest-email" name="guest-email" required>
+                                <input type="email" id="guest-email" name="email" required>
                             </div>
                         </div>
 
@@ -350,25 +350,28 @@
                                 <label for="attendance">Will you be attending? *</label>
                                 <select id="attendance" name="attendance" required onchange="toggleGuestCount()">
                                     <option value="">Please select...</option>
-                                    <option value="yes">Yes, can't wait! 🎉</option>
+                                    <option value="yes">Yes, I'll be there! 🎉</option>
                                     <option value="no">Sorry, can't make it 😢</option>
                                 </select>
                             </div>
                             <div class="form-group" id="guest-count-group" style="display: none;">
                                 <label for="guest-count">Total Guests (including yourself) *</label>
-                                <select id="guest-count" name="guest-count">
-                                    <option value="1">1 Guest (just me)</option>
-                                    <option value="2">2 Guests (me + 1)</option>
+                                <select id="guest-count" name="guestCount">
+                                    <option value="">Select...</option>
+                                    <option value="1">Just me (1 guest)</option>
+                                    <option value="2">Me + 1 (2 guests)</option>
                                 </select>
+                            </div>
+                        </div>                        <div id="additional-guests" style="display: none;">
+                            <div class="form-group">
+                                <label for="plus-one-name">Name of Your Guest</label>
+                                <input type="text" id="plus-one-name" name="additionalGuest" placeholder="Your guest's full name">
                             </div>
                         </div>
 
-                        <div id="additional-guests" style="display: none;">
-                            <div class="form-group">
-                                <label for="plus-one-name">Name of Your Guest</label>
-                                <input type="text" id="plus-one-name" name="plus-one-name" placeholder="Your guest's full name">
-                            </div>
-                        </div>
+                        <!-- Hidden fields for form submission -->
+                        <input type="hidden" id="dietary-restrictions-hidden" name="dietaryRestrictions" value="">
+                        <input type="hidden" id="timestamp-hidden" name="timestamp" value="">
 
                         <div class="form-group" id="dietary-restrictions-group" style="display: none;">
                             <label class="dietary-label">Dietary Restrictions & Food Allergies</label>
@@ -419,12 +422,12 @@
 
                         <div class="form-group" id="song-requests-group" style="display: none;">
                             <label for="song-requests">Song Requests for the Reception 🎵</label>
-                            <input type="text" id="song-requests" name="song-requests" placeholder="Any songs you'd love to hear at the party?">
+                            <input type="text" id="song-requests" name="songRequests" placeholder="Any songs you'd love to hear at the party?">
                         </div>
 
                         <div class="form-group" id="special-message-group" style="display: none;">
                             <label for="special-message">Special Message for Catherine & Oleksandr</label>
-                            <textarea id="special-message" name="special-message" placeholder="Share your excitement, memories, or well wishes..." rows="4"></textarea>
+                            <textarea id="special-message" name="specialMessage" placeholder="Share your excitement, memories, or well wishes..." rows="4"></textarea>
                         </div>
 
                         <button type="submit" class="rsvp-submit-btn">
@@ -522,6 +525,6 @@
         </footer>
     </div>
 
-    <script src="js/script.js?v=100220263"></script>
+    <script src="js/script.js?v=100220264"></script>
 </body>
 </html>
