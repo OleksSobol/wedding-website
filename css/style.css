@@ -2039,7 +2039,7 @@ section:nth-child(odd):not(.hero) {
   }
 
   /* Abbreviated labels for very small screens */
-  #days + label::before { content: 'D'; }
+  #days + label::before { content: 'DD'; }
   #hours + label::before { content: 'HR'; }
   #minutes + label::before { content: 'MIN'; }
   #seconds + label::before { content: 'SEC'; }
