@@ -161,7 +161,7 @@
   line-height: 1.6;
   display: flex;
   justify-content: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
   flex-wrap: nowrap;
 }
 
@@ -170,10 +170,10 @@
   flex-direction: column;
   align-items: center;
   background: rgba(0, 0, 0, 0.4);
-  padding: 8px 10px;
+  padding: 7px 9px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  min-width: 62px;
+  min-width: 58px;
   flex: 0 0 auto;
 }
 
@@ -2213,19 +2213,66 @@ section:nth-child(odd):not(.hero) {
 
 @media (max-width: 480px) {
   .countdown {
-    gap: 0.8rem;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .time-unit {
-    min-width: 70px;
-    padding: 10px 12px;
+    min-width: 55px;
+    padding: 6px 8px;
   }
 
   .time-unit span {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   .time-unit label {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
+  }
+}
+
+/* Very small screens - compact abbreviated version */
+@media (max-width: 380px) {
+  .countdown {
+    gap: 0.25rem;
+    max-width: 240px;
+  }
+
+  .time-unit {
+    min-width: 52px;
+    padding: 5px 6px;
+  }
+
+  .time-unit span {
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+  }
+
+  .time-unit label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+  }
+
+  /* Abbreviated labels for very small screens */
+  #days + label::before { content: 'D'; }
+  #hours + label::before { content: 'HR'; }
+  #minutes + label::before { content: 'MIN'; }
+  #seconds + label::before { content: 'SEC'; }
+  
+  #days + label,
+  #hours + label,
+  #minutes + label,
+  #seconds + label {
+    font-size: 0;
+  }
+  
+  #days + label::before,
+  #hours + label::before,
+  #minutes + label::before,
+  #seconds + label::before {
+    font-size: 0.58rem;
   }
 }
