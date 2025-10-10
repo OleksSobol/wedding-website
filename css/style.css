@@ -255,7 +255,7 @@
   
   .quick-info-link:hover {
     background: rgba(201, 168, 138, 0.15);
-    border-color: rgba(201, 168, 138, 0.5);
+    border-color: rgba(201, 197, 138, 0.5);
     transform: translateY(-2px);
   }
 }
