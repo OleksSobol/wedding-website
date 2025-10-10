@@ -311,12 +311,31 @@ document.addEventListener('DOMContentLoaded', function() {
 // Navigation Bar Scroll Effect
 window.addEventListener('scroll', function() {
     const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 100) {
-        navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        // On mobile: hide navbar at top, show when scrolling
+        if (window.scrollY > 50) {
+            navbar.classList.add('navbar-visible');
+            navbar.style.transform = 'translateY(0)';
+            navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+            navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+        } else {
+            navbar.classList.remove('navbar-visible');
+            navbar.style.transform = 'translateY(-100%)';
+            navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            navbar.style.boxShadow = 'none';
+        }
     } else {
-        navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.boxShadow = 'none';
+        // On desktop: always show, just change style
+        navbar.style.transform = 'translateY(0)';
+        if (window.scrollY > 100) {
+            navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+            navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+        } else {
+            navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            navbar.style.boxShadow = 'none';
+        }
     }
 });
 

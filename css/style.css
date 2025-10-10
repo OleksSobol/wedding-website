@@ -11,6 +11,15 @@
   padding: 100px 20px 40px;
 }
 
+/* Mobile: reduce top padding when navbar is hidden and use exact height */
+@media (max-width: 768px) {
+  .hero {
+    height: 100vh;
+    min-height: auto;
+    padding: 0 20px;
+  }
+}
+
 /* Video background */
 .hero-bg-video {
   position: absolute;
@@ -120,7 +129,7 @@
   letter-spacing: 4px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #2D2D2D;
+  color: #F5F5F5;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
@@ -281,51 +290,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hero-welcome {
-    transition: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
-/* ================================
-   HERO LOAD ANIMATIONS
-   ================================ */
-.hero-content h1,
-.hero-content .wedding-date,
-.hero-content .hero-rsvp-btn,
-.hero-content .countdown {
-  opacity: 0;
-  transform: translateY(32px);
-  transition:
-    opacity 0.8s cubic-bezier(0.4,0,0.2,1),
-    transform 0.8s cubic-bezier(0.4,0,0.2,1);
-}
-
-.hero-content.animate-in h1 {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.1s;
-}
-.hero-content.animate-in .wedding-date {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.35s;
-}
-.hero-content.animate-in .hero-rsvp-btn {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.55s;
-}
-.hero-content.animate-in .countdown {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.7s;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-content h1,
-  .hero-content .wedding-date,
-  .hero-content .hero-rsvp-btn,
-  .hero-content .countdown {
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
@@ -566,7 +530,18 @@ button:focus, input:focus, a:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: all var(--transition-medium);
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Mobile: hide navbar at top of page */
+@media (max-width: 768px) {
+  .navbar {
+    transform: translateY(-100%);
+  }
+  
+  .navbar.navbar-visible {
+    transform: translateY(0);
+  }
 }
 
 .nav-brand {
@@ -644,189 +619,9 @@ button:focus, input:focus, a:focus {
 }
 
 /* ================================
-   HERO SECTION
-   ================================ */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-  background-color: #FFD700;
-  background-image: url('../assets/images/sunflower-field.webp');
-  background-size: cover;
-  background-position: center 30%;
-  background-repeat: no-repeat;
-  overflow: hidden;
-  padding: calc(80px + var(--spacing-sm)) 0 var(--spacing-md) 0;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* Soft top-to-bottom gradient to improve legibility over the photo */
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.38) 0%,
-    rgba(0, 0, 0, 0.32) 40%,
-    rgba(0, 0, 0, 0.18) 100%
-  );
-  z-index: 1;
-}
-
-/* Subtle vignette around the edges to draw focus toward the center */
-.hero::after {
-    padding: var(--spacing-lg) var(--spacing-md);
-    margin: 0;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.60);
-  }
-
-.hero-content {
-  position: relative;
-  z-index: 10;
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-  padding: var(--spacing-xl) var(--spacing-lg);
-  background: rgba(255, 255, 255, 0.40 );
-  backdrop-filter: blur(4px);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: var(--shadow-soft);
-}
-
-.hero-content h1 {
-  color: var(--romantic-pink) !important;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5) !important;
-  margin-bottom: 0.5rem;
-  font-size: clamp(3.75rem, 10vw, 7.5rem);
-  font-family: 'Playfair Display', var(--font-display), serif !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.5px;
-  line-height: 1.05;
-}
-
-.hero-content .script-font { /* keep script style for other accents if used */
-  font-family: var(--font-script) !important;
-  color: var(--romantic-pink) !important;
-  font-weight: 400;
-  text-shadow: none;
-}
-
-/* Ensure the hero names use the elegant serif even if the element has .script-font */
-.hero-content h1.script-font {
-  font-family: 'Playfair Display', var(--font-display), serif !important;
-  font-weight: 500;
-}
-
-.hero-content .wedding-date {
-  color: var(--charcoal) !important;
-  font-size: clamp(1.3rem, 3vw, 2rem);
-  margin-bottom: var(--spacing-lg);
-  letter-spacing: 6px;
-  font-weight: 600;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.38), 0 0px 1px #fff;
-  text-transform: uppercase;
-  font-family: var(--font-accent);
-}
-
-.hero-rsvp-btn {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--secondary-rose) 0%, var(--dusty-rose) 100%);
-  color: var(--warm-white);
-  text-decoration: none;
-  padding: var(--spacing-md) var(--spacing-xl);
-  border-radius: var(--radius-xl);
-  font-family: var(--font-accent);
-  font-weight: 600;
-  font-size: 1.1rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  transition: all var(--transition-medium);
-  box-shadow: var(--shadow-soft);
-  margin-bottom: var(--spacing-xl);
-  border: 2px solid transparent;
-}
-
-.hero-rsvp-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-medium);
-  background: linear-gradient(135deg, var(--dusty-rose) 0%, var(--secondary-rose) 100%);
-  border-color: var(--secondary-rose);
-}
-
-.hero-rsvp-btn:active {
-  transform: translateY(-1px);
-}
-
-/* ================================
-   COUNTDOWN TIMER
-   ================================ */
-.countdown {
-  text-align: center;
-  margin-top: var(--spacing-md);
-  font-family: var(--font-body);
-  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-  color: var(--charcoal);
-  line-height: 1.3;
-  word-spacing: -0.1em;
-}
-
-.time-unit {
-  display: inline;
-  margin: 0;
-  padding: 0;
-  background: none;
-  border: none;
-  box-shadow: none;
-}
-
-.time-unit span {
-  font-weight: 600;
-  color: var(--romantic-pink);
-  font-size: inherit;
-}
-
-.time-unit label {
-  font-weight: normal;
-  color: var(--charcoal);
-  margin-left: 0.2em;
-  margin-right: 0.4em;
-  font-family: var(--font-body);
-  font-style: italic;
-}
-
-/* Married celebration styles */
-.married-celebration {
-  text-align: center;
-  padding: var(--spacing-lg);
-  background: linear-gradient(135deg, var(--cream) 0%, var(--soft-peach) 100%);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-soft);
-  margin: var(--spacing-md) 0;
-}
-
-.count-up-display .time-unit {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: var(--warm-white);
-  padding: var(--spacing-md);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-soft);
-  min-width: 80px;
-}
-
-/* ================================
    SECTION LAYOUT
    ================================ */
-section {
+section:not(.hero) {
   padding: clamp(3rem, 8vw, 6rem) 0;
   position: relative;
 }
@@ -1979,20 +1774,6 @@ section:nth-child(odd):not(.hero) {
   .hamburger.active .hamburger-line:nth-child(3) {
     transform: rotate(-45deg) translate(6px, -6px);
   }
-
-  /* Hero section */
-  .hero {
-    min-height: 100vh;
-    padding: calc(80px + var(--spacing-xs)) 0 var(--spacing-sm) 0;
-    background-attachment: scroll;
-  }
-  
-  /* .hero-content {
-    padding: var(--spacing-lg) var(--spacing-md);
-    margin: 0;
-    width: 100%;
-  background: rgba(255, 255, 255, 0.82) !important;
-  } */
 
   /* Countdown timer */
   .countdown {
