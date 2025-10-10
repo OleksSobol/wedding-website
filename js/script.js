@@ -160,6 +160,13 @@ window.addEventListener('load', function() {
         // Clear invalid session data
         clearAuthSession();
     }
+            // Animate hero content in after load (if visible)
+            setTimeout(function() {
+                var heroContent = document.querySelector('.hero-content');
+                if (heroContent) {
+                    heroContent.classList.add('animate-in');
+                }
+            }, 100);
 });
 
 // Validate session token and timing
@@ -871,37 +878,37 @@ document.addEventListener('DOMContentLoaded', function() {
 let currentImageIndex = 0;
 const galleryImages = [
     {
-        src: 'images/gallery/20240113_225918_234.jpg',
+    src: 'assets/images/gallery/20240113_225918_234.jpg',
         title: 'Winter Adventures',
         description: 'Snowy mountain magic - January 2024'
     },
     {
-        src: 'images/gallery/20240801_100022_594.jpg', 
+    src: 'assets/images/gallery/20240801_100022_594.jpg', 
         title: 'Trail Life',
         description: 'Hiking partners for life - August 2024'
     },
     {
-        src: 'images/gallery/IMG20250626155851.jpg',
+    src: 'assets/images/gallery/IMG20250626155851.jpg',
         title: 'Continental Divide', 
         description: 'High altitude adventures - June 2025'
     },
     {
-        src: 'images/gallery/IMG_20240120_163247_167.jpg',
+    src: 'assets/images/gallery/IMG_20240120_163247_167.jpg',
         title: 'Montana Winters',
         description: 'Embracing the cold together - January 2024'
     },
     {
-        src: 'images/gallery/IMG20250627114905.jpg',
+    src: 'assets/images/gallery/IMG20250627114905.jpg',
         title: 'Canyon Country',
         description: 'Desert adventures - June 2025'
     },
     {
-        src: 'images/gallery/20240509_193234.jpg',
+    src: 'assets/images/gallery/20240509_193234.jpg',
         title: 'Road Trip Adventures',
         description: 'Exploring the open road - May 2024'
     },
     {
-        src: 'images/gallery/20250621_103935_181.jpg',
+    src: 'assets/images/gallery/20250621_103935_181.jpg',
         title: 'Summit Success!',
         description: 'On top of the world - June 2025'
     }

@@ -1,3 +1,164 @@
+/* Hero video background */
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0.82;
+  pointer-events: none;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+.quick-info-link {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--accent-gold);
+  background: rgba(255,255,255,0.04);
+  border-radius: 2rem;
+  padding: 0.3rem 1rem 0.3rem 0.7rem;
+  box-shadow: 0 1px 6px 0 rgba(194,166,97,0.07);
+  font-family: 'Inter', var(--font-sans), Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.quick-info-link:hover {
+  background: rgba(194,166,97,0.12);
+  box-shadow: 0 2px 10px 0 rgba(194,166,97,0.13);
+}
+.hero-welcome {
+  font-family: 'Lora', var(--font-display), serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  color: var(--accent-gold);
+  margin-bottom: 0.5rem;
+  margin-top: -0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.8s cubic-bezier(0.4,0,0.2,1),
+    transform 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+
+.hero-content.animate-in .hero-welcome {
+  opacity: 0.96;
+  transform: translateY(0);
+  transition-delay: 0.22s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-welcome {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+/* ================================
+   HERO LOAD ANIMATIONS
+   ================================ */
+.hero-content h1,
+.hero-content .wedding-date,
+.hero-content .hero-rsvp-btn,
+.hero-content .countdown {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.8s cubic-bezier(0.4,0,0.2,1),
+    transform 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Quick-access info icons row */
+.hero-quick-info {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin: 1.2rem 0 0.5rem 0;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  flex-wrap: wrap;
+}
+.quick-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Inter', var(--font-sans), Arial, sans-serif;
+  color: var(--accent-gold);
+  background: rgba(255,255,255,0.04);
+  border-radius: 2rem;
+  padding: 0.3rem 1rem 0.3rem 0.7rem;
+  box-shadow: 0 1px 6px 0 rgba(194,166,97,0.07);
+  transition: background 0.2s;
+}
+.quick-info-item:hover {
+  background: rgba(194,166,97,0.08);
+}
+.quick-info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+.quick-info-label {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+@media (max-width: 600px) {
+  .hero-quick-info {
+    gap: 1.2rem;
+    font-size: 0.95rem;
+  }
+  .quick-info-item {
+    padding: 0.3rem 0.7rem;
+  }
+}
+
+.hero-content.animate-in h1 {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+.hero-content.animate-in .wedding-date {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.35s;
+}
+.hero-content.animate-in .hero-rsvp-btn {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.55s;
+}
+.hero-content.animate-in .countdown {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.7s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-content h1,
+  .hero-content .wedding-date,
+  .hero-content .hero-rsvp-btn,
+  .hero-content .countdown {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
 /* ================================
    WEDDING WEBSITE - STYLE.CSS
    Catherine & Oleksandr Wedding
@@ -321,9 +482,9 @@ button:focus, input:focus, a:focus {
   text-align: center;
   position: relative;
   background-color: #FFD700;
-  background-image: url('../images/sunflower-field.webp');
+  background-image: url('../assets/images/sunflower-field.webp');
   background-size: cover;
-  background-position: center center;
+  background-position: center 30%;
   background-repeat: no-repeat;
   overflow: hidden;
   padding: calc(80px + var(--spacing-sm)) 0 var(--spacing-md) 0;
@@ -336,9 +497,23 @@ button:focus, input:focus, a:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.1);
+  /* Soft top-to-bottom gradient to improve legibility over the photo */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.38) 0%,
+    rgba(0, 0, 0, 0.32) 40%,
+    rgba(0, 0, 0, 0.18) 100%
+  );
   z-index: 1;
 }
+
+/* Subtle vignette around the edges to draw focus toward the center */
+.hero::after {
+    padding: var(--spacing-lg) var(--spacing-md);
+    margin: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.60);
+  }
 
 .hero-content {
   position: relative;
@@ -347,8 +522,8 @@ button:focus, input:focus, a:focus {
   max-width: 100%;
   margin: 0;
   padding: var(--spacing-xl) var(--spacing-lg);
-  background: rgba(255, 255, 255, 0.93);
-  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.40 );
+  backdrop-filter: blur(4px);
   border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: var(--shadow-soft);
@@ -356,28 +531,35 @@ button:focus, input:focus, a:focus {
 
 .hero-content h1 {
   color: var(--romantic-pink) !important;
-  text-shadow: none;
-  margin-bottom: 1rem;
-  font-size: clamp(3rem, 8vw, 6rem);
-  font-family: var(--font-script) !important;
-  font-weight: 400;
-  line-height: 1.1;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.45), 0 0px 1px #fff;
+  margin-bottom: 0.5rem;
+  font-size: clamp(3.75rem, 10vw, 7.5rem);
+  font-family: 'Playfair Display', var(--font-display), serif !important;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1.05;
 }
 
-.hero-content .script-font {
+.hero-content .script-font { /* keep script style for other accents if used */
   font-family: var(--font-script) !important;
   color: var(--romantic-pink) !important;
   font-weight: 400;
   text-shadow: none;
 }
 
+/* Ensure the hero names use the elegant serif even if the element has .script-font */
+.hero-content h1.script-font {
+  font-family: 'Playfair Display', var(--font-display), serif !important;
+  font-weight: 500;
+}
+
 .hero-content .wedding-date {
   color: var(--charcoal) !important;
-  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-size: clamp(1.3rem, 3vw, 2rem);
   margin-bottom: var(--spacing-lg);
-  letter-spacing: 4px;
-  font-weight: 300;
-  text-shadow: none;
+  letter-spacing: 6px;
+  font-weight: 600;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.38), 0 0px 1px #fff;
   text-transform: uppercase;
   font-family: var(--font-accent);
 }
@@ -1633,12 +1815,12 @@ section:nth-child(odd):not(.hero) {
     background-attachment: scroll;
   }
   
-  .hero-content {
+  /* .hero-content {
     padding: var(--spacing-lg) var(--spacing-md);
     margin: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.96);
-  }
+  background: rgba(255, 255, 255, 0.82) !important;
+  } */
 
   /* Countdown timer */
   .countdown {
