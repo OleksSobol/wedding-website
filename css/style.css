@@ -643,10 +643,11 @@ section:nth-child(odd):not(.hero) {
   color: var(--romantic-pink);
   position: relative;
   display: inline-block;
-  font-family: var(--font-script);
+  font-family: 'Playfair Display', var(--font-display), serif;
   font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 400;
+  font-weight: 500;
   margin-bottom: 1rem;
+  letter-spacing: 0.5px;
 }
 
 .section-subtitle {
