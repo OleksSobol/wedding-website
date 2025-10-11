@@ -1011,4 +1011,51 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+// ================================
+// STORY TIMELINE SCROLL ANIMATIONS
+// ================================
+function initStoryAnimations() {
+    const storyItems = document.querySelectorAll('.story-item');
+    
+    // Options for the Intersection Observer
+    const observerOptions = {
+        root: null, // viewport
+        rootMargin: '0px',
+        threshold: 0.15 // Trigger when 15% of element is visible
+    };
+    
+    // Callback function when elements intersect
+    const observerCallback = (entries, observer) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // Add a slight stagger delay based on element position
+                const delay = 100; // milliseconds
+                setTimeout(() => {
+                    entry.target.classList.add('fade-in');
+                }, delay);
+                
+                // Stop observing this element once animated
+                observer.unobserve(entry.target);
+            }
+        });
+    };
+    
+    // Create the observer
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    
+    // Observe each story item
+    storyItems.forEach((item) => {
+        observer.observe(item);
+    });
+    
+    console.log(`📜 Story timeline animations initialized for ${storyItems.length} items`);
+}
+
+// Initialize story animations when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initStoryAnimations);
+} else {
+    initStoryAnimations();
+}
+
 console.log('Wedding website loaded successfully! 💕🎉');
