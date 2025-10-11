@@ -1058,4 +1058,75 @@ if (document.readyState === 'loading') {
     initStoryAnimations();
 }
 
+// ================================
+// DRESS CODE MODAL FUNCTIONALITY
+// ================================
+function openDressModal(type) {
+    const modal = document.getElementById(`${type}-modal`);
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        console.log(`👔 Opened ${type} dress code modal`);
+    }
+}
+
+function closeAllModals() {
+    document.querySelectorAll('.modal-overlay').forEach(modal => {
+        modal.classList.remove('active');
+    });
+    document.body.style.overflow = 'auto';
+    console.log('✖️ Closed all modals');
+}
+
+function closeModal(event) {
+    if (event.target.classList.contains('modal-overlay')) {
+        closeAllModals();
+    }
+}
+
+// Close modals with Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const activeModal = document.querySelector('.modal-overlay.active');
+        if (activeModal) {
+            closeAllModals();
+        }
+    }
+});
+
+// Optional: Intersection Observer for detail card scroll animations
+function initDetailsAnimations() {
+    const detailCards = document.querySelectorAll('.detail-card');
+    
+    if (detailCards.length === 0) {
+        return;
+    }
+
+    const observerOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animationPlayState = 'running';
+            }
+        });
+    }, observerOptions);
+
+    detailCards.forEach(card => {
+        observer.observe(card);
+    });
+
+    console.log(`💍 Detail card animations initialized for ${detailCards.length} cards`);
+}
+
+// Initialize details animations
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDetailsAnimations);
+} else {
+    initDetailsAnimations();
+}
+
 console.log('Wedding website loaded successfully! 💕🎉');

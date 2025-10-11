@@ -175,34 +175,201 @@
         </section>
 
         <!-- Wedding Details -->
-        <section id="details" class="section">
+        <section id="details" class="section details-section">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">Wedding Details</h2>
+                    <p class="section-subtitle">Join us for a beautiful celebration in the Montana mountains</p>
                 </div>
+
                 <div class="details-grid">
-                    <div class="detail-card">
-                        <h3>Ceremony</h3>
-                        <p><strong>Date:</strong> June 20, 2026</p>
-                        <p><strong>Time:</strong> 4:00 PM</p>
-                        <p><strong>Location:</strong> The Woodlands At Cottonwood Canyon</p>
-                        <p><a href="https://maps.google.com/?q=141+Old+Timber+Wy,+Bozeman,+MT+59718" target="_blank" rel="noopener noreferrer">141 Old Timber Wy, Bozeman, MT 59718</a></p>
+                    <!-- Ceremony & Reception Combined Card -->
+                    <div class="detail-card ceremony-reception-card">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                        </div>
+                        <h3>Ceremony & Reception</h3>
+                        
+                        <div class="card-detail">
+                            <span class="detail-label">Date</span>
+                            <span class="detail-value">June 20, 2026</span>
+                        </div>
+
+                        <div class="timeline-events">
+                            <div class="event-time">
+                                <span class="time-badge">4:00 PM</span>
+                                <span class="event-label">Ceremony</span>
+                            </div>
+                            <div class="event-time">
+                                <span class="time-badge">6:00 PM</span>
+                                <span class="event-label">Reception</span>
+                            </div>
+                        </div>
+
+                        <div class="card-detail" style="margin-top: 1.5rem;">
+                            <span class="detail-label">Location</span>
+                            <span class="detail-value">The Woodlands At Cottonwood Canyon</span>
+                        </div>
+
+                        <div class="address-block">
+                            <div class="address-line">141 Old Timber Wy</div>
+                            <div class="address-line">Bozeman, MT 59718</div>
+                            <div style="text-align: center; margin-top: 1rem;">
+                                <a href="https://maps.google.com/?q=141+Old+Timber+Wy,+Bozeman,+MT+59718" target="_blank" class="map-link">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                    </svg>
+                                    View on Map
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="detail-card">
-                        <h3>Reception</h3>
-                        <p><strong>Date:</strong> June 20, 2026</p>
-                        <p><strong>Time:</strong> 6:00 PM</p>
-                        <p><strong>Location:</strong> The Woodlands At Cottonwood Canyon</p>
-                        <p><a href="https://maps.google.com/?q=141+Old+Timber+Wy,+Bozeman,+MT+59718" target="_blank" rel="noopener noreferrer">141 Old Timber Wy, Bozeman, MT 59718</a></p>
+
+                    <!-- Dress Code Card -->
+                    <div class="detail-card dress-code-card">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2l-5.5 9h11L12 2zm0 3.84L13.93 9h-3.87L12 5.84zM17.5 13c-1.93 0-3.5 1.57-3.5 3.5s1.57 3.5 3.5 3.5 3.5-1.57 3.5-3.5-1.57-3.5-3.5-3.5zm-11 0C4.57 13 3 14.57 3 16.5S4.57 20 6.5 20 10 18.43 10 16.5 8.43 13 6.5 13z"/>
+                            </svg>
+                        </div>
+                        <h3>What to Wear</h3>
+
+                        <div class="dress-code-content">
+                            <p class="dress-description">We're keeping it elegant but comfortable for a Montana mountain celebration.</p>
+                            
+                            <div class="dress-options">
+                                <div class="dress-option" onclick="openDressModal('montana')">
+                                    <span class="option-bullet">✦</span>
+                                    <span class="option-text">Montana Formal</span>
+                                </div>
+                                <div class="dress-option" onclick="openDressModal('vyshyvanka')">
+                                    <span class="option-bullet">✦</span>
+                                    <span class="option-text">Vyshyvanka if you got one</span>
+                                </div>
+                            </div>
+
+                            <p class="dress-note">Think cocktail attire with a mountain twist — dress up, but keep it comfortable for an outdoor venue!</p>
+                        </div>
                     </div>
-                    <div class="detail-card">
-                        <h3>What to wear</h3>
-                        <p>Montana formal</p>
-                        <p>Vyshyvanka if you got one</p>
+                </div>
+
+                <!-- Info Banner -->
+                <div class="info-banner">
+                    <div class="info-banner-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                        </svg>
                     </div>
+                    <h4>Getting to Bozeman</h4>
+                    <p>The venue is about 15 minutes from downtown Bozeman. We recommend arriving a day early to explore the beautiful surroundings and acclimate to the mountain altitude. The closest airport is Bozeman Yellowstone International Airport (BZN).</p>
                 </div>
             </div>
         </section>
+
+        <!-- Modal for Montana Formal -->
+        <div id="montana-modal" class="modal-overlay" onclick="closeModal(event)">
+            <div class="dress-modal" onclick="event.stopPropagation()">
+                <button class="modal-close" onclick="closeAllModals()">×</button>
+                <div class="modal-header">
+                    <h3>Montana Formal</h3>
+                    <p>Elegant mountain style — dress up with a touch of western charm</p>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-images">
+                        <div class="modal-image">
+                            <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=400&h=600&fit=crop" alt="Montana formal attire example">
+                        </div>
+                        <div class="modal-image">
+                            <img src="https://images.unsplash.com/photo-1594938328870-f3a67d7c3ca6?w=400&h=600&fit=crop" alt="Elegant outdoor wedding attire">
+                        </div>
+                    </div>
+
+                    <div class="modal-content-section">
+                        <h4>What is Montana Formal?</h4>
+                        <p>Think cocktail attire meets mountain elegance. It's dressy but practical for an outdoor venue in the Rockies.</p>
+                    </div>
+
+                    <div class="modal-content-section">
+                        <h4>For Her</h4>
+                        <ul>
+                            <li>Cocktail dresses or elegant jumpsuits</li>
+                            <li>Midi or knee-length dresses work great</li>
+                            <li>Consider layers for mountain weather</li>
+                            <li>Wedges or block heels (grass-friendly!)</li>
+                            <li>Shawls or light jackets for evening</li>
+                        </ul>
+                    </div>
+
+                    <div class="modal-content-section">
+                        <h4>For Him</h4>
+                        <ul>
+                            <li>Suit or sport coat with dress pants</li>
+                            <li>Button-down shirt (tie optional)</li>
+                            <li>Cowboy boots are encouraged!</li>
+                            <li>Bolo ties welcome for western flair</li>
+                            <li>Blazer for mountain evenings</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-note">
+                        <p><strong>Pro Tip:</strong> Outdoor venue on grass — choose footwear wisely! Wedges or boots work better than stilettos. Bring a light jacket as mountain evenings can be cool, even in June.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Vyshyvanka -->
+        <div id="vyshyvanka-modal" class="modal-overlay" onclick="closeModal(event)">
+            <div class="dress-modal" onclick="event.stopPropagation()">
+                <button class="modal-close" onclick="closeAllModals()">×</button>
+                <div class="modal-header">
+                    <h3>Vyshyvanka</h3>
+                    <p>Traditional Ukrainian embroidered clothing — a beautiful cultural touch</p>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-images">
+                        <div class="modal-image">
+                            <img src="https://images.unsplash.com/photo-1622495510402-5985e29c3ea8?w=400&h=600&fit=crop" alt="Traditional vyshyvanka">
+                        </div>
+                        <div class="modal-image">
+                            <img src="https://images.unsplash.com/photo-1583556416810-dcb8af5aed0a?w=400&h=600&fit=crop" alt="Embroidered Ukrainian shirt">
+                        </div>
+                    </div>
+
+                    <div class="modal-content-section">
+                        <h4>What is a Vyshyvanka?</h4>
+                        <p>A vyshyvanka (виш иванка) is a traditional Ukrainian embroidered shirt or blouse. Each region has unique patterns and colors, often passed down through generations. The embroidery holds cultural significance and tells a story.</p>
+                    </div>
+
+                    <div class="modal-content-section">
+                        <h4>About the Tradition</h4>
+                        <ul>
+                            <li>Hand-embroidered with intricate geometric or floral patterns</li>
+                            <li>Colors and designs vary by region</li>
+                            <li>Often made from linen or cotton</li>
+                            <li>Can be casual or formal depending on style</li>
+                            <li>Worn with pride during celebrations</li>
+                        </ul>
+                    </div>
+
+                    <div class="modal-content-section">
+                        <h4>How to Wear It</h4>
+                        <ul>
+                            <li>Men: Pair with dress pants or dark jeans</li>
+                            <li>Women: Dress or blouse with skirt/pants</li>
+                            <li>Can be worn as is or under a blazer</li>
+                            <li>Perfect blend of cultural pride and formal attire</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-note">
+                        <p><strong>Honoring Heritage:</strong> If you have Ukrainian heritage or own a vyshyvanka, we'd be honored to see you wear it! It's a meaningful way to celebrate Oleksandr's roots. Don't have one? No problem — Montana Formal is perfect too!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Accommodations Section -->
         <section id="accommodations" class="section">
