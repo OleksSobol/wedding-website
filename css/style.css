@@ -363,15 +363,33 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  min-height: 100vh;
+}
+
+html::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-image: url('../images/sunflower-field.webp'); */
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  /* background-color: #FFD700; */
+  filter: blur(3px);
+  z-index: -1;
 }
 
 body {
   font-family: var(--font-body);
   line-height: 1.8;
   color: var(--charcoal);
-  background: linear-gradient(135deg, var(--primary-blush) 0%, var(--cream) 50%, var(--warm-white) 100%);
+  background: transparent;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
 
 img {
@@ -401,7 +419,7 @@ h1, h2, h3, h4, h5, h6 {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--spacing-md);
+  padding: var(--spacing-lg) var(--spacing-md);
 }
 
 .hidden {
@@ -627,11 +645,17 @@ section:not(.hero) {
 }
 
 section:nth-child(even) {
-  background: linear-gradient(135deg, var(--warm-white) 0%, var(--primary-blush) 100%);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  margin: var(--spacing-xs) 0;
+  border-radius: var(--radius-md);
 }
 
 section:nth-child(odd):not(.hero) {
-  background: var(--cream);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  margin: var(--spacing-xs) 0;
+  border-radius: var(--radius-md);
 }
 
 .section-header {
