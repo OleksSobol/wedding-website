@@ -1,6 +1,9 @@
 // Wedding Website JavaScript - Google Apps Script Version 2.0 (October 2025)
 console.log('🔄 Script Version: Google Apps Script v2.0 - October 2, 2025');
 
+// TEMP: Bypass password protection (set to false to re-enable auth)
+window.BYPASS_AUTH = true;
+
 // Authentication Configuration
 const AUTH_CONFIG = {
     // Determine environment and API endpoint
@@ -147,6 +150,37 @@ function generateClientToken() {
 
 // Check if user has valid authentication session
 window.addEventListener('load', function() {
+    // Bypass authentication: show content immediately
+    if (window.BYPASS_AUTH === true) {
+        try {
+            const modal = document.getElementById('password-modal');
+            const mainContent = document.getElementById('main-content');
+            if (modal) modal.style.display = 'none';
+            if (mainContent) mainContent.style.display = 'block';
+
+            // Seed a temporary session so other code paths work as expected
+            if (!sessionStorage.getItem('wedding-access')) {
+                sessionStorage.setItem('wedding-access', 'granted');
+                sessionStorage.setItem('wedding-token', generateClientToken());
+                sessionStorage.setItem('wedding-auth-time', Date.now().toString());
+            }
+
+            // Initialize site features
+            startCountdown();
+            initializeAnimations();
+
+            // Animate hero content in after load (if visible)
+            setTimeout(function() {
+                var heroContent = document.querySelector('.hero-content');
+                if (heroContent) {
+                    heroContent.classList.add('animate-in');
+                }
+            }, 100);
+        } catch (e) {
+            console.warn('Bypass auth initialization error:', e);
+        }
+        return; // Skip normal auth flow
+    }
     const hasAccess = sessionStorage.getItem('wedding-access') === 'granted';
     const token = sessionStorage.getItem('wedding-token');
     const authTime = sessionStorage.getItem('wedding-auth-time');
