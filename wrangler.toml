@@ -1,0 +1,15 @@
+# Cloudflare Pages Configuration
+name = "wedding-website"
+compatibility_date = "2024-11-01"
+
+# Pages configuration (for reference - actual deployment via dashboard or wrangler pages)
+[site]
+bucket = "."
+
+# Custom domain configuration (optional - set via Cloudflare dashboard)
+# routes = [
+#   { pattern = "solstice2026.party", zone_name = "solstice2026.party" }
+# ]
+
+# Build configuration (if using wrangler pages deploy)
+# No build step needed - pure static site
