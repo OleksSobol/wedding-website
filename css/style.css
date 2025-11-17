@@ -645,17 +645,17 @@ section:not(.hero) {
 }
 
 section:nth-child(even) {
-  background: rgba(255, 255, 255, 0.95);
+  /* background: rgba(255, 255, 255, 0.95); */
   backdrop-filter: blur(10px);
-  margin: var(--spacing-xs) 0;
-  border-radius: var(--radius-md);
+  /* margin: var(--spacing-xs) 0; */
+  /* border-radius: var(--radius-md); */
 }
 
 section:nth-child(odd):not(.hero) {
-  background: rgba(255, 255, 255, 0.95);
+  /* background: rgba(255, 255, 255, 0.95); */
   backdrop-filter: blur(10px);
-  margin: var(--spacing-xs) 0;
-  border-radius: var(--radius-md);
+  /* margin: var(--spacing-xs) 0; */
+  /* border-radius: var(--radius-md); */
 }
 
 .section-header {

@@ -3,13 +3,19 @@
   "version": "1.1.5",
   "description": "Wedding website deployed with Cloudflare Pages",
   "scripts": {
-    "start": "http-server -p 8888 -c-1 .",
+    "start": "node server.js",
+    "static": "http-server -p 8888 -c-1 .",
     "build": "echo Static site - no build step needed",
-    "deploy": "wrangler pages deploy . --project-name=wedding-website"
+    "deploy": "wrangler pages deploy . --project-name=wedding-website",
+    "server": "node server.js"
   },
   "devDependencies": {
     "http-server": "^14.1.1",
     "wrangler": "^3.0.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "bonjour": "^3.5.0"
   },
   "engines": {
     "node": "18"

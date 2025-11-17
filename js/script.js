@@ -1,5 +1,5 @@
 // Wedding Website JavaScript - Google Apps Script Version 2.0 (October 2025)
-console.log('🔄 Script Version: Google Apps Script v2.0 - October 2, 2025');
+//console.logg('🔄 Script Version: Google Apps Script v2.0 - October 2, 2025');
 
 // TEMP: Bypass password protection (set to false to re-enable auth)
 window.BYPASS_AUTH = true;
@@ -90,7 +90,7 @@ async function checkPassword() {
             startCountdown();
             initializeAnimations();
             
-            console.log('🔐 Authentication successful');
+            // console.log('🔐 Authentication successful');
         } else {
             errorMessage.textContent = 'Incorrect password. Please try again.';
             input.value = '';
@@ -124,7 +124,7 @@ async function validatePasswordServerSide(password) {
                 token: result.token
             };
         } else {
-            console.log('Authentication failed:', result.message);
+            //console.logg('Authentication failed:', result.message);
             return {
                 success: false,
                 message: result.message
@@ -514,13 +514,13 @@ function handleRSVPSubmission(event) {
     if (isLocal) {
         event.preventDefault();
         
-        console.log('🏠 LOCAL TESTING MODE: Form would submit to Google Apps Script...');
-        console.log('📋 Form action:', form.action);
-        console.log('📋 Form data that would be submitted:');
+        //console.logg('🏠 LOCAL TESTING MODE: Form would submit to Google Apps Script...');
+        //console.logg('📋 Form action:', form.action);
+        //console.logg('📋 Form data that would be submitted:');
         
         const formData = new FormData(form);
         for (let [key, value] of formData.entries()) {
-            console.log(`  ${key}: ${value}`);
+            //console.logg(`  ${key}: ${value}`);
         }
         
         // Simulate success after delay
@@ -547,8 +547,8 @@ function handleRSVPSubmission(event) {
             form.style.display = 'none';
             successMessage.style.display = 'block';
             
-            console.log('✅ LOCAL TEST: Form submission simulated successfully!');
-            console.log('💡 To test actual submission, deploy to your domain');
+            //console.logg('✅ LOCAL TEST: Form submission simulated successfully!');
+            //console.logg('💡 To test actual submission, deploy to your domain');
         }, 1000);
         
         return;
@@ -575,8 +575,8 @@ function handleRSVPSubmission(event) {
     });
     
     // Let the form submit to hidden iframe (stays on current page)
-    console.log('🚀 Submitting RSVP form to Google Apps Script via hidden iframe...');
-    console.log('📋 Form will POST to:', form.action);
+    //console.logg('🚀 Submitting RSVP form to Google Apps Script via hidden iframe...');
+    //console.logg('📋 Form will POST to:', form.action);
     
     // Show success message after a brief delay (assuming submission succeeds)
     setTimeout(() => {
@@ -622,8 +622,8 @@ const GOOGLE_SCRIPT_CONFIG = {
 // Submit form data via Google Apps Script (most reliable method!)
 async function submitToGoogleSheets(formData) {
     try {
-        console.log('🚀 USING GOOGLE APPS SCRIPT VERSION (NOT OLD API!)');
-        console.log('🎯 Web App URL:', GOOGLE_SCRIPT_CONFIG.WEB_APP_URL);
+        //console.logg('🚀 USING GOOGLE APPS SCRIPT VERSION (NOT OLD API!)');
+        //console.logg('🎯 Web App URL:', GOOGLE_SCRIPT_CONFIG.WEB_APP_URL);
         
         // Prepare data for Google Apps Script
         const submissionData = {
@@ -638,8 +638,8 @@ async function submitToGoogleSheets(formData) {
             specialMessage: formData.specialMessage || ''
         };
         
-        console.log('📊 Submitting RSVP via Google Apps Script...');
-        console.log('📋 Data being submitted:', submissionData);
+        //console.logg('📊 Submitting RSVP via Google Apps Script...');
+        //console.logg('📋 Data being submitted:', submissionData);
         
         const response = await fetch(GOOGLE_SCRIPT_CONFIG.WEB_APP_URL, {
             method: 'POST',
@@ -657,8 +657,8 @@ async function submitToGoogleSheets(formData) {
         const result = await response.json();
         
         if (result.success) {
-            console.log('✅ Successfully submitted RSVP to Google Sheets!');
-            console.log('📊 Response:', result);
+            //console.logg('✅ Successfully submitted RSVP to Google Sheets!');
+            //console.logg('📊 Response:', result);
             return true;
         } else {
             throw new Error(result.error || 'Unknown error from Google Apps Script');
@@ -676,12 +676,12 @@ async function submitToGoogleForms(formData) {
     const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
     
     if (isLocal) {
-        console.log('🏠 LOCAL TESTING MODE: Simulating Google Apps Script submission...');
-        console.log('📋 Form data that would be submitted:', formData);
+        //console.logg('🏠 LOCAL TESTING MODE: Simulating Google Apps Script submission...');
+        //console.logg('📋 Form data that would be submitted:', formData);
         // Simulate a delay
         await new Promise(resolve => setTimeout(resolve, 1000));
-        console.log('✅ LOCAL TEST: RSVP data would be submitted successfully!');
-        console.log('💡 To test actual submission, deploy to your domain with Google Apps Script URL');
+        //console.logg('✅ LOCAL TEST: RSVP data would be submitted successfully!');
+        //console.logg('💡 To test actual submission, deploy to your domain with Google Apps Script URL');
         return true;
     }
     
@@ -774,8 +774,16 @@ function createPhotoPlaceholders() {
             this.style.opacity = '1';
         });
         
-        img.style.opacity = '0';
-        img.style.transition = 'opacity 0.3s ease';
+        // If image already loaded (from cache), show it immediately
+        if (img.complete && img.naturalWidth > 0) {
+            img.style.opacity = '1';
+        } else {
+            img.style.opacity = '0';
+        }
+        // Ensure transition is set only once
+        if (!img.style.transition) {
+            img.style.transition = 'opacity 0.3s ease';
+        }
     });
 }
 
@@ -973,7 +981,7 @@ function initStoryAnimations() {
         observer.observe(item);
     });
     
-    console.log(`📜 Story timeline animations initialized for ${storyItems.length} items`);
+    //console.logg(`📜 Story timeline animations initialized for ${storyItems.length} items`);
 }
 
 // Initialize story animations when DOM is ready
@@ -991,7 +999,7 @@ function openDressModal(type) {
     if (modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
-        console.log(`👔 Opened ${type} dress code modal`);
+        //console.logg(`👔 Opened ${type} dress code modal`);
     }
 }
 
@@ -1000,7 +1008,7 @@ function closeAllModals() {
         modal.classList.remove('active');
     });
     document.body.style.overflow = 'auto';
-    console.log('✖️ Closed all modals');
+    //console.logg('✖️ Closed all modals');
 }
 
 function closeModal(event) {
@@ -1044,7 +1052,7 @@ function initDetailsAnimations() {
         observer.observe(card);
     });
 
-    console.log(`💍 Detail card animations initialized for ${detailCards.length} cards`);
+    //console.logg(`💍 Detail card animations initialized for ${detailCards.length} cards`);
 }
 
 // Initialize details animations
@@ -1054,4 +1062,4 @@ if (document.readyState === 'loading') {
     initDetailsAnimations();
 }
 
-console.log('Wedding website loaded successfully! 💕🎉');
+console.logg('Wedding website loaded successfully! 💕🎉');

@@ -28,3 +28,16 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# Local editor server (do not commit)
+server.js
+js/admin.js
+admin.html
+
+# Local dev certs/tokens (if created)
+*.key
+*.crt
+*.pem
+
+# Cloudflare Wrangler local artifacts
+.wrangler/

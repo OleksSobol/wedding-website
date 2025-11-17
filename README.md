@@ -34,6 +34,8 @@ npm install -g wrangler
 
 # Login to Cloudflare
 wrangler login
+npx wrangler login   # Login to Cloudflare
+
 
 # Deploy manually
 npm run deploy
@@ -57,6 +59,45 @@ Or with Python:
 ```bash
 python -m http.server 8888
 ```
+
+### Quick Editor for Non-Developers
+- Start the local server, then open http://localhost:8888/admin.html
+- Fill out the form (names, dates, venue, address, etc.) and click "Apply to Preview"
+- Click "Download updated index.html" and replace your local file
+- If you changed the countdown date, also click "Also update & download script.js date" and replace `js/script.js`
+
+### Directly Save to Host PC (on the same network)
+- Start the Node server: `npm run start` (prints a one-time token in the console)
+- From the other computer, open: `http://<YOUR_PC_LAN_IP>:8888/admin.html`
+- Paste the server token into the "Server token" field
+- Use "Save index.html to server" / "Save script.js to server" to write files directly
+- Only whitelisted files can be saved (index.html, js/script.js, css/style.css)
+
+### Serving Across Your Entire Network
+When the server starts it now lists every detected IPv4 address on your machine. Share one of those IPs with anyone on your LAN.
+
+Advanced options:
+```powershell
+# Change port
+$env:PORT=3000; npm run start
+
+# Enable mDNS (Bonjour) broadcast (after installing bonjour)
+npm install bonjour --save-dev
+$env:BONJOUR=1; npm run start
+# Then try: http://wedding-site.local:3000/
+```
+
+If others cannot access the site:
+1. Ensure they are on the same Wi‑Fi/network (no guest isolation).
+2. Add a Windows Firewall rule if prompted denied:
+```powershell
+New-NetFirewallRule -DisplayName "Wedding Site" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 8888
+```
+3. Verify your IP with:
+```powershell
+ipconfig | findstr /i "IPv4"
+```
+4. Try disabling VPN temporarily.
 
 ---
 ##  RSVP Backend (Google Sheets)
