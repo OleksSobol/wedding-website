@@ -33,6 +33,9 @@ Thumbs.db
 server.js
 js/admin.js
 admin.html
+optimize_images.py
+
+images_backup/
 
 # Local dev certs/tokens (if created)
 *.key
