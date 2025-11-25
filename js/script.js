@@ -1062,4 +1062,4 @@ if (document.readyState === 'loading') {
     initDetailsAnimations();
 }
 
-console.logg('Wedding website loaded successfully! 💕🎉');
+console.log('Wedding website loaded successfully! 💕🎉');
