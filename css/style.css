@@ -1507,37 +1507,12 @@ section:nth-child(odd):not(.hero) {
   font-style: italic;
 }
 
-.accommodation-note {
-  text-align: center;
-  margin-top: var(--spacing-2xl);
-  padding: var(--spacing-lg);
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--secondary-rose);
-}
-
-.accommodation-note p {
-  font-family: var(--font-body);
-  line-height: 1.6;
-  margin-bottom: var(--spacing-sm);
-  color: var(--charcoal);
-}
-
-.accommodation-note a {
-  color: var(--romantic-pink);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.accommodation-note a:hover {
-  color: var(--accent-gold);
-}
 
 /* ================================
    REGISTRY SECTION
    ================================ */
 .registry-section {
-  background: linear-gradient(135deg, var(--cream) 0%, var(--soft-peach) 100%);
+  /* background: linear-gradient(135deg, var(--cream) 0%, var(--soft-peach) 100%); */
   padding: var(--spacing-2xl) 0;
 }
 
