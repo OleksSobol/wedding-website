@@ -1694,6 +1694,10 @@ section:nth-child(odd):not(.hero) {
 .rsvp-section {
   background: linear-gradient(135deg, var(--soft-peach) 0%, var(--cream) 100%);
   padding: var(--spacing-xl) 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .rsvp-form-wrapper {
@@ -1928,14 +1932,14 @@ section:nth-child(odd):not(.hero) {
   margin-bottom: var(--spacing-sm);
 }
 
-.rsvp-info {
+/* .rsvp-info {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--spacing-lg);
   margin-top: var(--spacing-xl);
   padding-top: var(--spacing-lg);
   border-top: 2px solid var(--light-gray);
-}
+} */
 
 .rsvp-deadline,
 .rsvp-contact {
@@ -1958,13 +1962,15 @@ section:nth-child(odd):not(.hero) {
   font-style: italic;
 }
 
-.rsvp-contact a {
+.rsvp-contact a,
+.rsvp-info a {
   color: var(--secondary-rose);
   text-decoration: none;
   font-weight: 500;
 }
 
-.rsvp-contact a:hover {
+.rsvp-contact a:hover,
+.rsvp-info a:hover {
   text-decoration: underline;
 }
 
