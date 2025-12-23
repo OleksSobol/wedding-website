@@ -1,503 +1,586 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" data-geolocscriptallow="true"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" data-geolocscriptallow="true">
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catherine &amp; Oleksandr · June 20, 2026</title>
-    <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;❤️&lt;/text&gt;&lt;/svg&gt;">
+    <link rel="icon"
+        href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;❤️&lt;/text&gt;&lt;/svg&gt;">
     <link rel="stylesheet" href="css/style.css?v=20250191">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Lora:wght@400;500;600&amp;family=Montserrat:wght@300;400;500;600&amp;family=Poppins:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Lora:wght@400;500;600&amp;family=Montserrat:wght@300;400;500;600&amp;family=Poppins:wght@300;400;500;600&amp;display=swap"
+        rel="stylesheet">
     <!-- Elegant serif for names -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&amp;display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&amp;display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
     <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 </head>
-    <div id="password-modal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <h2>Welcome to Our Wedding</h2>
-            <p>This site is for our invited guests only. Please enter the password:</p>
-            <input type="password" id="password-input" placeholder="Enter password" class="password-input">
-            <button onclick="checkPassword()" class="password-button">Enter</button>
-            <p id="error-message"></p>
-        </div>
+<div id="password-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <h2>Welcome to Our Wedding</h2>
+        <p>This site is for our invited guests only. Please enter the password:</p>
+        <input type="password" id="password-input" placeholder="Enter password" class="password-input">
+        <button onclick="checkPassword()" class="password-button">Enter</button>
+        <p id="error-message"></p>
     </div>
+</div>
 
-    <!-- Main Content -->
-    <div id="main-content" style="display: block;">
-        <!-- Navigation -->
-        <nav class="navbar navbar-visible" style="transform: translateY(0px); background-color: rgba(255, 255, 255, 0.98); box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 10px;">
-            <div class="nav-brand">
-                <span class="nav-title">C &amp; O</span>
+<!-- Main Content -->
+<div id="main-content" style="display: block;">
+    <!-- Navigation -->
+    <nav class="navbar navbar-visible"
+        style="transform: translateY(0px); background-color: rgba(255, 255, 255, 0.98); box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 10px;">
+        <div class="nav-brand">
+            <span class="nav-title">C &amp; O</span>
+        </div>
+        <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        <ul class="nav-menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#story">Our Story</a></li>
+            <li><a href="#details">Details</a></li>
+            <li><a href="#accommodations">Stay</a></li>
+            <li><a href="#registry">Registry</a></li>
+            <li><a href="#rsvp">RSVP</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <video class="hero-bg-video" autoplay="" loop="" muted="" playsinline="" preload="auto"
+            poster="assets/videos/proposal-poster-optimized.jpg">
+            <source src="assets/videos/proposal.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content animate-in">
+            <p class="hero-welcome">We're getting married!</p>
+            <h1>Catherine &amp; Oleksandr</h1>
+            <p class="wedding-date">June 20, 2026</p>
+            <a href="#rsvp" class="hero-rsvp-btn">RSVP Now</a>
+            <div class="countdown" id="countdown">
+                <span class="time-unit">
+                    <span id="days">215</span>
+                    <label>days</label>
+                </span>
+                <span class="time-unit">
+                    <span id="hours">21</span>
+                    <label>hours</label>
+                </span>
+                <span class="time-unit">
+                    <span id="minutes">33</span>
+                    <label>minutes</label>
+                </span>
+                <span class="time-unit">
+                    <span id="seconds">36</span>
+                    <label>seconds</label>
+                </span>
             </div>
-            <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-            <ul class="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#story">Our Story</a></li>
-                <li><a href="#details">Details</a></li>
-                <li><a href="#accommodations">Stay</a></li>
-                <li><a href="#registry">Registry</a></li>
-                <li><a href="#rsvp">RSVP</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-            </ul>
-        </nav>
-
-        <!-- Hero Section -->
-        <section id="home" class="hero">
-            <video class="hero-bg-video" autoplay="" loop="" muted="" playsinline="" preload="auto" poster="assets/videos/proposal-poster-optimized.jpg">
-                <source src="assets/videos/proposal.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="hero-content animate-in">
-                <p class="hero-welcome">We're getting married!</p>
-                <h1>Catherine &amp; Oleksandr</h1>
-                <p class="wedding-date">June 20, 2026</p>
-                <a href="#rsvp" class="hero-rsvp-btn">RSVP Now</a>
-                <div class="countdown" id="countdown">
-                    <span class="time-unit">
-                        <span id="days">215</span>
-                        <label>days</label>
+            <div class="hero-quick-info">
+                <a href="#details" class="quick-info-link">
+                    <span class="quick-info-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="10" r="3.5" stroke="#ede32d" stroke-width="1.5"></circle>
+                            <path d="M12 21c-4.5-6-7-9.5-7-13A7 7 0 0 1 19 8c0 3.5-2.5 7-7 13z" stroke="#ede32d"
+                                stroke-width="1.5" fill="none"></path>
+                        </svg>
                     </span>
-                    <span class="time-unit">
-                        <span id="hours">21</span>
-                        <label>hours</label>
+                    <span class="quick-info-label">Bozeman, MT</span>
+                </a>
+                <a href="#details" class="quick-info-link">
+                    <span class="quick-info-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="10" y="10" width="4" height="4" rx="1" fill="#ede32d"></rect>
+                            <path d="M10 12L5 9v6l5-3zm4 0l5-3v6l-5-3z" stroke="#ede32d" stroke-width="1.5" fill="none">
+                            </path>
+                        </svg>
                     </span>
-                    <span class="time-unit">
-                        <span id="minutes">33</span>
-                        <label>minutes</label>
-                    </span>
-                    <span class="time-unit">
-                        <span id="seconds">36</span>
-                        <label>seconds</label>
-                    </span>
-                </div>
-                <div class="hero-quick-info">
-                    <a href="#details" class="quick-info-link">
-                        <span class="quick-info-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="10" r="3.5" stroke="#ede32d" stroke-width="1.5"></circle>
-                                <path d="M12 21c-4.5-6-7-9.5-7-13A7 7 0 0 1 19 8c0 3.5-2.5 7-7 13z" stroke="#ede32d" stroke-width="1.5" fill="none"></path>
-                            </svg>
-                        </span>
-                        <span class="quick-info-label">Bozeman, MT</span>
-                    </a>
-                    <a href="#details" class="quick-info-link">
-                        <span class="quick-info-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="10" y="10" width="4" height="4" rx="1" fill="#ede32d"></rect>
-                                <path d="M10 12L5 9v6l5-3zm4 0l5-3v6l-5-3z" stroke="#ede32d" stroke-width="1.5" fill="none"></path>
-                            </svg>
-                        </span>
-                        <span class="quick-info-label">What to Wear</span>
-                    </a>
-                </div>
+                    <span class="quick-info-label">What to Wear</span>
+                </a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Our Story -->
-        <section id="story" class="section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title fade-in">Our Story</h2>
-                </div>
-                <div class="story-content">
-                    <div class="story-timeline">
-                        <div class="story-item fade-in">
-                            <div class="story-date">2022</div>
-                            <div class="story-text">
-                                <h3>How We Met</h3>
-                                <p>
-                                    We first met in 2022. Our first meeting wasn't great.
-                                    Long story short, Oleks thought Cathy was Russian.
-                                    Cathy had just come back from the Poland-Ukraine border, where she'd been helping people from eastern Ukraine
-                                    who were forced to leave their homes because of the war.
-                                    She said something in Russian to Oleks, and he was already overwhelmed by everything going on and
-                                    didn't know how to react.
-                                    Not exactly the best start for either of us.
-                                </p>
-                            </div>
-                            <div class="story-photo">
-                                <picture>
-                                    <source srcset="assets/images/story_photos/IMG_2983.heic.webp" type="image/webp">
-                                    <img src="assets/images/story_photos/IMG_2983.heic.jpeg" alt="Our first meeting in 2022" loading="lazy">
-                                </picture>
-                                <div class="photo-caption">
-                                    <p>Big Sky</p>
-                                </div>
+    <!-- Our Story -->
+    <section id="story" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-in">Our Story</h2>
+            </div>
+            <div class="story-content">
+                <div class="story-timeline">
+                    <div class="story-item fade-in">
+                        <div class="story-date">2022</div>
+                        <div class="story-text">
+                            <h3>How We Met</h3>
+                            <p>
+                                We first met in 2022. Our first meeting wasn't great.
+                                Long story short, Oleks thought Cathy was Russian.
+                                Cathy had just come back from the Poland-Ukraine border, where she'd been helping people
+                                from eastern Ukraine
+                                who were forced to leave their homes because of the war.
+                                She said something in Russian to Oleks, and he was already overwhelmed by everything
+                                going on and
+                                didn't know how to react.
+                                Not exactly the best start for either of us.
+                            </p>
+                        </div>
+                        <div class="story-photo">
+                            <picture>
+                                <source srcset="assets/images/story_photos/IMG_2983.heic.webp" type="image/webp">
+                                <img src="assets/images/story_photos/IMG_2983.heic.jpeg" alt="Our first meeting in 2022"
+                                    loading="lazy">
+                            </picture>
+                            <div class="photo-caption">
+                                <p>Big Sky</p>
                             </div>
                         </div>
-                        <div class="story-item fade-in">
-                            <div class="story-date">2023</div>
-                            <div class="story-text">
-                                <h3>A New Beginning</h3>
-                                <p>
-                                    Fast forward to September 2023. We took a trip to Seattle with friends — or, as a few in the group liked to say, 
-                                    “You crashed our girls’ trip.” 
-                                    That’s when things started to shift. After that trip, we began spending a lot more time together. 
-                                    Our relationship had a slow and sometimes challenging start, but it didn’t take long for us to grow close. 
-                                </p>
-                            </div>
-                            <div class="story-photo">
-                                <picture>
-                                    <source srcset="assets/images/story_photos/IMG_20230915_184338_00_051.webp" type="image/webp">
-                                    <img src="assets/images/story_photos/IMG_20230915_184338_00_051.jpg" alt="Seattle trip in 2023" loading="lazy">
-                                </picture>
-                                <div class="photo-caption">
-                                    <p>Seattle adventure that changed everything</p>
-                                </div>
+                    </div>
+                    <div class="story-item fade-in">
+                        <div class="story-date">2023</div>
+                        <div class="story-text">
+                            <h3>A New Beginning</h3>
+                            <p>
+                                Fast forward to September 2023. We took a trip to Seattle with friends — or, as a few in
+                                the group liked to say,
+                                “You crashed our girls’ trip.”
+                                That’s when things started to shift. After that trip, we began spending a lot more time
+                                together.
+                                Our relationship had a slow and sometimes challenging start, but it didn’t take long for
+                                us to grow close.
+                            </p>
+                        </div>
+                        <div class="story-photo">
+                            <picture>
+                                <source srcset="assets/images/story_photos/IMG_20230915_184338_00_051.webp"
+                                    type="image/webp">
+                                <img src="assets/images/story_photos/IMG_20230915_184338_00_051.jpg"
+                                    alt="Seattle trip in 2023" loading="lazy">
+                            </picture>
+                            <div class="photo-caption">
+                                <p>Seattle adventure that changed everything</p>
                             </div>
                         </div>
-                        <div class="story-item fade-in">
-                            <div class="story-date">2024</div>
-                            <div class="story-text">
-                                <h3>Adventures Together</h3>
-                                <p>
-                                    By 2024, we had found our rhythm and fully embraced the things we love most: skiing, hiking, random adventures, 
-                                    and getting outside whenever we could. 
-                                    Nature became more than just a playground; it became the backdrop to many of our favorite memories.
-                                </p>
-                            </div>
-                            <div class="story-photo">
-                                <picture>
-                                    <source srcset="assets/images/story_photos/20240622_113334.webp" type="image/webp">
-                                    <img src="assets/images/story_photos/20240622_113334.jpg" alt="Hiking adventures in 2024" loading="lazy">
-                                </picture>
-                                <div class="photo-caption">
-                                    <p>Finding our rhythm in the mountains</p>
-                                </div>
+                    </div>
+                    <div class="story-item fade-in">
+                        <div class="story-date">2024</div>
+                        <div class="story-text">
+                            <h3>Adventures Together</h3>
+                            <p>
+                                By 2024, we had found our rhythm and fully embraced the things we love most: skiing,
+                                hiking, random adventures,
+                                and getting outside whenever we could.
+                                Nature became more than just a playground; it became the backdrop to many of our
+                                favorite memories.
+                            </p>
+                        </div>
+                        <div class="story-photo">
+                            <picture>
+                                <source srcset="assets/images/story_photos/20240622_113334.webp" type="image/webp">
+                                <img src="assets/images/story_photos/20240622_113334.jpg"
+                                    alt="Hiking adventures in 2024" loading="lazy">
+                            </picture>
+                            <div class="photo-caption">
+                                <p>Finding our rhythm in the mountains</p>
                             </div>
                         </div>
-                        <div class="story-item fade-in">
-                            <div class="story-date">2025</div>
-                            <div class="story-text">
-                                <h3>The Proposal</h3>
-                                <p>
-                                    During our backpacking trip on the Continental Divide Trail, Oleksandr proposed at 12,500 feet on a mountain pass 
-                                    at the start of Colorado, symbolizing a new beginning as we entered a new state. 
-                                    He had prepared an entire speech but got nervous and forgot it, so all he managed to say was, 
-                                    “You know I love you very much… will you marry me?”
-                                    Catherine responded with, “OMG, yes I will!”
-                                    Right before that, Catherine had been happily munching on her cookies and didn’t want to get up to “take a photo” with Oleksandr. 
-                                </p>
-                            </div>
-                            <div class="story-photo">
-                                <picture>
-                                    <source srcset="assets/images/gallery/proposal.webp" type="image/webp">
-                                    <img src="assets/images/gallery/proposal.jpg" alt="Mountain proposal in 2025" loading="lazy">
-                                </picture>
-                                <div class="photo-caption">
-                                    <p>12,500 feet - She said yes!</p>
-                                </div>
+                    </div>
+                    <div class="story-item fade-in">
+                        <div class="story-date">2025</div>
+                        <div class="story-text">
+                            <h3>The Proposal</h3>
+                            <p>
+                                During our backpacking trip on the Continental Divide Trail, Oleksandr proposed at
+                                12,500 feet on a mountain pass
+                                at the start of Colorado, symbolizing a new beginning as we entered a new state.
+                                He had prepared an entire speech but got nervous and forgot it, so all he managed to say
+                                was,
+                                “You know I love you very much… will you marry me?”
+                                Catherine responded with, “OMG, yes I will!”
+                                Right before that, Catherine had been happily munching on her cookies and didn’t want to
+                                get up to “take a photo” with Oleksandr.
+                            </p>
+                        </div>
+                        <div class="story-photo">
+                            <picture>
+                                <source srcset="assets/images/gallery/proposal.webp" type="image/webp">
+                                <img src="assets/images/gallery/proposal.jpg" alt="Mountain proposal in 2025"
+                                    loading="lazy">
+                            </picture>
+                            <div class="photo-caption">
+                                <p>12,500 feet - She said yes!</p>
                             </div>
                         </div>
-                        <div class="story-item fade-in">
-                            <div class="story-date">2026</div>
-                            <div class="story-text">
-                                <h3>Our Wedding Day</h3>
-                                <p>
-                                    Now, we can't wait to gather with our family and friends in Montana to celebrate the next chapter of our lives. 
-                                    The mountains have been part of our story from the very beginning, 
-                                    so it feels only fitting to begin our married life surrounded by them.
-                                </p>
-                            </div>
-                            <!-- <div class="story-photo">
+                    </div>
+                    <div class="story-item fade-in">
+                        <div class="story-date">2026</div>
+                        <div class="story-text">
+                            <h3>Our Wedding Day</h3>
+                            <p>
+                                Now, we can't wait to gather with our family and friends in Montana to celebrate the
+                                next chapter of our lives.
+                                The mountains have been part of our story from the very beginning,
+                                so it feels only fitting to begin our married life surrounded by them.
+                            </p>
+                        </div>
+                        <!-- <div class="story-photo">
                                 <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=600&fit=crop" alt="Montana wedding celebration" loading="lazy">
                                 <div class="photo-caption">
                                     <p>Our Montana celebration</p>
                                 </div>
                             </div> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Wedding Details -->
-        <section id="details" class="section details-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title fade-in">Wedding Details</h2>
-                    <p class="section-subtitle">Come celebrate with us in the beautiful Montana mountains! Here's everything you need to know.</p>
-                </div>
-
-                <div class="details-grid">
-                    <!-- Ceremony & Reception Combined Card -->
-                    <div class="detail-card ceremony-reception-card fade-in" style="animation-play-state: running;">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
-                            </svg>
-                        </div>
-                        <h3>Let's Celebrate!</h3>
-
-                        <div class="card-detail">
-                            <span class="detail-label">Save the Date</span>
-                            <span class="detail-value">June 20, 2026</span>
-                        </div>
-
-                        <div class="timeline-events">
-                            <div class="event-time">
-                                <span class="time-badge">4:00 PM</span>
-                                <span class="event-label">Ceremony — We say "I do!"</span>
-                            </div>
-                            <div class="event-time">
-                                <span class="time-badge">6:00 PM</span>
-                                <span class="event-label">Reception — Let's party!</span>
-                            </div>
-                        </div>
-
-                        <div class="card-detail" style="margin-top: 1.5rem;">
-                            <span class="detail-label">Where</span>
-                            <span class="detail-value">The Woodlands At Cottonwood Canyon</span>
-                        </div>
-
-                        <div class="address-block">
-                            <div class="address-line">141 Old Timber Wy</div>
-                            <div class="address-line">Bozeman, MT 59718</div>
-                            <div style="text-align: center; margin-top: 1rem;">
-                                <a href="https://maps.google.com/?q=141+Old+Timber+Wy,+Bozeman,+MT+59718" target="_blank" class="map-link">
-                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
-                                    </svg>
-                                    Get Directions
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Dress Code Card -->
-                    <div class="detail-card dress-code-card fade-in" style="animation-play-state: running;">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                                <path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/>
-                                <circle cx="5.5" cy="5.5" r="1.5" fill="white"/>
-                            </svg>
-                        </div>
-                        <h3>What to Wear</h3>
-
-
-                        <div class="dress-code-content">
-                            <p class="dress-description">Dress to celebrate! We want you feeling fabulous AND ready to dance to all our favorite songs.</p>
-
-                            <div class="dress-options">
-                                <div class="dress-option" onclick="openDressModal('montana')">
-                                    <span class="option-bullet">✦</span>
-                                    <span class="option-text">Montana Formal - ask us if you don't know what this is. :) </span>
-                                </div>
-                                <div class="dress-option" onclick="openDressModal('vyshyvanka')">
-                                    <span class="option-bullet">✦</span>
-                                    <span class="option-text">Vyshyvanka — Bring the Ukrainian flair!</span>
-                                </div>
-                            </div>
-
-                            <p class="dress-note">Basically: dress up, look great, wear comfy shoes for grass, and bring a jacket for mountain evenings. 
-                                Most importantly — wear something you can party in!</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Info Banner -->
-                <div class="info-banner">
-                    <div class="info-banner-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path>
-                        </svg>
-                    </div>
-                    <h4>Getting to Bozeman</h4>
-                    <p>The venue is about 25 minutes from downtown Bozeman. We recommend arriving a day early to explore the beautiful surroundings and acclimate to the mountain altitude. The closest airport is Bozeman Yellowstone International Airport (BZN).</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Modal for Montana Formal -->
-        <div id="montana-modal" class="modal-overlay" onclick="closeModal(event)">
-            <div class="dress-modal" onclick="event.stopPropagation()">
-                <button class="modal-close" onclick="closeAllModals()">×</button>
-                <div class="modal-header">
-                    <h3>Montana Formal</h3>
-                    <p>Dress to celebrate under the mountain sky!</p>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-content-section">
-                        <h4>What is Montana Formal?</h4>
-                        <p>Think elegant with a relaxed mountain vibe! We want you looking great AND feeling comfortable as we dance the night away under the stars. Picture cocktail attire that can handle a grassy venue and mountain breezes.</p>
-                    </div>
-                    
-                    <div class="example-note">
-                        <p><strong>Bottom line:</strong> Dress up and look festive, but keep it comfy! We're on grass under the open sky, so choose shoes that won't sink and bring layers for when the sun sets. Most importantly — wear something you can celebrate in!</p>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Modal for Vyshyvanka -->
-        <div id="vyshyvanka-modal" class="modal-overlay" onclick="closeModal(event)">
-            <div class="dress-modal" onclick="event.stopPropagation()">
-                <button class="modal-close" onclick="closeAllModals()">×</button>
-                <div class="modal-header">
-                    <h3>Vyshyvanka</h3>
-                    <p>Celebrate with Ukrainian embroidered tradition!</p>
+    <!-- Wedding Details -->
+    <section id="details" class="section details-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-in">Wedding Details</h2>
+                <p class="section-subtitle">Come celebrate with us in the beautiful Montana mountains! Here's everything
+                    you need to know.</p>
+            </div>
+
+            <div class="details-grid">
+                <!-- Ceremony & Reception Combined Card -->
+                <div class="detail-card ceremony-reception-card fade-in" style="animation-play-state: running;">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3>Let's Celebrate!</h3>
+
+                    <div class="card-detail">
+                        <span class="detail-label">Save the Date</span>
+                        <span class="detail-value">June 20, 2026</span>
+                    </div>
+
+                    <div class="timeline-events">
+                        <div class="event-time">
+                            <span class="time-badge">4:00 PM</span>
+                            <span class="event-label">Ceremony — We say "I do!"</span>
+                        </div>
+                        <div class="event-time">
+                            <span class="time-badge">6:00 PM</span>
+                            <span class="event-label">Reception — Let's party!</span>
+                        </div>
+                    </div>
+
+                    <div class="card-detail" style="margin-top: 1.5rem;">
+                        <span class="detail-label">Where</span>
+                        <span class="detail-value">The Woodlands At Cottonwood Canyon</span>
+                    </div>
+
+                    <div class="address-block">
+                        <div class="address-line">141 Old Timber Wy</div>
+                        <div class="address-line">Bozeman, MT 59718</div>
+                        <div style="text-align: center; margin-top: 1rem;">
+                            <a href="https://maps.google.com/?q=141+Old+Timber+Wy,+Bozeman,+MT+59718" target="_blank"
+                                class="map-link">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z">
+                                    </path>
+                                </svg>
+                                Get Directions
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <!-- <div class="modal-images">
+
+                <!-- Dress Code Card -->
+                <div class="detail-card dress-code-card fade-in" style="animation-play-state: running;">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                            <path
+                                d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z" />
+                            <circle cx="5.5" cy="5.5" r="1.5" fill="white" />
+                        </svg>
+                    </div>
+                    <h3>What to Wear</h3>
+
+
+                    <div class="dress-code-content">
+                        <p class="dress-description">Dress to celebrate! We want you feeling fabulous AND ready to dance
+                            to all our favorite songs.</p>
+
+                        <div class="dress-options">
+                            <div class="dress-option" onclick="openDressModal('montana')">
+                                <span class="option-bullet">✦</span>
+                                <span class="option-text">Montana Formal - ask us if you don't know what this is. :)
+                                </span>
+                            </div>
+                            <div class="dress-option" onclick="openDressModal('vyshyvanka')">
+                                <span class="option-bullet">✦</span>
+                                <span class="option-text">Vyshyvanka — Bring the Ukrainian flair!</span>
+                            </div>
+                        </div>
+
+                        <p class="dress-note">Basically: dress up, look great, wear comfy shoes for grass, and bring a
+                            jacket for mountain evenings.
+                            Most importantly — wear something you can party in!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Banner -->
+            <div class="info-banner">
+                <div class="info-banner-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                        </path>
+                    </svg>
+                </div>
+                <h4>Getting to Bozeman</h4>
+                <p>The venue is about 25 minutes from downtown Bozeman. We recommend arriving a day early to explore the
+                    beautiful surroundings and acclimate to the mountain altitude. The closest airport is Bozeman
+                    Yellowstone International Airport (BZN).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Montana Formal -->
+    <div id="montana-modal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="dress-modal" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeAllModals()">×</button>
+            <div class="modal-header">
+                <h3>Montana Formal</h3>
+                <p>Dress to celebrate under the mountain sky!</p>
+            </div>
+            <div class="modal-body">
+                <div class="modal-content-section">
+                    <h4>What is Montana Formal?</h4>
+                    <p>Think elegant with a relaxed mountain vibe! We want you looking great AND feeling comfortable as
+                        we dance the night away under the stars. Picture cocktail attire that can handle a grassy venue
+                        and mountain breezes.</p>
+                </div>
+
+                <div class="example-note">
+                    <p><strong>Bottom line:</strong> Dress up and look festive, but keep it comfy! We're on grass under
+                        the open sky, so choose shoes that won't sink and bring layers for when the sun sets. Most
+                        importantly — wear something you can celebrate in!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Vyshyvanka -->
+    <div id="vyshyvanka-modal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="dress-modal" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeAllModals()">×</button>
+            <div class="modal-header">
+                <h3>Vyshyvanka</h3>
+                <p>Celebrate with Ukrainian embroidered tradition!</p>
+            </div>
+            <div class="modal-body">
+                <!-- <div class="modal-images">
                         <div class="modal-image">
                             <img src="assets/images/what-to-wear/dc266c8-zeeee.jpg?w=200&amp;h=400&amp;fit=crop" alt="Traditional vyshyvanka">
                         </div>
                     </div> -->
 
-                    <div class="modal-content-section">
-                        <h4>What is a Vyshyvanka?</h4>
-                        <p>A vyshyvanka (вишиванка) is a beautiful Ukrainian embroidered shirt or blouse! Each piece tells a story through intricate patterns and colors that vary by region. Many are treasured family heirlooms passed down through generations.</p>
-                    </div>
+                <div class="modal-content-section">
+                    <h4>What is a Vyshyvanka?</h4>
+                    <p>A vyshyvanka (вишиванка) is a beautiful Ukrainian embroidered shirt or blouse! Each piece tells a
+                        story through intricate patterns and colors that vary by region. Many are treasured family
+                        heirlooms passed down through generations.</p>
+                </div>
 
-                    <div class="modal-content-section">
-                        <h4>The Beautiful Tradition</h4>
-                        <ul>
-                            <li>Hand-embroidered with gorgeous geometric or floral patterns</li>
-                            <li>Each region of Ukraine has its own unique style and colors</li>
-                            <li>Made from comfortable linen or cotton</li>
-                            <li>Can be dressed up or down depending on the style</li>
-                            <li>Worn with pride at celebrations and special occasions</li>
-                        </ul>
-                    </div>
+                <div class="modal-content-section">
+                    <h4>The Beautiful Tradition</h4>
+                    <ul>
+                        <li>Hand-embroidered with gorgeous geometric or floral patterns</li>
+                        <li>Each region of Ukraine has its own unique style and colors</li>
+                        <li>Made from comfortable linen or cotton</li>
+                        <li>Can be dressed up or down depending on the style</li>
+                        <li>Worn with pride at celebrations and special occasions</li>
+                    </ul>
+                </div>
 
-                    <div class="modal-content-section">
-                        <h4>How to Style It for the Wedding</h4>
-                        <ul>
-                            <li>Men: Pair with nice dress pants or dark slacks — Franko Style!</li>
-                            <li>Women: Wear as a dress or blouse with skirt/dress pants</li>
-                            <li>Layer under a blazer for a formal touch, or rock it solo</li>
-                            <li>Perfect way to blend cultural heritage with wedding elegance</li>
-                        </ul>
-                    </div>
+                <div class="modal-content-section">
+                    <h4>How to Style It for the Wedding</h4>
+                    <ul>
+                        <li>Men: Pair with nice dress pants or dark slacks — Franko Style!</li>
+                        <li>Women: Wear as a dress or blouse with skirt/dress pants</li>
+                        <li>Layer under a blazer for a formal touch, or rock it solo</li>
+                        <li>Perfect way to blend cultural heritage with wedding elegance</li>
+                    </ul>
+                </div>
 
-                    <div class="example-note">
-                        <p><strong>We'd love to see you in one!</strong> If you have Ukrainian heritage or own a vyshyvanka, we'd be absolutely thrilled to see you wear it! It's such a meaningful way to honor Ukraine and celebrate culture. Don't have one? No worries at all — Montana Formal is just as perfect!</p>
-                    </div>
+                <div class="example-note">
+                    <p><strong>We'd love to see you in one!</strong> If you have Ukrainian heritage or own a vyshyvanka,
+                        we'd be absolutely thrilled to see you wear it! It's such a meaningful way to honor Ukraine and
+                        celebrate culture. Don't have one? No worries at all — Montana Formal is just as perfect!</p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Accommodations Section -->
-        <section id="accommodations" class="section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title fade-in">Where to Stay</h2>
-                    <p class="section-subtitle">We greatly appreciate your support of a locally owned and operated business!</p>
-                </div>
-                <div class="accommodations-grid">
-                    <div class="accommodation-card" onclick="toggleAccommodation(this)">
-                        <div class="accommodation-header">
-                            <h3>Lewis &amp; Clark Motel</h3>
-                            <div class="accommodation-meta">
-                                <span class="price">$339-369/night</span>
-                                <span class="expand-icon">+</span>
-                            </div>
-                        </div>
-                        <div class="accommodation-summary">
-                            <p>Locally owned and operated motel with luxury amenities including pool, spa, hot tub, and eucalyptus steam room.</p>
-                        </div>
-                        <div class="accommodation-details">
-                            <div class="details-content">
-                                <p><strong>Wedding Block:</strong> Trainor/Sobol Wedding</p>
-                                <p><strong>Promo Code:</strong> TraSobWed (case-sensitive)</p>
-                                <p><strong>Dates:</strong> June 16-24, 2026 (Primary: June 18-21)</p>
-                                <p><strong>Rates:</strong></p>
-                                <ul style="margin-left: 1rem; margin-bottom: 1rem;">
-                                    <li>Sunday-Thursday: $368.12/night (incl. tax)</li>
-                                    <li>Friday-Saturday: $400.52/night (incl. tax)</li>
-                                    <li>Additional person: +$20/night</li>
-                                </ul>
-                                <p><strong>Room Types:</strong> 7 Double Queen Rooms, 3 Single King Rooms</p>
-                                <p><strong>Amenities:</strong> Luxury Pool &amp; Spa, Hot Tub, Eucalyptus Steam Room, Complimentary Grab-n-Go Breakfast (6am-10am)</p>
-                                <p><strong>Booking Instructions:</strong></p>
-                                <ul style="margin-left: 1rem; margin-bottom: 1rem;">
-                                    <li>Phone: <a href="tel:+14065863341">(406) 586-3341</a> or <a href="tel:+18003327666">1-800-332-7666</a> - mention "Trainor/Sobol Wedding" block</li>
-                                    <li>Online: <a href="https://www.lewisandclarkmotels.com" target="_blank">www.lewisandclarkmotels.com</a> - use promo code <strong>TraSobWed</strong> (case-sensitive)</li>
-                                </ul>
-                                <p><strong>Important Notes:</strong></p>
-                                <ul style="margin-left: 1rem;">
-                                    <li>Book by May 18th, 2026 (cutoff date)</li>
-                                    <li>Cancellation: 14 days advance for full refund</li>
-                                    <li>Third-party bookings (Booking.com, etc.) won't receive group rate</li>
-                                    <li>Pack your swimsuits for the luxury spa area!</li>
-                                </ul>
-                            </div>
+    <!-- Accommodations Section -->
+    <section id="accommodations" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-in">Where to Stay</h2>
+                <p class="section-subtitle">We greatly appreciate your support of a locally owned and operated business!
+                </p>
+            </div>
+            <div class="accommodations-grid">
+                <div class="accommodation-card" onclick="toggleAccommodation(this)">
+                    <div class="accommodation-header">
+                        <h3>Lewis &amp; Clark Motel</h3>
+                        <div class="accommodation-meta">
+                            <span class="price">$339-369/night</span>
+                            <span class="expand-icon">+</span>
                         </div>
                     </div>
-
-                    <div class="accommodation-card" onclick="toggleAccommodation(this)">
-                        <div class="accommodation-header">
-                            <h3>Lower Hyalite Group Campground</h3>
-                            <div class="accommodation-meta">
-                                <span class="price">Reserved for Wedding</span>
-                                <span class="expand-icon">+</span>
-                            </div>
-                        </div>
-                        <div class="accommodation-summary">
-                            <p>Exclusive group campground for up to 100 people, nestled next to Hyalite Creek in beautiful mountain forest setting.</p>
-                        </div>
-                        <div class="accommodation-details">
-                            <div class="details-content">
-                                <p><strong>Dates:</strong> Friday-Sunday (June 20-22, 2026)</p>
-                                <p><strong>Setting:</strong> Next to Hyalite Creek at 5,000 feet elevation, surrounded by fir, pine and spruce forest</p>
-                                <p><strong>Facilities:</strong> Large shelter, picnic tables, campfire ring, vault toilet</p>
-                                <p><strong>What to Bring:</strong></p>
-                                <ul style="margin-left: 1rem; margin-bottom: 1rem;">
-                                    <li>Camping gear and tents</li>
-                                    <li>ALL drinking water (not available on-site)</li>
-                                    <li>Food in bear-proof containers</li>
-                                    <li>Pack out all garbage (no trash collection)</li>
-                                </ul>
-                                <p><strong>Activities:</strong> Fishing (Yellowstone cutthroat, Arctic grayling, brook trout), hiking, wildlife viewing, photography, stargazing</p>
-                                <p><strong>Nearby Attractions:</strong> Hyalite Reservoir (6.5 miles), Hyalite Peak Trail, numerous waterfalls</p>
-                                <p><strong>Getting There:</strong> From Bozeman Main Street, south on 19th Avenue 7 miles, left on Hyalite Canyon Road 2 miles</p>
-                                <p><strong>Important Notes:</strong></p>
-                                <ul style="margin-left: 1rem; margin-bottom: 1rem;">
-                                    <li>Firewood available at Langohr Campground ($10/bundle)</li>
-                                    <li>No RV dump station or shower facilities</li>
-                                    <li>Bear country - secure all food</li>
-                                </ul>
-                                <p><strong>Emergency Contact:</strong> <a href="tel:+16237100170">(623) 910-0170</a> or <a href="tel:+14066461012">(406) 646-1012 option 2</a></p>
-                                <p><strong>More Info:</strong> <a href="https://www.recreation.gov/camping/campgrounds/234573?tab=info" target="_blank">View Campground Details</a></p>
-                            </div>
+                    <div class="accommodation-summary">
+                        <p>Locally owned and operated motel with luxury amenities including pool, spa, hot tub, and
+                            eucalyptus steam room.</p>
+                    </div>
+                    <div class="accommodation-details">
+                        <div class="details-content">
+                            <p><strong>Wedding Block:</strong> Trainor/Sobol Wedding</p>
+                            <p><strong>Promo Code:</strong> TraSobWed (case-sensitive)</p>
+                            <p><strong>Dates:</strong> June 16-24, 2026 (Primary: June 18-21)</p>
+                            <p><strong>Rates:</strong></p>
+                            <ul style="margin-left: 1rem; margin-bottom: 1rem;">
+                                <li>Sunday-Thursday: $368.12/night (incl. tax)</li>
+                                <li>Friday-Saturday: $400.52/night (incl. tax)</li>
+                                <li>Additional person: +$20/night</li>
+                            </ul>
+                            <p><strong>Room Types:</strong> 7 Double Queen Rooms, 3 Single King Rooms</p>
+                            <p><strong>Amenities:</strong> Luxury Pool &amp; Spa, Hot Tub, Eucalyptus Steam Room,
+                                Complimentary Grab-n-Go Breakfast (6am-10am)</p>
+                            <p><strong>Booking Instructions:</strong></p>
+                            <ul style="margin-left: 1rem; margin-bottom: 1rem;">
+                                <li>Phone: <a href="tel:+14065863341">(406) 586-3341</a> or <a
+                                        href="tel:+18003327666">1-800-332-7666</a> - mention "Trainor/Sobol Wedding"
+                                    block</li>
+                                <li>Online: <a href="https://www.lewisandclarkmotels.com"
+                                        target="_blank">www.lewisandclarkmotels.com</a> - use promo code
+                                    <strong>TraSobWed</strong> (case-sensitive)</li>
+                            </ul>
+                            <p><strong>Important Notes:</strong></p>
+                            <ul style="margin-left: 1rem;">
+                                <li>Book by May 18th, 2026 (cutoff date)</li>
+                                <li>Cancellation: 14 days advance for full refund</li>
+                                <li>Third-party bookings (Booking.com, etc.) won't receive group rate</li>
+                                <li>Pack your swimsuits for the luxury spa area!</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <!-- Info Banner -->
-                <div class="info-banner">
-                    <div class="info-banner-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path>
-                        </svg>
+
+                <div class="accommodation-card" onclick="toggleAccommodation(this)">
+                    <div class="accommodation-header">
+                        <h3>Lower Hyalite Group Campground</h3>
+                        <div class="accommodation-meta">
+                            <span class="price">Reserved for Wedding</span>
+                            <span class="expand-icon">+</span>
+                        </div>
                     </div>
-                    <h4>Need Help Choosing?</h4>
-                    <p>Lewis &amp; Clark Motel offers luxury amenities and is perfect for a comfortable stay. Lower Hyalite Group Campground is ideal for outdoor enthusiasts wanting a unique weekend experience.</p>
-                    <p><strong>Questions about accommodations?</strong> Contact us at <a href="mailto:wedding@solstice2026.party">wedding@solstice2026.party</a></p>
-                
+                    <div class="accommodation-summary">
+                        <p>Exclusive group campground for up to 100 people, nestled next to Hyalite Creek in beautiful
+                            mountain forest setting.</p>
+                    </div>
+                    <div class="accommodation-details">
+                        <div class="details-content">
+                            <p><strong>Dates:</strong> Friday-Sunday (June 20-22, 2026)</p>
+                            <p><strong>Setting:</strong> Next to Hyalite Creek at 5,000 feet elevation, surrounded by
+                                fir, pine and spruce forest</p>
+                            <p><strong>Facilities:</strong> Large shelter, picnic tables, campfire ring, vault toilet
+                            </p>
+                            <p><strong>What to Bring:</strong></p>
+                            <ul style="margin-left: 1rem; margin-bottom: 1rem;">
+                                <li>Camping gear and tents</li>
+                                <li>ALL drinking water (not available on-site)</li>
+                                <li>Food in bear-proof containers</li>
+                                <li>Pack out all garbage (no trash collection)</li>
+                            </ul>
+                            <p><strong>Activities:</strong> Fishing (Yellowstone cutthroat, Arctic grayling, brook
+                                trout), hiking, wildlife viewing, photography, stargazing</p>
+                            <p><strong>Nearby Attractions:</strong> Hyalite Reservoir (6.5 miles), Hyalite Peak Trail,
+                                numerous waterfalls</p>
+                            <p><strong>Getting There:</strong> From Bozeman Main Street, south on 19th Avenue 7 miles,
+                                left on Hyalite Canyon Road 2 miles</p>
+                            <p><strong>Important Notes:</strong></p>
+                            <ul style="margin-left: 1rem; margin-bottom: 1rem;">
+                                <li>Firewood available at Langohr Campground ($10/bundle)</li>
+                                <li>No RV dump station or shower facilities</li>
+                                <li>Bear country - secure all food</li>
+                            </ul>
+                            <p><strong>Emergency Contact:</strong> <a href="tel:+16237100170">(623) 910-0170</a> or <a
+                                    href="tel:+14066461012">(406) 646-1012 option 2</a></p>
+                            <p><strong>More Info:</strong> <a
+                                    href="https://www.recreation.gov/camping/campgrounds/234573?tab=info"
+                                    target="_blank">View Campground Details</a></p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+            <!-- Info Banner -->
+            <div class="info-banner">
+                <div class="info-banner-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+                        </path>
+                    </svg>
+                </div>
+                <h4>Need Help Choosing?</h4>
+                <p>Lewis &amp; Clark Motel offers luxury amenities and is perfect for a comfortable stay. Lower Hyalite
+                    Group Campground is ideal for outdoor enthusiasts wanting a unique weekend experience.</p>
+                <p><strong>Questions about accommodations?</strong> Contact us at <a
+                        href="mailto:wedding@solstice2026.party">wedding@solstice2026.party</a></p>
 
-        <!-- Registry Section -->
-        <section id="registry" class="section registry-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title fade-in">Gift Registry</h2>
-                    <p class="section-subtitle">Your presence is what we're most excited about! But if you'd like to help us celebrate with a gift, here are a few ways to support our adventures and causes we care about.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registry Section -->
+    <section id="registry" class="section registry-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-in">Gift Registry</h2>
+                <p class="section-subtitle">Your presence is what we're most excited about! But if you'd like to help us
+                    celebrate with a gift, here are a few ways to support our adventures and causes we care about.</p>
+            </div>
+
+            <div class="registry-grid">
+                <div style="text-align: center; padding: 3rem 1rem; grid-column: 1 / -1;">
+                    <h3 style="font-size: 2rem; margin-bottom: 1rem;">Coming Soon!</h3>
+                    <p style="font-size: 1.1rem; color: var(--text-secondary);">We're working on putting together our
+                        registry. Check back soon for more details!</p>
                 </div>
 
-                <div class="registry-grid">
-                    <div style="text-align: center; padding: 3rem 1rem; grid-column: 1 / -1;">
-                        <h3 style="font-size: 2rem; margin-bottom: 1rem;">Coming Soon!</h3>
-                        <p style="font-size: 1.1rem; color: var(--text-secondary);">We're working on putting together our registry. Check back soon for more details!</p>
-                    </div>
+                <div
+                    style="text-align: center; padding: 2rem 1rem; grid-column: 1 / -1; margin-top: 1rem; border-top: 1px solid var(--light-gray);">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Mailing Address</h3>
+                    <p style="font-size: 1.1rem; color: var(--soft-gray); margin-bottom: 0.5rem;">
+                        If you'd prefer to send a gift directly:
+                    </p>
+                    <p style="font-size: 1.2rem; font-weight: 500; line-height: 1.6;">
+                        Catherine & Oleksandr<br>
+                        4231 Nola Loop Rd, Unit B<br>
+                        Yakima, WA 98901
+                    </p>
+                </div>
 
-                    <!-- Physical Items Registry -->
-                    <!-- <div class="registry-card">
+                <!-- Physical Items Registry -->
+                <!-- <div class="registry-card">
                         <div class="registry-icon">
                             <div style="width: 60px; height: 40px; background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5rem;">
                                 🎒
@@ -586,22 +669,24 @@
                     </div>
                 </div> -->
             </div>
-        </section>
+    </section>
 
-        <!-- RSVP Section -->
-        <section id="rsvp" class="section rsvp-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">RSVP Coming Soon!</h2>
-                    <p class="section-subtitle">We're so excited to celebrate with you! RSVP will open in a couple of months!</p>
-                </div>
+    <!-- RSVP Section -->
+    <section id="rsvp" class="section rsvp-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">RSVP Coming Soon!</h2>
+                <p class="section-subtitle">We're so excited to celebrate with you! RSVP will open in a couple of
+                    months!</p>
+            </div>
 
-                <div class="rsvp-info" style="text-align: center; padding: 2rem 0;">
-                    <!-- <p style="font-size: 1.1rem; margin-bottom: 1rem;">Save the date: <strong>June 20, 2026</strong></p> -->
-                    <p>Questions in the meantime? Reach out at <a href="mailto:wedding@solstice2026.party">wedding@solstice2026.party</a></p>
-                </div>
+            <div class="rsvp-info" style="text-align: center; padding: 2rem 0;">
+                <!-- <p style="font-size: 1.1rem; margin-bottom: 1rem;">Save the date: <strong>June 20, 2026</strong></p> -->
+                <p>Questions in the meantime? Reach out at <a
+                        href="mailto:wedding@solstice2026.party">wedding@solstice2026.party</a></p>
+            </div>
 
-                <!-- <div class="rsvp-form-wrapper">
+            <!-- <div class="rsvp-form-wrapper">
                                         <form id="rsvp-form" class="custom-rsvp-form" action="https://script.google.com/macros/s/AKfycbw8Yjw5mFayJwOTSOXOGNmY3K3dAKEEAaOmJr1ITiGs9QeZXD5FalsJXkDnBoJUEmxb/exec" method="POST" target="hidden-iframe">
                         <div class="form-row">                                                
                             <div class="form-group">
@@ -724,228 +809,273 @@
 
             Hidden iframe to capture form submission without leaving the page
             <iframe name="hidden-iframe" style="display: none;"></iframe> -->
-        </section>
+    </section>
 
-        <!-- Photo Gallery -->
-        <section id="gallery" class="section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Our Adventures Together</h2>
-                </div>
-                <div class="photo-grid">
-                    <!-- Portrait/Square photos -->
-                    <a href="assets/images/gallery/20240113_225918_234.jpg" class="glightbox photo-item" data-size="portrait" data-title="Winter Adventures" data-description="Living our best snowy life!">
-                        <picture>
+    <!-- Photo Gallery -->
+    <section id="gallery" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Adventures Together</h2>
+            </div>
+            <div class="photo-grid">
+                <!-- Portrait/Square photos -->
+                <a href="assets/images/gallery/20240113_225918_234.jpg" class="glightbox photo-item"
+                    data-size="portrait" data-title="Winter Adventures" data-description="Living our best snowy life!">
+                    <picture>
                         <source srcset="assets/images/gallery/20240113_225918_234.webp" type="image/webp">
-                        <img src="assets/images/gallery/20240113_225918_234.jpg" alt="Winter adventure in snowy mountains" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/20240113_225918_234.jpg"
+                            alt="Winter adventure in snowy mountains" loading="lazy"
+                            style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>Winter Adventures</h4>
-                            <p>Living our best snowy life!</p>
-                        </div>
-                    </a>
-                    
-                    <a href="assets/images/gallery/20240801_100022_594.jpg" class="glightbox photo-item" data-size="portrait" data-title="Trail Life" data-description="Hiking partners for life!">
-                        <picture>
+                    <div class="photo-overlay">
+                        <h4>Winter Adventures</h4>
+                        <p>Living our best snowy life!</p>
+                    </div>
+                </a>
+
+                <a href="assets/images/gallery/20240801_100022_594.jpg" class="glightbox photo-item"
+                    data-size="portrait" data-title="Trail Life" data-description="Hiking partners for life!">
+                    <picture>
                         <source srcset="assets/images/gallery/20240801_100022_594.webp" type="image/webp">
-                        <img src="assets/images/gallery/20240801_100022_594.jpg" alt="Backpacking together on mountain trail" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/20240801_100022_594.jpg"
+                            alt="Backpacking together on mountain trail" loading="lazy"
+                            style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>Trail Life</h4>
-                            <p>Hiking partners for life!</p>
-                        </div>
-                    </a>
-                    
-                    <a href="assets/images/gallery/IMG20250626155851.jpg" class="glightbox photo-item" data-size="portrait" data-title="Continental Divide" data-description="Taking on the CDT together!">
-                        <picture>
+                    <div class="photo-overlay">
+                        <h4>Trail Life</h4>
+                        <p>Hiking partners for life!</p>
+                    </div>
+                </a>
+
+                <a href="assets/images/gallery/IMG20250626155851.jpg" class="glightbox photo-item" data-size="portrait"
+                    data-title="Continental Divide" data-description="Taking on the CDT together!">
+                    <picture>
                         <source srcset="assets/images/gallery/IMG20250626155851.webp" type="image/webp">
-                        <img src="assets/images/gallery/IMG20250626155851.jpg" alt="Happy couple on Continental Divide Trail" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/IMG20250626155851.jpg"
+                            alt="Happy couple on Continental Divide Trail" loading="lazy"
+                            style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>Continental Divide</h4>
-                            <p>Taking on the CDT together!</p>
-                        </div>
-                    </a>
-                    
-                    <a href="assets/images/gallery/IMG_20240120_163247_167.jpg" class="glightbox photo-item" data-size="portrait" data-title="Montana Winters" data-description="Cold days, warm hearts!">
-                        <picture>
+                    <div class="photo-overlay">
+                        <h4>Continental Divide</h4>
+                        <p>Taking on the CDT together!</p>
+                    </div>
+                </a>
+
+                <a href="assets/images/gallery/IMG_20240120_163247_167.jpg" class="glightbox photo-item"
+                    data-size="portrait" data-title="Montana Winters" data-description="Cold days, warm hearts!">
+                    <picture>
                         <source srcset="assets/images/gallery/IMG_20240120_163247_167.webp" type="image/webp">
-                        <img src="assets/images/gallery/IMG_20240120_163247_167.jpg" alt="Winter mountain selfie with snowy landscape" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/IMG_20240120_163247_167.jpg"
+                            alt="Winter mountain selfie with snowy landscape" loading="lazy"
+                            style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>Montana Winters</h4>
-                            <p>Cold days, warm hearts!</p>
-                        </div>
-                    </a>
-                    
-                    <a href="assets/images/gallery/IMG20250627114905.jpg" class="glightbox photo-item" data-size="portrait" data-title="At the top of 14k feet" data-description="Sky high in Colorado!">
-                        <picture>
+                    <div class="photo-overlay">
+                        <h4>Montana Winters</h4>
+                        <p>Cold days, warm hearts!</p>
+                    </div>
+                </a>
+
+                <a href="assets/images/gallery/IMG20250627114905.jpg" class="glightbox photo-item" data-size="portrait"
+                    data-title="At the top of 14k feet" data-description="Sky high in Colorado!">
+                    <picture>
                         <source srcset="assets/images/gallery/IMG20250627114905.webp" type="image/webp">
-                        <img src="assets/images/gallery/IMG20250627114905.jpg" alt="Backpacking through canyon landscape" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/IMG20250627114905.jpg"
+                            alt="Backpacking through canyon landscape" loading="lazy"
+                            style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>At the top of 14k feet</h4>
-                            <p>Sky high in Colorado!</p>
-                        </div>
-                    </a>
+                    <div class="photo-overlay">
+                        <h4>At the top of 14k feet</h4>
+                        <p>Sky high in Colorado!</p>
+                    </div>
+                </a>
 
-                    <a href="assets/images/gallery/20250124_111127.jpg" class="glightbox photo-item" data-size="portrait" data-title="Winter skiing" data-description="Powder days in Montana!">
-                        <picture>
+                <a href="assets/images/gallery/20250124_111127.jpg" class="glightbox photo-item" data-size="portrait"
+                    data-title="Winter skiing" data-description="Powder days in Montana!">
+                    <picture>
                         <source srcset="assets/images/gallery/20250124_111127.webp" type="image/webp">
-                        <img src="assets/images/gallery/20250124_111127.jpg" alt="skiing" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/20250124_111127.jpg" alt="skiing" loading="lazy"
+                            style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>Skiing</h4>
-                            <p>Powder days in Montana!</p>
-                        </div>
-                    </a>
-                    
-                    <!-- Landscape photos -->
-                    <a href="assets/images/gallery/20240509_193234.jpg" class="glightbox photo-item" data-size="portrait" data-title="Road Trip Adventures" data-description="Cruising with our favorite co-pilot!">
-                        <picture>
+                    <div class="photo-overlay">
+                        <h4>Skiing</h4>
+                        <p>Powder days in Montana!</p>
+                    </div>
+                </a>
+
+                <!-- Landscape photos -->
+                <a href="assets/images/gallery/20240509_193234.jpg" class="glightbox photo-item" data-size="portrait"
+                    data-title="Road Trip Adventures" data-description="Cruising with our favorite co-pilot!">
+                    <picture>
                         <source srcset="assets/images/gallery/20240509_193234.webp" type="image/webp">
-                        <img src="assets/images/gallery/20240509_193234.jpg" alt="Road trip selfie with mountains in background" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/20240509_193234.jpg"
+                            alt="Road trip selfie with mountains in background" loading="lazy"
+                            style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>Road Trip Adventures</h4>
-                            <p>Cruising with our favorite co-pilot!</p>
-                        </div>
-                    </a>
+                    <div class="photo-overlay">
+                        <h4>Road Trip Adventures</h4>
+                        <p>Cruising with our favorite co-pilot!</p>
+                    </div>
+                </a>
 
-                    <a href="assets/images/gallery/20250621_103935_181.jpg" class="glightbox photo-item" data-size="portrait" data-title="Summit Success!" data-description="We made it to the top!">
-                        <picture>
+                <a href="assets/images/gallery/20250621_103935_181.jpg" class="glightbox photo-item"
+                    data-size="portrait" data-title="Summit Success!" data-description="We made it to the top!">
+                    <picture>
                         <source srcset="assets/images/gallery/20250621_103935_181.webp" type="image/webp">
-                        <img src="assets/images/gallery/20250621_103935_181.jpg" alt="Victory pose on mountain summit with endless views" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/20250621_103935_181.jpg"
+                            alt="Victory pose on mountain summit with endless views" loading="lazy"
+                            style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>Summit Success!</h4>
-                            <p>We made it to the top!</p>
-                        </div>
-                    </a>
+                    <div class="photo-overlay">
+                        <h4>Summit Success!</h4>
+                        <p>We made it to the top!</p>
+                    </div>
+                </a>
 
-                    <!-- Auto-added from gallery folder -->
-                    <a href="assets/images/gallery/20240113_225949_374.jpg" class="glightbox photo-item" data-size="portrait" data-title="January 2024" data-description="Making memories!">
-                        <picture>
+                <!-- Auto-added from gallery folder -->
+                <a href="assets/images/gallery/20240113_225949_374.jpg" class="glightbox photo-item"
+                    data-size="portrait" data-title="January 2024" data-description="Making memories!">
+                    <picture>
                         <source srcset="assets/images/gallery/20240113_225949_374.webp" type="image/webp">
-                        <img src="assets/images/gallery/20240113_225949_374.jpg" alt="January 2024 memory" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/20240113_225949_374.jpg" alt="January 2024 memory"
+                            loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>January 2024</h4>
-                            <p>Making memories!</p>
-                        </div>
-                    </a>
+                    <div class="photo-overlay">
+                        <h4>January 2024</h4>
+                        <p>Making memories!</p>
+                    </div>
+                </a>
 
-                    <a href="assets/images/gallery/20240114_194111_111.jpg" class="glightbox photo-item" data-size="portrait" data-title="January 2024" data-description="Good times together!">
-                        <picture>
+                <a href="assets/images/gallery/20240114_194111_111.jpg" class="glightbox photo-item"
+                    data-size="portrait" data-title="January 2024" data-description="Good times together!">
+                    <picture>
                         <source srcset="assets/images/gallery/20240114_194111_111.webp" type="image/webp">
-                        <img src="assets/images/gallery/20240114_194111_111.jpg" alt="January 2024 evening" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/20240114_194111_111.jpg" alt="January 2024 evening"
+                            loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>January 2024</h4>
-                            <p>Good times together!</p>
-                        </div>
-                    </a>
+                    <div class="photo-overlay">
+                        <h4>January 2024</h4>
+                        <p>Good times together!</p>
+                    </div>
+                </a>
 
-                    <a href="assets/images/gallery/20240406_164110_952.jpg" class="glightbox photo-item" data-size="portrait" data-title="April 2024" data-description="Spring adventures!">
-                        <picture>
+                <a href="assets/images/gallery/20240406_164110_952.jpg" class="glightbox photo-item"
+                    data-size="portrait" data-title="April 2024" data-description="Spring adventures!">
+                    <picture>
                         <source srcset="assets/images/gallery/20240406_164110_952.webp" type="image/webp">
-                        <img src="assets/images/gallery/20240406_164110_952.jpg" alt="April 2024 outing" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/20240406_164110_952.jpg" alt="April 2024 outing" loading="lazy"
+                            style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>April 2024</h4>
-                            <p>Spring adventures!</p>
-                        </div>
-                    </a>
+                    <div class="photo-overlay">
+                        <h4>April 2024</h4>
+                        <p>Spring adventures!</p>
+                    </div>
+                </a>
 
-                    <a href="assets/images/gallery/20240509_204755.jpg" class="glightbox photo-item" data-size="portrait" data-title="May 2024" data-description="Soaking up the sunshine!">
-                        <picture>
+                <a href="assets/images/gallery/20240509_204755.jpg" class="glightbox photo-item" data-size="portrait"
+                    data-title="May 2024" data-description="Soaking up the sunshine!">
+                    <picture>
                         <source srcset="assets/images/gallery/20240509_204755.webp" type="image/webp">
-                        <img src="assets/images/gallery/20240509_204755.jpg" alt="May 2024 evening" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/20240509_204755.jpg" alt="May 2024 evening" loading="lazy"
+                            style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>May 2024</h4>
-                            <p>Soaking up the sunshine!</p>
-                        </div>
-                    </a>
+                    <div class="photo-overlay">
+                        <h4>May 2024</h4>
+                        <p>Soaking up the sunshine!</p>
+                    </div>
+                </a>
 
-                    <a href="assets/images/gallery/20240721_202611.jpg" class="glightbox photo-item" data-size="portrait" data-title="July 2024" data-description="Summer vibes!">
-                        <picture>
+                <a href="assets/images/gallery/20240721_202611.jpg" class="glightbox photo-item" data-size="portrait"
+                    data-title="July 2024" data-description="Summer vibes!">
+                    <picture>
                         <source srcset="assets/images/gallery/20240721_202611.webp" type="image/webp">
-                        <img src="assets/images/gallery/20240721_202611.jpg" alt="July 2024" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/20240721_202611.jpg" alt="July 2024" loading="lazy"
+                            style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>July 2024</h4>
-                            <p>Summer vibes!</p>
-                        </div>
-                    </a>
+                    <div class="photo-overlay">
+                        <h4>July 2024</h4>
+                        <p>Summer vibes!</p>
+                    </div>
+                </a>
 
-                    <a href="assets/images/gallery/20250609_203351_583.jpg" class="glightbox photo-item" data-size="portrait" data-title="June 2025" data-description="CDT adventures!">
-                        <picture>
+                <a href="assets/images/gallery/20250609_203351_583.jpg" class="glightbox photo-item"
+                    data-size="portrait" data-title="June 2025" data-description="CDT adventures!">
+                    <picture>
                         <source srcset="assets/images/gallery/20250609_203351_583.webp" type="image/webp">
-                        <img src="assets/images/gallery/20250609_203351_583.jpg" alt="June 2025" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/20250609_203351_583.jpg" alt="June 2025" loading="lazy"
+                            style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>June 2025</h4>
-                            <p>CDT adventures!</p>
-                        </div>
-                    </a>
+                    <div class="photo-overlay">
+                        <h4>June 2025</h4>
+                        <p>CDT adventures!</p>
+                    </div>
+                </a>
 
-                    <a href="assets/images/gallery/DJI_0300.JPG" class="glightbox photo-item" data-size="portrait" data-title="Drone View" data-description="Bird's eye view of our adventure!">
-                        <picture>
+                <a href="assets/images/gallery/DJI_0300.JPG" class="glightbox photo-item" data-size="portrait"
+                    data-title="Drone View" data-description="Bird's eye view of our adventure!">
+                    <picture>
                         <source srcset="assets/images/gallery/DJI_0300.webp" type="image/webp">
-                        <img src="assets/images/gallery/DJI_0300.JPG" alt="Drone view" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/DJI_0300.JPG" alt="Drone view" loading="lazy"
+                            style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>Drone View</h4>
-                            <p>Bird's eye view of our adventure!</p>
-                        </div>
-                    </a>
+                    <div class="photo-overlay">
+                        <h4>Drone View</h4>
+                        <p>Bird's eye view of our adventure!</p>
+                    </div>
+                </a>
 
-                    <a href="assets/images/gallery/IMG_20230916_213150_00_040_PureShot(4).jpg" class="glightbox photo-item" data-size="portrait" data-title="September 2023" data-description="Seattle trip magic!">
-                        <picture>
-                        <source srcset="assets/images/gallery/IMG_20230916_213150_00_040_PureShot(4).webp" type="image/webp">
-                        <img src="assets/images/gallery/IMG_20230916_213150_00_040_PureShot(4).jpg" alt="September 2023" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                <a href="assets/images/gallery/IMG_20230916_213150_00_040_PureShot(4).jpg" class="glightbox photo-item"
+                    data-size="portrait" data-title="September 2023" data-description="Seattle trip magic!">
+                    <picture>
+                        <source srcset="assets/images/gallery/IMG_20230916_213150_00_040_PureShot(4).webp"
+                            type="image/webp">
+                        <img src="assets/images/gallery/IMG_20230916_213150_00_040_PureShot(4).jpg" alt="September 2023"
+                            loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>September 2023</h4>
-                            <p>Seattle trip magic!</p>
-                        </div>
-                    </a>
+                    <div class="photo-overlay">
+                        <h4>September 2023</h4>
+                        <p>Seattle trip magic!</p>
+                    </div>
+                </a>
 
-                    <a href="assets/images/gallery/IMG_20250502_175933_607.jpg" class="glightbox photo-item" data-size="portrait" data-title="May 2025" data-description="Trail life is the best life!">
-                        <picture>
+                <a href="assets/images/gallery/IMG_20250502_175933_607.jpg" class="glightbox photo-item"
+                    data-size="portrait" data-title="May 2025" data-description="Trail life is the best life!">
+                    <picture>
                         <source srcset="assets/images/gallery/IMG_20250502_175933_607.webp" type="image/webp">
-                        <img src="assets/images/gallery/IMG_20250502_175933_607.jpg" alt="May 2025" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/IMG_20250502_175933_607.jpg" alt="May 2025" loading="lazy"
+                            style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>May 2025</h4>
-                            <p>Trail life is the best life!</p>
-                        </div>
-                    </a>
+                    <div class="photo-overlay">
+                        <h4>May 2025</h4>
+                        <p>Trail life is the best life!</p>
+                    </div>
+                </a>
 
-                    <a href="assets/images/gallery/proposal.jpg" class="glightbox photo-item" data-size="portrait" data-title="The Proposal" data-description="She said YES! 💍">
-                        <picture>
+                <a href="assets/images/gallery/proposal.jpg" class="glightbox photo-item" data-size="portrait"
+                    data-title="The Proposal" data-description="She said YES! 💍">
+                    <picture>
                         <source srcset="assets/images/gallery/proposal.webp" type="image/webp">
-                        <img src="assets/images/gallery/proposal.jpg" alt="The Proposal" loading="lazy" style="opacity: 0; transition: opacity 0.3s;">
+                        <img src="assets/images/gallery/proposal.jpg" alt="The Proposal" loading="lazy"
+                            style="opacity: 0; transition: opacity 0.3s;">
                     </picture>
-                        <div class="photo-overlay">
-                            <h4>The Proposal</h4>
-                            <p>She said YES! 💍</p>
-                        </div>
-                    </a>
-                </div>
+                    <div class="photo-overlay">
+                        <h4>The Proposal</h4>
+                        <p>She said YES! 💍</p>
+                    </div>
+                </a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container">
-                <p>© 2025 Catherine &amp; Oleksandr Wedding. Made with ❤️</p>
-            </div>
-        </footer>
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 Catherine &amp; Oleksandr Wedding. Made with ❤️</p>
+        </div>
+    </footer>
+</div>
 
-    <script src="js/script.js?v=1002202391"></script>    
+<script src="js/script.js?v=1002202391"></script>
 
 </body>
+
 </html>
