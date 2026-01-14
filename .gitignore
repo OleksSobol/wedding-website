@@ -37,6 +37,14 @@ optimize_images.py
 
 images_backup/
 
+# Media optimization script state
+assets/.optimization_state.json
+
+# Python virtual environment
+.venv/
+__pycache__/
+*.pyc
+
 # Local dev certs/tokens (if created)
 *.key
 *.crt
