@@ -1518,15 +1518,18 @@ section:nth-child(odd):not(.hero) {
 
 .registry-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--spacing-lg);
   margin-bottom: var(--spacing-2xl);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .registry-card {
   background: var(--warm-white);
   border-radius: var(--radius-md);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-xl);
   box-shadow: var(--shadow-soft);
   transition: all var(--transition-medium);
   border: 1px solid rgba(168, 184, 160, 0.2);
@@ -1546,11 +1549,29 @@ section:nth-child(odd):not(.hero) {
   background: linear-gradient(135deg, var(--warm-white) 0%, var(--cream) 100%);
 }
 
+.registry-card.ukraine-gift {
+  border: 2px solid #005BBB;
+  background: linear-gradient(135deg, var(--warm-white) 0%, #f0f4ff 100%);
+}
+
+.registry-card.ukraine-gift .registry-btn {
+  background: linear-gradient(135deg, #005BBB 0%, #0073e6 100%);
+}
+
+.registry-card.ukraine-gift .registry-btn:hover {
+  background: linear-gradient(135deg, #0073e6 0%, #005BBB 100%);
+}
+
 .registry-icon {
   margin-bottom: var(--spacing-md);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.registry-emoji {
+  font-size: 3rem;
+  line-height: 1;
 }
 
 .registry-icon img {
