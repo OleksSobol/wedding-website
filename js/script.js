@@ -518,11 +518,6 @@ function handleRSVPSubmission(event) {
         //console.logg('📋 Form action:', form.action);
         //console.logg('📋 Form data that would be submitted:');
         
-        const formData = new FormData(form);
-        for (let [key, value] of formData.entries()) {
-            //console.logg(`  ${key}: ${value}`);
-        }
-        
         // Simulate success after delay
         setTimeout(() => {
             const successMessage = document.getElementById('rsvp-success');
@@ -917,9 +912,6 @@ window.addEventListener('error', function(event) {
 
 // Accessibility Improvements
 document.addEventListener('DOMContentLoaded', function() {
-    // Add keyboard navigation support
-    const focusableElements = document.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-    
     // Ensure modal traps focus
     const modal = document.getElementById('password-modal');
     const passwordInput = document.getElementById('password-input');
@@ -935,14 +927,38 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Initialize GLightbox
-const lightbox = GLightbox({
-    touchNavigation: true,
-    loop: true,
-    autoplayVideos: true,
-    descPosition: 'bottom',
-    skin: 'modern'
-});
+// Lazy-load GLightbox only when the gallery section enters the viewport
+(function () {
+    const gallerySection = document.getElementById('gallery');
+    if (!gallerySection) return;
+
+    const observer = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        observer.disconnect();
+
+        // Load CSS
+        const css = document.createElement('link');
+        css.rel = 'stylesheet';
+        css.href = 'https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css';
+        document.head.appendChild(css);
+
+        // Load JS then init
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js';
+        script.onload = function () {
+            GLightbox({
+                touchNavigation: true,
+                loop: true,
+                autoplayVideos: true,
+                descPosition: 'bottom',
+                skin: 'modern'
+            });
+        };
+        document.head.appendChild(script);
+    }, { rootMargin: '200px' });
+
+    observer.observe(gallerySection);
+})();
 
 // ================================
 // STORY TIMELINE SCROLL ANIMATIONS
@@ -959,7 +975,7 @@ function initStoryAnimations() {
     
     // Callback function when elements intersect
     const observerCallback = (entries, observer) => {
-        entries.forEach((entry, index) => {
+        entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 // Add a slight stagger delay based on element position
                 const delay = 100; // milliseconds
