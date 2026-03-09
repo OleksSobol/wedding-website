@@ -1588,12 +1588,14 @@ section:nth-child(odd):not(.hero) {
 
 .registry-card.ukraine-gift .registry-btn {
   background: linear-gradient(180deg, #FFD700 0%, #FFD700 50%, #005BBB 50%, #005BBB 100%);
-  color: #1a1a1a;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 .registry-card.ukraine-gift .registry-btn:hover {
   background: linear-gradient(180deg, #f0c800 0%, #f0c800 50%, #004fa3 50%, #004fa3 100%);
-  color: #1a1a1a;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 .registry-icon {
