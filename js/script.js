@@ -815,20 +815,27 @@ document.addEventListener('DOMContentLoaded', function() {
 // Accommodation Card Toggle
 function toggleAccommodation(card) {
     const isExpanded = card.classList.contains('expanded');
-    
-    // Close all other cards
-    const allCards = document.querySelectorAll('.accommodation-card');
-    allCards.forEach(otherCard => {
+
+    // Close all other cards and reset their toggle text
+    document.querySelectorAll('.accommodation-card').forEach(otherCard => {
         if (otherCard !== card) {
             otherCard.classList.remove('expanded');
+            const otherText = otherCard.querySelector('.expand-toggle-text');
+            if (otherText) otherText.textContent = otherText.dataset.open || 'See details';
         }
     });
-    
+
     // Toggle the clicked card
+    const toggleText = card.querySelector('.expand-toggle-text');
     if (isExpanded) {
         card.classList.remove('expanded');
+        if (toggleText) toggleText.textContent = toggleText.dataset.open || 'See details';
     } else {
         card.classList.add('expanded');
+        if (toggleText) {
+            toggleText.dataset.open = toggleText.textContent;
+            toggleText.textContent = 'Hide details';
+        }
     }
 }
 
