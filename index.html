@@ -242,18 +242,6 @@
                         <p class="venue-address">141 Old Timber Wy · Bozeman, MT 59718</p>
                         <a href="https://maps.google.com/?q=141+Old+Timber+Wy,+Bozeman,+MT+59718" class="venue-directions" target="_blank">Get Directions →</a>
                     </div>
-                    <div class="main-event-times">
-                        <div class="main-event-row">
-                            <span class="main-event-dot"></span>
-                            <span class="main-event-time">4:00 PM</span>
-                            <span class="main-event-name">Ceremony</span>
-                        </div>
-                        <div class="main-event-row">
-                            <span class="main-event-dot"></span>
-                            <span class="main-event-time">5:00 PM</span>
-                            <span class="main-event-name">Reception</span>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Sub-section 2: Weekend Schedule -->
@@ -611,12 +599,16 @@
                         href="mailto:wedding@solstice2026.party">wedding@solstice2026.party</a></p>
             </div>
 
-            <!-- <div class="rsvp-form-wrapper">
-                                        <form id="rsvp-form" class="custom-rsvp-form" action="https://script.google.com/macros/s/AKfycbw8Yjw5mFayJwOTSOXOGNmY3K3dAKEEAaOmJr1ITiGs9QeZXD5FalsJXkDnBoJUEmxb/exec" method="POST" target="hidden-iframe">
+            <div class="rsvp-form-wrapper">
+                                        <form id="rsvp-form" 
+                                        class="custom-rsvp-form" 
+                                        action="https://script.google.com/macros/s/AKfycbxOYSpZKVYMG3rZVMtCOlAMVCTm-WGS1kcCxLoCCuHHnfCHqzRg6gn9xQi0j8lhakqy/exec" 
+                                        method="POST" target="hidden-iframe">
                         <div class="form-row">                                                
                             <div class="form-group">
                                 <label for="guest-name">Full Name *</label>
                                 <input type="text" id="guest-name" name="name" required="">
+                                <div id="guest-lookup-status" style="font-size:0.85rem;margin-top:5px;min-height:18px;"></div>
                             </div>
                             <div class="form-group">
                                 <label for="guest-email">Email Address *</label>
@@ -634,21 +626,18 @@
                                 </select>
                             </div>
                             <div class="form-group" id="guest-count-group" style="display: none;">
-                                <label for="guest-count">Total Guests (including yourself) *</label>
+                                <label id="guest-count-label" for="guest-count">How many will attend?</label>
                                 <select id="guest-count" name="guestCount">
                                     <option value="">Select...</option>
-                                    <option value="1">Just me (1 guest)</option>
-                                    <option value="2">Me + 1 (2 guests)</option>
                                 </select>
-                            </div>
-                        </div>                        <div id="additional-guests" style="display: none;">
-                            <div class="form-group">
-                                <label for="plus-one-name">Name of Your Guest</label>
-                                <input type="text" id="plus-one-name" name="additionalGuest" placeholder="Your guest's full name">
                             </div>
                         </div>
 
-                        Hidden fields for form submission
+                        <!-- Dynamic guest name fields (populated by JS based on party size) -->
+                        <div id="additional-guests" style="display: none;"></div>
+
+                        <!-- Hidden fields for form submission -->
+                        <input type="hidden" id="guest-names-hidden" name="guestNames" value="">
                         <input type="hidden" id="dietary-restrictions-hidden" name="dietaryRestrictions" value="">
                         <input type="hidden" id="timestamp-hidden" name="timestamp" value="">
                         <div class="form-group" id="dietary-restrictions-group" style="display: none;">
@@ -722,7 +711,7 @@
 
                 <div class="rsvp-info">
                     <div class="rsvp-deadline">
-                        <p><strong>RSVP by April 15, 2026</strong></p>
+                        <p><strong>RSVP by May 20, 2026</strong></p>
                         <p class="deadline-note">Helps us plan the perfect party for everyone!</p>
                     </div>
                     <div class="rsvp-contact">
@@ -732,8 +721,8 @@
                 </div>
             </div>
 
-            Hidden iframe to capture form submission without leaving the page
-            <iframe name="hidden-iframe" style="display: none;"></iframe> -->
+            <!-- Hidden iframe to capture form submission without leaving the page -->
+            <iframe name="hidden-iframe" style="display: none;"></iframe>
     </section>
 
     <!-- Photo Gallery -->
@@ -1069,7 +1058,7 @@
     </footer>
 </div>
 
-<script src="js/script.js?v=1002202392"></script>
+<script src="js/script.js?v=1804202505"></script>
 
 </body>
 

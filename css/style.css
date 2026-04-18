@@ -984,6 +984,14 @@ section:nth-child(odd):not(.hero) {
   color: var(--charcoal);
 }
 
+.main-event-note {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--soft-gray);
+  margin-left: 0.25rem;
+}
+
 /* Schedule grid */
 .schedule-grid {
   display: grid;

@@ -396,6 +396,69 @@ function initializeAnimations() {
 
 // RSVP Form Integration and Management
 
+// GAS web app URL (used for both form submission and guest lookup)
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbxOYSpZKVYMG3rZVMtCOlAMVCTm-WGS1kcCxLoCCuHHnfCHqzRg6gn9xQi0j8lhakqy/exec';
+
+// Look up a guest's name against the main guest list via GAS doGet
+async function lookupGuest(name) {
+    try {
+        const url = GAS_URL + '?action=lookup&name=' + encodeURIComponent(name.trim());
+        const res = await fetch(url, { redirect: 'follow' });
+        return await res.json();
+    } catch (e) {
+        return { found: false };
+    }
+}
+
+// Update the guest count label with reserved seat info
+function updateGuestCountLabel(partySize) {
+    const label = document.getElementById('guest-count-label');
+    if (!label) return;
+    if (partySize) {
+        const s = partySize === 1 ? 'seat' : 'seats';
+        label.textContent = 'We have reserved ' + partySize + ' ' + s + ' for you, how many will attend?';
+    } else {
+        label.textContent = 'How many will attend?';
+    }
+}
+
+// Rebuild the guest count dropdown with options 1..max
+function rebuildGuestCountDropdown(max) {
+    const select = document.getElementById('guest-count');
+    if (!select) return;
+    select.innerHTML = '<option value="">Select\u2026</option>';
+    for (let i = 1; i <= max; i++) {
+        const opt = document.createElement('option');
+        opt.value = String(i);
+        if (i === 1) {
+            opt.textContent = "It's just me!";
+        } else {
+            opt.textContent = 'Me + ' + (i - 1) + ' (' + i + ' guests)';
+        }
+        select.appendChild(opt);
+    }
+}
+
+// Render N-1 additional guest name fields for a party of N
+function renderGuestNameFields(totalCount) {
+    const container = document.getElementById('additional-guests');
+    if (!container) return;
+    container.innerHTML = '';
+    if (!totalCount || totalCount <= 1) {
+        container.style.display = 'none';
+        return;
+    }
+    container.style.display = 'block';
+    for (let i = 2; i <= totalCount; i++) {
+        const div = document.createElement('div');
+        div.className = 'form-group';
+        div.innerHTML =
+            '<label for="guest-name-' + i + '">Guest ' + i + ' Name</label>' +
+            '<input type="text" id="guest-name-' + i + '" placeholder="Full name" required>';
+        container.appendChild(div);
+    }
+}
+
 // Toggle guest count visibility based on attendance
 function toggleGuestCount() {
     const attendance = document.getElementById('attendance').value;
@@ -405,51 +468,47 @@ function toggleGuestCount() {
     const songRequestsGroup = document.getElementById('song-requests-group');
     const specialMessageGroup = document.getElementById('special-message-group');
     const guestCountSelect = document.getElementById('guest-count');
-    
+
     if (attendance === 'yes') {
-        guestCountGroup.style.display = 'block';
         dietaryGroup.style.display = 'block';
         songRequestsGroup.style.display = 'block';
         specialMessageGroup.style.display = 'block';
         guestCountSelect.required = true;
-        
-        // Show additional guest field when 2 guests selected
-        guestCountSelect.addEventListener('change', function() {
-            if (this.value === '2') {
-                additionalGuests.style.display = 'block';
-                document.getElementById('plus-one-name').required = true;
-            } else {
-                additionalGuests.style.display = 'none';
-                document.getElementById('plus-one-name').required = false;
-                document.getElementById('plus-one-name').value = '';
-            }
-        });
+
+        // Look up guest by name and set party size before showing dropdown
+        const name = document.getElementById('guest-name').value.trim();
+        if (name.length >= 2) {
+            guestCountGroup.style.display = 'none';
+            lookupGuest(name).then(function(result) {
+                window._guestPartySize = result.found ? result.partySize : 1;
+                updateGuestCountLabel(result.found ? result.partySize : null);
+                guestCountGroup.style.display = 'block';
+                rebuildGuestCountDropdown(window._guestPartySize);
+            });
+        } else {
+            // Name not filled yet — show dropdown with safe default
+            updateGuestCountLabel(null);
+            guestCountGroup.style.display = 'block';
+            rebuildGuestCountDropdown(window._guestPartySize || 4);
+        }
     } else if (attendance === 'no') {
-        // Hide all conditional fields for "no" attendance
         guestCountGroup.style.display = 'none';
-        additionalGuests.style.display = 'none';
         dietaryGroup.style.display = 'none';
         songRequestsGroup.style.display = 'none';
-        specialMessageGroup.style.display = 'block'; // Keep message field for well wishes
-        
-        // Clear and reset requirements
+        specialMessageGroup.style.display = 'block';
         guestCountSelect.required = false;
-        document.getElementById('plus-one-name').required = false;
-        
-        // Clear values
         guestCountSelect.value = '';
-        document.getElementById('plus-one-name').value = '';
+        renderGuestNameFields(0);
         clearDietaryRestrictions();
         document.getElementById('song-requests').value = '';
     } else {
-        // Hide all when no selection
         guestCountGroup.style.display = 'none';
         additionalGuests.style.display = 'none';
         dietaryGroup.style.display = 'none';
         songRequestsGroup.style.display = 'none';
         specialMessageGroup.style.display = 'none';
         guestCountSelect.required = false;
-        document.getElementById('plus-one-name').required = false;
+        renderGuestNameFields(0);
     }
 }
 
@@ -500,6 +559,13 @@ function handleRSVPSubmission(event) {
         }
     });
     
+    // Collect dynamic guest name inputs
+    const guestNames = [];
+    document.querySelectorAll('[id^="guest-name-"]').forEach(function(input) {
+        if (input.value.trim()) guestNames.push(input.value.trim());
+    });
+    document.getElementById('guest-names-hidden').value = JSON.stringify(guestNames);
+
     // Populate hidden fields before submission
     document.getElementById('dietary-restrictions-hidden').value = dietaryRestrictions.join(', ');
     document.getElementById('timestamp-hidden').value = new Date().toISOString();
@@ -555,7 +621,7 @@ function handleRSVPSubmission(event) {
         email: document.getElementById('guest-email').value,
         attendance: document.getElementById('attendance').value,
         guestCount: document.getElementById('guest-count').value || '0',
-        additionalGuest: document.getElementById('plus-one-name').value,
+        additionalGuest: guestNames.join(', '),
         dietaryRestrictions: dietaryRestrictions.join(', '),
         songRequests: document.getElementById('song-requests').value,
         specialMessage: document.getElementById('special-message').value,
@@ -608,7 +674,7 @@ function handleRSVPSubmission(event) {
 
 // Google Apps Script Web App Configuration (for reference)
 const GOOGLE_SCRIPT_CONFIG = {
-    WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbxkb6-TGPpg6eVDkDZ7UoqKIaKZVhndoJZ2VOxcjcLjFK_mA5Fu8INJvEM4rYQB5kLd/exec'
+    WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbxOYSpZKVYMG3rZVMtCOlAMVCTm-WGS1kcCxLoCCuHHnfCHqzRg6gn9xQi0j8lhakqy/exec'
 };
 
 // Note: Form now submits directly to Google Apps Script URL (no CORS issues!)
@@ -751,6 +817,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (rsvpForm) {
         rsvpForm.addEventListener('submit', handleRSVPSubmission);
     }
+
+    // Guest count change → re-render name fields
+    const guestCountSelect = document.getElementById('guest-count');
+    if (guestCountSelect) {
+        guestCountSelect.addEventListener('change', function() {
+            renderGuestNameFields(parseInt(this.value) || 0);
+        });
+    }
+
 });
 
 // Photo Gallery Placeholder Management
@@ -1086,3 +1161,12 @@ if (document.readyState === 'loading') {
 }
 
 console.log('Wedding website loaded successfully! 💕🎉');
+
+// TEMP: browser-side lookup test — call testLookup('name') in console
+window.testLookup = async function(name) {
+    const url = GAS_URL + '?action=lookup&name=' + encodeURIComponent(name.trim());
+    const res = await fetch(url, { redirect: 'follow' });
+    const json = await res.json();
+    console.log('testLookup(' + JSON.stringify(name) + ') →', json);
+    return json;
+};
