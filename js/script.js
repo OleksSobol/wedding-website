@@ -397,7 +397,7 @@ function initializeAnimations() {
 // RSVP Form Integration and Management
 
 // GAS web app URL (used for both form submission and guest lookup)
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbxOYSpZKVYMG3rZVMtCOlAMVCTm-WGS1kcCxLoCCuHHnfCHqzRg6gn9xQi0j8lhakqy/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbwQiItPS-f5VcTgW_Vj9ad00LSPD0Vtq_Js6cVce0xXsz-xuRCQ63Lihii3Hm-u5NWV/exec';
 
 // Look up a guest's name against the main guest list via GAS doGet
 async function lookupGuest(name) {
@@ -459,6 +459,60 @@ function renderGuestNameFields(totalCount) {
     }
 }
 
+// Apply a lookup result: handle single match, multiple matches, or not found
+function applyLookupResult(result) {
+    document.getElementById('guest-lookup-loading').style.display = 'none';
+    const disambig = document.getElementById('guest-disambiguation');
+
+    // Multiple matches — show picker, defer until user selects one
+    if (result.found && result.multiple) {
+        const sel = document.getElementById('guest-match-select');
+        sel.innerHTML = '<option value="">Please select\u2026</option>';
+        result.matches.forEach(function(m, i) {
+            const opt = document.createElement('option');
+            opt.value = String(i);
+            opt.textContent = m.matchedName;
+            sel.appendChild(opt);
+        });
+        disambig.style.display = 'block';
+        // Store matches for when user picks one
+        window._guestMatches = result.matches;
+        sel.onchange = function() {
+            const chosen = window._guestMatches[parseInt(this.value)];
+            if (!chosen) return;
+            disambig.style.display = 'none';
+            applyLookupResult({ found: true, partySize: chosen.partySize, matchedName: chosen.matchedName });
+        };
+        return;
+    }
+
+    disambig.style.display = 'none';
+    window._guestPartySize = (result.found && result.partySize) ? result.partySize : 1;
+
+    const guestCountGroup = document.getElementById('guest-count-group');
+    const guestCountSelect = document.getElementById('guest-count');
+
+    if (window._guestPartySize > 1) {
+        updateGuestCountLabel(result.found ? result.partySize : null);
+        guestCountGroup.style.display = 'block';
+        guestCountSelect.required = true;
+        rebuildGuestCountDropdown(window._guestPartySize);
+    } else {
+        // Solo guest — no need to ask how many will attend
+        guestCountGroup.style.display = 'none';
+        guestCountSelect.required = false;
+        guestCountSelect.value = '1';
+    }
+}
+
+// Clear sub-event selects back to empty
+function clearSubEventSelects() {
+    ['welcome-party', 'group-hike', 'camp-stay', 'farewell-brunch'].forEach(function(id) {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+    });
+}
+
 // Toggle guest count visibility based on attendance
 function toggleGuestCount() {
     const attendance = document.getElementById('attendance').value;
@@ -468,31 +522,39 @@ function toggleGuestCount() {
     const songRequestsGroup = document.getElementById('song-requests-group');
     const specialMessageGroup = document.getElementById('special-message-group');
     const guestCountSelect = document.getElementById('guest-count');
+    const loadingEl = document.getElementById('guest-lookup-loading');
+    const subEventsGroup = document.getElementById('sub-events-group');
 
     if (attendance === 'yes') {
         dietaryGroup.style.display = 'block';
         songRequestsGroup.style.display = 'block';
         specialMessageGroup.style.display = 'block';
-        guestCountSelect.required = true;
+        subEventsGroup.style.display = 'block';
+        guestCountGroup.style.display = 'none';
+        guestCountSelect.required = false; // applyLookupResult sets this based on party size
 
-        // Look up guest by name and set party size before showing dropdown
+        // Use pre-fetched result if available, otherwise kick off/wait for lookup
         const name = document.getElementById('guest-name').value.trim();
-        if (name.length >= 2) {
-            guestCountGroup.style.display = 'none';
-            lookupGuest(name).then(function(result) {
-                window._guestPartySize = result.found ? result.partySize : 1;
-                updateGuestCountLabel(result.found ? result.partySize : null);
-                guestCountGroup.style.display = 'block';
-                rebuildGuestCountDropdown(window._guestPartySize);
-            });
+        if (window._guestLookupResult) {
+            // Already cached — instant, no spinner
+            applyLookupResult(window._guestLookupResult);
+        } else if (window._guestLookupPromise) {
+            // Fetch in progress — show spinner and wait
+            loadingEl.style.display = 'block';
+            window._guestLookupPromise.then(applyLookupResult);
+        } else if (name.length >= 2) {
+            // User skipped blur — start lookup now with spinner
+            loadingEl.style.display = 'block';
+            lookupGuest(name).then(applyLookupResult);
         } else {
-            // Name not filled yet — show dropdown with safe default
-            updateGuestCountLabel(null);
-            guestCountGroup.style.display = 'block';
-            rebuildGuestCountDropdown(window._guestPartySize || 4);
+            // No name yet — default to 4-seat dropdown
+            applyLookupResult({ found: false, partySize: 4 });
         }
     } else if (attendance === 'no') {
         guestCountGroup.style.display = 'none';
+        loadingEl.style.display = 'none';
+        subEventsGroup.style.display = 'none';
+        document.getElementById('guest-disambiguation').style.display = 'none';
         dietaryGroup.style.display = 'none';
         songRequestsGroup.style.display = 'none';
         specialMessageGroup.style.display = 'block';
@@ -500,15 +562,20 @@ function toggleGuestCount() {
         guestCountSelect.value = '';
         renderGuestNameFields(0);
         clearDietaryRestrictions();
+        clearSubEventSelects();
         document.getElementById('song-requests').value = '';
     } else {
         guestCountGroup.style.display = 'none';
+        loadingEl.style.display = 'none';
+        subEventsGroup.style.display = 'none';
+        document.getElementById('guest-disambiguation').style.display = 'none';
         additionalGuests.style.display = 'none';
         dietaryGroup.style.display = 'none';
         songRequestsGroup.style.display = 'none';
         specialMessageGroup.style.display = 'none';
         guestCountSelect.required = false;
         renderGuestNameFields(0);
+        clearSubEventSelects();
     }
 }
 
@@ -569,6 +636,14 @@ function handleRSVPSubmission(event) {
     // Populate hidden fields before submission
     document.getElementById('dietary-restrictions-hidden').value = dietaryRestrictions.join(', ');
     document.getElementById('timestamp-hidden').value = new Date().toISOString();
+
+    // Collect sub-event answers for local storage (form POST sends them natively)
+    const subEventData = {
+        welcomeParty:   (document.getElementById('welcome-party')   || {}).value || '',
+        groupHike:      (document.getElementById('group-hike')      || {}).value || '',
+        campStay:       (document.getElementById('camp-stay')       || {}).value || '',
+        farewellBrunch: (document.getElementById('farewell-brunch') || {}).value || ''
+    };
     
     // Show loading state
     btnText.style.display = 'none';
@@ -625,7 +700,11 @@ function handleRSVPSubmission(event) {
         dietaryRestrictions: dietaryRestrictions.join(', '),
         songRequests: document.getElementById('song-requests').value,
         specialMessage: document.getElementById('special-message').value,
-        submissionDate: new Date().toISOString()
+        submissionDate: new Date().toISOString(),
+        welcomeParty:   subEventData.welcomeParty,
+        groupHike:      subEventData.groupHike,
+        campStay:       subEventData.campStay,
+        farewellBrunch: subEventData.farewellBrunch
     };
     storeRSVP(formDataObj);
     
@@ -674,7 +753,7 @@ function handleRSVPSubmission(event) {
 
 // Google Apps Script Web App Configuration (for reference)
 const GOOGLE_SCRIPT_CONFIG = {
-    WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbxOYSpZKVYMG3rZVMtCOlAMVCTm-WGS1kcCxLoCCuHHnfCHqzRg6gn9xQi0j8lhakqy/exec'
+    WEB_APP_URL: GAS_URL
 };
 
 // Note: Form now submits directly to Google Apps Script URL (no CORS issues!)
@@ -815,7 +894,13 @@ function displayRSVPList() {
 document.addEventListener('DOMContentLoaded', function() {
     const rsvpForm = document.getElementById('rsvp-form');
     if (rsvpForm) {
+        rsvpForm.action = GAS_URL; // single source of truth — only update GAS_URL above
         rsvpForm.addEventListener('submit', handleRSVPSubmission);
+        rsvpForm.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && !e.target.classList.contains('rsvp-submit-btn')) {
+                e.preventDefault();
+            }
+        });
     }
 
     // Guest count change → re-render name fields
@@ -826,6 +911,35 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Pre-fetch guest lookup when user fills in their name —
+    // result is cached so attendance='yes' resolves instantly without spinner
+    window._guestLookupResult  = null;
+    window._guestLookupPromise = null;
+
+    const nameField = document.getElementById('guest-name');
+    if (nameField) {
+        nameField.addEventListener('blur', function() {
+            const val = this.value.trim();
+            if (val.length < 2) return;
+            window._guestLookupResult = null;
+            const alreadyAttending = document.getElementById('attendance').value === 'yes';
+            if (alreadyAttending) {
+                document.getElementById('guest-count-group').style.display = 'none';
+                document.getElementById('guest-lookup-loading').style.display = 'block';
+            }
+            window._guestLookupPromise = lookupGuest(val).then(function(result) {
+                window._guestLookupResult = result;
+                if (document.getElementById('attendance').value === 'yes') {
+                    applyLookupResult(result);
+                }
+                return result;
+            });
+        });
+        nameField.addEventListener('input', function() {
+            window._guestLookupResult  = null;
+            window._guestLookupPromise = null;
+        });
+    }
 });
 
 // Photo Gallery Placeholder Management

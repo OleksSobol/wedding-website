@@ -10,7 +10,7 @@
         href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;❤️&lt;/text&gt;&lt;/svg&gt;">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="css/style.css?v=20250192">
+    <link rel="stylesheet" href="css/style.css?v=18042029">
     <!-- Load fonts async so they don't block first paint -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap"></noscript>
@@ -588,7 +588,7 @@
     <section id="rsvp" class="section rsvp-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">RSVP Coming Soon!</h2>
+                <h2 class="section-title">RSVP</h2>
                 <p class="section-subtitle">We're so excited to celebrate with you! RSVP will open in a couple of
                     months!</p>
             </div>
@@ -600,10 +600,9 @@
             </div>
 
             <div class="rsvp-form-wrapper">
-                                        <form id="rsvp-form" 
-                                        class="custom-rsvp-form" 
-                                        action="https://script.google.com/macros/s/AKfycbxOYSpZKVYMG3rZVMtCOlAMVCTm-WGS1kcCxLoCCuHHnfCHqzRg6gn9xQi0j8lhakqy/exec" 
-                                        method="POST" target="hidden-iframe">
+                    <form id="rsvp-form"
+                    class="custom-rsvp-form"
+                    method="POST" target="hidden-iframe">
                         <div class="form-row">                                                
                             <div class="form-group">
                                 <label for="guest-name">Full Name *</label>
@@ -616,25 +615,74 @@
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="attendance">Will you be attending? *</label>
-                                <select id="attendance" name="attendance" required="" onchange="toggleGuestCount()">
-                                    <option value="">Please select...</option>
-                                    <option value="yes">Yes, I'll be there! 🎉</option>
-                                    <option value="no">Sorry, can't make it 😢</option>
-                                </select>
-                            </div>
-                            <div class="form-group" id="guest-count-group" style="display: none;">
-                                <label id="guest-count-label" for="guest-count">How many will attend?</label>
-                                <select id="guest-count" name="guestCount">
-                                    <option value="">Select...</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label for="attendance">Will you be attending? *</label>
+                            <select id="attendance" name="attendance" required="" onchange="toggleGuestCount()">
+                                <option value="">Please select...</option>
+                                <option value="yes">Yes, I'll be there! 🎉</option>
+                                <option value="no">Sorry, can't make it 😢</option>
+                            </select>
+                        </div>
+
+                        <!-- Guest lookup loading indicator -->
+                        <div id="guest-lookup-loading" style="display:none; padding: 8px 0; color: var(--charcoal); font-size: 0.9rem;">
+                            <span class="lookup-spinner"></span> Looking you up…
+                        </div>
+
+                        <!-- Disambiguation: shown when multiple guests share the same name -->
+                        <div class="form-group" id="guest-disambiguation" style="display: none;">
+                            <label for="guest-match-select">We found a few people with that name — which one are you?</label>
+                            <select id="guest-match-select">
+                                <option value="">Please select…</option>
+                            </select>
+                        </div>
+
+                        <!-- Guest count — shown after lookup resolves -->
+                        <div class="form-group" id="guest-count-group" style="display: none;">
+                            <label id="guest-count-label" for="guest-count">How many will attend?</label>
+                            <select id="guest-count" name="guestCount">
+                                <option value="">Select...</option>
+                            </select>
                         </div>
 
                         <!-- Dynamic guest name fields (populated by JS based on party size) -->
                         <div id="additional-guests" style="display: none;"></div>
+
+                        <!-- Sub-event questions (shown when attending) -->
+                        <div id="sub-events-group" style="display: none;">
+                            <div class="form-group">
+                                <label for="welcome-party">We're having a welcome party at Lockhorn Cider on Thursday, June 18th from 7–9 PM. Are you planning to come?</label>
+                                <select id="welcome-party" name="welcomeParty">
+                                    <option value="">Please select...</option>
+                                    <option value="yes">Yes, I'll be there!</option>
+                                    <option value="no">No, can't make it</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="group-hike">Are you interested in joining us for a group hike on Friday, June 19th?</label>
+                                <select id="group-hike" name="groupHike">
+                                    <option value="">Please select...</option>
+                                    <option value="yes">Yes, count me in!</option>
+                                    <option value="no">No, thanks</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="camp-stay">We've reserved Hyalite Youth Camp for the weekend — would you like to stay at the camp?</label>
+                                <select id="camp-stay" name="campStay">
+                                    <option value="">Please select...</option>
+                                    <option value="yes">Yes, I love camping!</option>
+                                    <option value="no">No, thanks</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="farewell-brunch">We're having a farewell brunch on Sunday, June 21st at Hyalite Youth Camp at 11 AM. Will we see you there?</label>
+                                <select id="farewell-brunch" name="farewellBrunch">
+                                    <option value="">Please select...</option>
+                                    <option value="yes">Yes, see you then!</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
 
                         <!-- Hidden fields for form submission -->
                         <input type="hidden" id="guest-names-hidden" name="guestNames" value="">
@@ -715,8 +763,12 @@
                         <p class="deadline-note">Helps us plan the perfect party for everyone!</p>
                     </div>
                     <div class="rsvp-contact">
-                        <p>Questions? Reach out at <a href="mailto:wedding@solstice2026.party">wedding@solstice2026.party</a></p>
-                        <p>Or text Catherine at <a href="tel:+1234567890">(123) 456-7890</a></p>
+                        <p>Questions? Reach out anytime</p>
+                        <div class="rsvp-contact-links">
+                            <a href="mailto:wedding@solstice2026.party">wedding@solstice2026.party</a>
+                            <a href="sms:+14064516449">Text Cathy · (406) 451-6449</a>
+                            <a href="sms:+14065806183">Text Oleks · (406) 580-6183</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -757,18 +809,6 @@
                     </div>
                 </a>
 
-                <a href="assets/images/gallery/IMG20251217143241.jpg" class="glightbox photo-item" data-size="portrait"
-                    data-title="Recent Moments" data-description="Making memories!">
-                    <picture>
-                        <source srcset="assets/images/gallery/IMG20251217143241.webp" type="image/webp">
-                        <img src="assets/images/gallery/IMG20251217143241.jpg" alt="Gallery photo 2" loading="lazy"
-                            style="opacity: 0; transition: opacity 0.3s;">
-                    </picture>
-                    <div class="photo-overlay">
-                        <h4>Recent Moments</h4>
-                        <p>Making memories!</p>
-                    </div>
-                </a>
 
                 <!-- Nov 2025 -->
                 <a href="assets/images/gallery/IMG20251125151413.jpg" class="glightbox photo-item" data-size="portrait"
@@ -1058,7 +1098,7 @@
     </footer>
 </div>
 
-<script src="js/script.js?v=1804202505"></script>
+<script src="js/script.js?v=1804202514"></script>
 
 </body>
 

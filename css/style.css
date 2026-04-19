@@ -1859,14 +1859,14 @@ section:nth-child(odd):not(.hero) {
 
 .checkbox-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-sm);
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-xs) var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
 }
 
 .checkbox-group {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--spacing-xs);
   padding: var(--spacing-xs);
   border-radius: var(--radius-sm);
@@ -1934,6 +1934,49 @@ section:nth-child(odd):not(.hero) {
   margin-top: var(--spacing-sm);
   padding-top: var(--spacing-sm);
   border-top: 1px solid var(--light-gray);
+}
+
+#dietary-restrictions-group {
+  background: var(--warm-white);
+  border: 1px solid var(--light-gray);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-md);
+}
+
+/* Sub-event questions group */
+#sub-events-group {
+  display: grid;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--light-gray);
+}
+
+#sub-events-group .form-group {
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--light-gray);
+}
+
+#sub-events-group .form-group:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+/* Guest lookup loading spinner */
+.lookup-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--light-gray);
+  border-top-color: var(--secondary-rose);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 #additional-guests {
@@ -2044,6 +2087,13 @@ section:nth-child(odd):not(.hero) {
 .rsvp-contact a:hover,
 .rsvp-info a:hover {
   text-decoration: underline;
+}
+
+.rsvp-contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 /* ================================
