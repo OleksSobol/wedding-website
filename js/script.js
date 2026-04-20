@@ -397,7 +397,8 @@ function initializeAnimations() {
 // RSVP Form Integration and Management
 
 // GAS web app URL (used for both form submission and guest lookup)
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbwQiItPS-f5VcTgW_Vj9ad00LSPD0Vtq_Js6cVce0xXsz-xuRCQ63Lihii3Hm-u5NWV/exec';
+// const GAS_URL = '';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbxxVigwtHt__vq2AZA3MOBpvmlVLJwiVEXLKjLqbpmD2diYiWJH4bq7od97Da_cJI12/exec';
 
 // Look up a guest's name against the main guest list via GAS doGet
 async function lookupGuest(name) {
@@ -682,7 +683,10 @@ function handleRSVPSubmission(event) {
             
             form.style.display = 'none';
             successMessage.style.display = 'block';
-            
+            document.querySelector('#rsvp .section-subtitle').style.display = 'none';
+            document.querySelector('.rsvp-deadline').style.display = 'none';
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
             //console.logg('✅ LOCAL TEST: Form submission simulated successfully!');
             //console.logg('💡 To test actual submission, deploy to your domain');
         }, 1000);
@@ -741,7 +745,10 @@ function handleRSVPSubmission(event) {
         
         form.style.display = 'none';
         successMessage.style.display = 'block';
-        
+        document.querySelector('#rsvp .section-subtitle').style.display = 'none';
+        document.querySelector('.rsvp-deadline').style.display = 'none';
+        successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
         console.log('✅ RSVP submitted successfully!');
         
         // Reset button state in case user wants to go back
