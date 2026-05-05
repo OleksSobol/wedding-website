@@ -1163,6 +1163,91 @@ document.addEventListener('DOMContentLoaded', function() {
     observer.observe(gallerySection);
 })();
 
+// Lazy-load Leaflet for the "Lay of the Land" map only when scrolled into view
+(function () {
+    const mapSection = document.getElementById('map');
+    const mapEl = document.getElementById('wedding-map');
+    if (!mapSection || !mapEl) return;
+
+    const LOCATIONS = [
+        {
+            name: 'The Woodlands at Cottonwood Canyon',
+            sub: 'Ceremony & reception · 141 Old Timber Wy',
+            coords: [45.54098832451566, -111.09736700475112],
+            cls: 'is-venue',
+            directions: 'https://maps.google.com/?q=141+Old+Timber+Wy,+Bozeman,+MT+59718'
+        },
+        {
+            name: 'Hyalite Youth Camp',
+            sub: 'Friday rehearsal dinner & Sunday brunch',
+            coords: [45.479396794168096, -110.95997470687074],
+            cls: 'is-camp',
+            directions: 'https://maps.google.com/?q=Hyalite+Youth+Camp,+Bozeman,+MT'
+        },
+        {
+            name: 'Lewis & Clark Motel',
+            sub: 'Hotel block · 422 E Main St',
+            coords: [45.67884612874028, -111.04867663036914],
+            cls: 'is-hotel',
+            directions: 'https://maps.google.com/?q=Lewis+and+Clark+Motel,+422+E+Main+St,+Bozeman,+MT'
+        },
+        {
+            name: 'Downtown Bozeman',
+            sub: 'Lockhorn Cider (Thursday welcome party) is here',
+            coords: [45.6794, -111.0448],
+            cls: 'is-town',
+            directions: 'https://maps.google.com/?q=Downtown+Bozeman,+MT'
+        }
+    ];
+
+    function initMap() {
+        const map = L.map(mapEl, { scrollWheelZoom: false }).setView([45.65, -111.07], 10);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        const bounds = L.latLngBounds([]);
+        LOCATIONS.forEach(function (loc) {
+            const icon = L.divIcon({
+                className: '',
+                html: '<div class="wedding-map-pin ' + loc.cls + '"></div>',
+                iconSize: [22, 22],
+                iconAnchor: [11, 22],
+                popupAnchor: [0, -20]
+            });
+            const popupHtml =
+                '<strong>' + loc.name + '</strong>' +
+                '<div>' + loc.sub + '</div>' +
+                '<div style="margin-top:0.4rem;"><a href="' + loc.directions + '" target="_blank" rel="noopener">Get Directions →</a></div>';
+            L.marker(loc.coords, { icon: icon, title: loc.name })
+                .bindPopup(popupHtml)
+                .addTo(map);
+            bounds.extend(loc.coords);
+        });
+
+        map.fitBounds(bounds, { padding: [40, 40] });
+    }
+
+    const observer = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        observer.disconnect();
+
+        const css = document.createElement('link');
+        css.rel = 'stylesheet';
+        css.href = 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css';
+        document.head.appendChild(css);
+
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';
+        script.onload = initMap;
+        document.head.appendChild(script);
+    }, { rootMargin: '200px' });
+
+    observer.observe(mapSection);
+})();
+
 // ================================
 // STORY TIMELINE SCROLL ANIMATIONS
 // ================================
