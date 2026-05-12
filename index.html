@@ -10,7 +10,7 @@
         href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;❤️&lt;/text&gt;&lt;/svg&gt;">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="css/style.css?v=18042029">
+    <link rel="stylesheet" href="css/style.css?v=18042031">
     <!-- Load fonts async so they don't block first paint -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap"></noscript>
@@ -44,6 +44,8 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#story">Our Story</a></li>
             <li><a href="#details">Details</a></li>
+            <li><a href="#map">Map</a></li>
+            <li><a href="#recs">Things to do</a></li>
             <li><a href="#accommodations">Stay</a></li>
             <li><a href="#registry">Registry</a></li>
             <li><a href="#rsvp">RSVP</a></li>
@@ -383,6 +385,73 @@
             </div>
         </div>
     </div>
+
+    <!-- Map Section -->
+    <section id="map" class="section map-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-in">Lay of the Land</h2>
+                <p class="section-subtitle">Everything is within about 25 minutes of downtown Bozeman.</p>
+            </div>
+            <div id="wedding-map" class="wedding-map fade-in" role="region" aria-label="Map of wedding weekend locations"></div>
+            <ul class="map-legend fade-in" aria-label="Map legend">
+                <li><span class="map-pin map-pin--venue" aria-hidden="true"></span> The Woodlands <span class="map-legend-meta">ceremony &amp; reception</span></li>
+                <li><span class="map-pin map-pin--camp" aria-hidden="true"></span> Hyalite Youth Camp <span class="map-legend-meta">rehearsal &amp; brunch</span></li>
+                <li><span class="map-pin map-pin--hotel" aria-hidden="true"></span> Lewis &amp; Clark Motel <span class="map-legend-meta">hotel block</span></li>
+                <li><span class="map-pin map-pin--town" aria-hidden="true"></span> Downtown Bozeman</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Local Recommendations Section -->
+    <section id="recs" class="section recs-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-in">While You're Here</h2>
+                <p class="section-subtitle">A few of our favorite spots around Bozeman — feel free to explore.</p>
+            </div>
+            <div class="recs-groups">
+
+                <div class="recs-group fade-in">
+                    <h3 class="recs-group-title">Dinner</h3>
+                    <ul class="recs-list">
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Little+Star+Diner+Bozeman+MT" target="_blank" rel="noopener">Little Star Diner</a> — chef-driven small plates, quietly one of the best in town</li>
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Copper+Whiskey+Bar+Grill+Bozeman+MT" target="_blank" rel="noopener">Copper Whiskey Bar &amp; Grill</a> — whiskey, steaks &amp; cocktails downtown</li>
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Whistle+Pig+Korean+Bozeman+MT" target="_blank" rel="noopener">Whistle Pig Korean</a> — Korean BBQ &mdash; <em>our first date was here</em> 💕</li>
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Daves+Sushi+Bozeman+MT" target="_blank" rel="noopener">Dave's Sushi</a> — if you want to die (<a href="https://www.bozemandailychronicle.com/news/health/one-year-later-after-morel-mushrooms-tragedy-daves-sushi-is-still-standing/article_17f4dd6a-f2c3-11ee-aaaa-5fcb23f679e5.html" target="_blank" rel="noopener">here's why</a>)</li>
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Plaza+Azteca+Bozeman+MT" target="_blank" rel="noopener">Plaza Azteca</a> — casual Mexican, big portions</li>
+                    </ul>
+                </div>
+
+                <div class="recs-group fade-in">
+                    <h3 class="recs-group-title">Breakfast &amp; Coffee</h3>
+                    <ul class="recs-list">
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Mr+Burrito+Bozeman+MT" target="_blank" rel="noopener">Mr. Burrito</a> — burritos done right, cult-favorite hole-in-the-wall</li>
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Aurora+French+Bakery+Bozeman+MT" target="_blank" rel="noopener">Aurora French Bakery</a> — croissants, pastries &amp; a quick coffee</li>
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Studio+Coffee+House+Bozeman+MT" target="_blank" rel="noopener">Studio Coffee</a> — <em>Cathy's favorite</em> ☕</li>
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Wild+Crumb+Bozeman+MT" target="_blank" rel="noopener">Wild Crumb</a> — bakery + breakfast sandwiches, locals' go-to</li>
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Western+Cafe+Bozeman+MT" target="_blank" rel="noopener">Western Cafe</a> — old-school Montana diner, full of character</li>
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Treeline+Coffee+Roasters+Bozeman+MT" target="_blank" rel="noopener">Treeline Coffee Roasters</a> — solid coffee for before the day starts</li>
+                    </ul>
+                </div>
+
+                <div class="recs-group fade-in">
+                    <h3 class="recs-group-title">Hiking</h3>
+                    <ul class="recs-list">
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Peets+Hill+Burke+Park+Bozeman+MT" target="_blank" rel="noopener">Peets Hill</a> — short walk-up with town views, perfect morning loop</li>
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=M+Trail+Bozeman+MT" target="_blank" rel="noopener">"M" Trail</a> — quick climb to Bozeman's iconic lookout (~30 min up)</li>
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Drinking+Horse+Mountain+Trail+Bozeman+MT" target="_blank" rel="noopener">Drinking Horse Mountain</a> — easy switchbacks, 360° views from the top</li>
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Sypes+Canyon+Trail+Bozeman+MT" target="_blank" rel="noopener">Sypes Canyon</a> — moderate canyon hike just north of town</li>
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Middle+Cottonwood+Trailhead+Bozeman+MT" target="_blank" rel="noopener">Middle Cottonwood</a> — forested Bridger canyon, creek the whole way up</li>
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=North+Cottonwood+Trailhead+Bozeman+MT" target="_blank" rel="noopener">North Cottonwood</a> — quieter neighbor to Middle Cottonwood, longer &amp; bigger views</li>
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Palisade+Falls+Hyalite+Canyon+Bozeman+MT" target="_blank" rel="noopener">Palisade Falls</a> — short paved walk to a waterfall in Hyalite Canyon</li>
+                        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Lava+Lake+Trailhead+Gallatin+Canyon+MT" target="_blank" rel="noopener">Lava Lake</a> — moderate ~6 mi round-trip to an alpine lake</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
 
     <!-- Accommodations Section -->
     <section id="accommodations" class="section">
@@ -1091,7 +1160,7 @@
     </footer>
 </div>
 
-<script src="js/script.js?v=041920261604"></script>
+<script src="js/script.js?v=041920261605"></script>
 
 </body>
 
