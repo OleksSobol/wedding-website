@@ -89,7 +89,8 @@ async function checkPassword() {
             // Initialize site features
             startCountdown();
             initializeAnimations();
-            
+            applyDateRules();
+
             // console.log('🔐 Authentication successful');
         } else {
             errorMessage.textContent = 'Incorrect password. Please try again.';
@@ -168,6 +169,7 @@ window.addEventListener('load', function() {
             // Initialize site features
             startCountdown();
             initializeAnimations();
+            applyDateRules();
 
             // Animate hero content in after load (if visible)
             setTimeout(function() {
@@ -190,6 +192,7 @@ window.addEventListener('load', function() {
         document.getElementById('main-content').style.display = 'block';
         startCountdown();
         initializeAnimations();
+        applyDateRules();
     } else {
         // Clear invalid session data
         clearAuthSession();
@@ -317,6 +320,76 @@ function startCountUp() {
     setInterval(updateCountUp, 1000);
 }
 
+
+// Date-based visibility rules
+const RSVP_CLOSE_DATE = new Date('2026-05-30T00:00:00');
+const WEDDING_DATE    = new Date('2026-06-20T16:00:00');
+
+function applyDateRules() {
+    const now = new Date();
+
+    if (now >= WEDDING_DATE) {
+        applyPostWeddingState();
+    } else if (now >= RSVP_CLOSE_DATE) {
+        applyRsvpClosedState();
+    }
+}
+
+function applyPostWeddingState() {
+    ['#details', '#map', '#recs', '#accommodations', '#registry', '#rsvp'].forEach(function(id) {
+        var el = document.querySelector(id);
+        if (el) el.style.display = 'none';
+    });
+
+    ['#details', '#map', '#recs', '#accommodations', '#registry', '#rsvp'].forEach(function(href) {
+        var link = document.querySelector('.nav-menu a[href="' + href + '"]');
+        if (link) link.parentElement.style.display = 'none';
+    });
+
+    var heroWelcome = document.querySelector('.hero-welcome');
+    if (heroWelcome) {
+        heroWelcome.textContent = "We're Married!";
+        heroWelcome.classList.add('hero-welcome--married');
+    }
+
+    var heroBtn = document.querySelector('.hero-rsvp-btn');
+    if (heroBtn) heroBtn.style.display = 'none';
+
+    var countdown = document.getElementById('countdown');
+    if (countdown) countdown.style.display = 'none';
+
+    var heroQuickInfo = document.querySelector('.hero-quick-info');
+    if (heroQuickInfo) heroQuickInfo.style.display = 'none';
+
+    var heroContent = document.querySelector('.hero-content');
+    if (heroContent) {
+        var thankYou = document.createElement('p');
+        thankYou.className = 'hero-thankyou';
+        thankYou.textContent = 'Thank you all from Catherine and Oleksandr Sobol';
+        heroContent.appendChild(thankYou);
+    }
+}
+
+function applyRsvpClosedState() {
+    var rsvpNavLink = document.querySelector('.nav-menu a[href="#rsvp"]');
+    if (rsvpNavLink) rsvpNavLink.parentElement.style.display = 'none';
+
+    var heroBtn = document.querySelector('.hero-rsvp-btn');
+    if (heroBtn) heroBtn.style.display = 'none';
+
+    var formWrapper = document.querySelector('#rsvp .rsvp-form-wrapper');
+    if (formWrapper) {
+        formWrapper.innerHTML = '<div class="rsvp-closed-message">' +
+            '<div class="rsvp-closed-icon">💌</div>' +
+            '<h3>RSVP is Now Closed</h3>' +
+            '<p>Thank you so much for your responses! We can\'t wait to celebrate with everyone joining us in Montana.</p>' +
+            '<p>Questions? Reach us at <a href="mailto:wedding@solstice2026.party">wedding@solstice2026.party</a></p>' +
+            '</div>';
+    }
+
+    var rsvpInfo = document.querySelector('#rsvp .rsvp-info');
+    if (rsvpInfo) rsvpInfo.style.display = 'none';
+}
 
 // Smooth Scrolling for Navigation Links
 document.addEventListener('DOMContentLoaded', function() {
