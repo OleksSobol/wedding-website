@@ -85,15 +85,19 @@
           fileInput.value = '';
           nameInput.value = '';
           listEl.innerHTML = '';
+          fileInput.disabled = false;
+          nameInput.disabled = false;
           startBtn.disabled = true;
+          startBtn.textContent = 'Upload';
         } else {
           statusEl.textContent = ok + ' uploaded, ' + failed + ' failed. You can retry the failed ones.';
+          setBusy(false);
         }
       })
       .catch(function (err) {
         statusEl.textContent = 'Something went wrong: ' + err.message;
-      })
-      .finally(function () { setBusy(false); });
+        setBusy(false);
+      });
   });
 
   function uploadAll(files, guestName) {
