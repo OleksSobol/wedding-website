@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Share your photos and videos from Catherine & Oleksandr's wedding.">
+    <title>Share Your Photos · Catherine &amp; Oleksandr</title>
+    <link rel="icon"
+        href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;❤️&lt;/text&gt;&lt;/svg&gt;">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="../css/style.css?v=18042031">
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap">
+    </noscript>
+    <style>
+        body {
+            background: linear-gradient(135deg, #e8ede8 0%, #f1f3f1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .upload-card {
+            background: var(--warm-white);
+            max-width: 540px;
+            width: 100%;
+            border-radius: var(--radius-xl);
+            padding: clamp(2rem, 6vw, 3.5rem) clamp(1.5rem, 5vw, 3rem);
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .upload-brand {
+            font-family: 'Playfair Display', var(--font-display), serif;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            color: var(--romantic-pink);
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-card h1 {
+            font-family: 'Playfair Display', var(--font-display), serif;
+            font-size: clamp(1.8rem, 6vw, 2.6rem);
+            font-weight: 500;
+            color: var(--romantic-pink);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .upload-card .subtitle {
+            font-family: var(--font-body);
+            font-style: italic;
+            color: var(--charcoal);
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            margin-bottom: 2rem;
+        }
+
+        .upload-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--secondary-rose) 100%);
+            color: var(--warm-white);
+            text-decoration: none;
+            padding: 1.1rem 2rem;
+            border-radius: var(--radius-md);
+            font-family: var(--font-accent);
+            font-weight: 600;
+            font-size: 1.15rem;
+            width: 100%;
+            transition: all var(--transition-medium);
+            box-shadow: 0 8px 24px rgba(184, 134, 11, 0.25);
+        }
+
+        .upload-btn:hover {
+            background: linear-gradient(135deg, var(--secondary-rose) 0%, var(--accent-gold) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(184, 134, 11, 0.3);
+        }
+
+        .upload-signin-note {
+            margin-top: 0.6rem;
+            font-family: var(--font-body);
+            font-size: 0.82rem;
+            color: var(--charcoal);
+            opacity: 0.6;
+        }
+
+        .upload-steps {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0 0;
+            text-align: left;
+            color: var(--charcoal);
+            font-family: var(--font-body);
+            font-size: 0.98rem;
+        }
+
+        .upload-steps li {
+            position: relative;
+            padding: 0.45rem 0 0.45rem 1.8rem;
+            line-height: 1.5;
+        }
+
+        .upload-steps li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .upload-btn-secondary {
+            background: var(--warm-white);
+            color: var(--romantic-pink);
+            border: 2px solid var(--secondary-rose);
+            box-shadow: none;
+        }
+
+        .upload-btn-secondary:hover {
+            background: #f5f7f5;
+            color: var(--romantic-pink);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .upload-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--charcoal);
+            opacity: 0.45;
+            margin: 1.75rem 0 1.25rem;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .upload-divider::before,
+        .upload-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.12);
+        }
+
+        .upload-divider span {
+            padding: 0 0.9rem;
+        }
+
+        .uploader-panel {
+            margin-top: 1.25rem;
+            text-align: left;
+            background: #f7f9f7;
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+        }
+
+        .uploader-label {
+            display: block;
+            font-family: var(--font-accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--romantic-pink);
+            margin: 0.75rem 0 0.35rem;
+        }
+
+        .uploader-input {
+            width: 100%;
+            padding: 0.7rem 0.85rem;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            background: var(--warm-white);
+        }
+
+        .uploader-input:focus {
+            outline: none;
+            border-color: var(--secondary-rose);
+        }
+
+        .uploader-panel .upload-btn {
+            margin-top: 1.1rem;
+        }
+
+        .uploader-panel .upload-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .uploader-list {
+            margin-top: 0.5rem;
+        }
+
+        .uploader-item {
+            margin-top: 0.85rem;
+            font-family: var(--font-body);
+        }
+
+        .uploader-item-name {
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            word-break: break-word;
+        }
+
+        .uploader-item-size {
+            opacity: 0.5;
+            font-size: 0.8rem;
+        }
+
+        .uploader-bar {
+            height: 7px;
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 999px;
+            overflow: hidden;
+            margin: 0.35rem 0 0.2rem;
+        }
+
+        .uploader-bar-fill {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--accent-gold), var(--secondary-rose));
+            transition: width 0.2s ease;
+        }
+
+        .uploader-item-state {
+            font-size: 0.78rem;
+            color: var(--charcoal);
+            opacity: 0.65;
+        }
+
+        .uploader-item-state.done {
+            color: #2e7d32;
+            opacity: 1;
+        }
+
+        .uploader-item-state.error {
+            color: #c0392b;
+            opacity: 1;
+        }
+
+        .uploader-status {
+            margin-top: 1rem;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--romantic-pink);
+            min-height: 1.2em;
+        }
+
+        .upload-note {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            font-family: var(--font-body);
+            color: var(--romantic-pink);
+            font-size: 1rem;
+        }
+
+        .upload-back {
+            display: inline-block;
+            margin-top: 1.25rem;
+            color: var(--secondary-rose);
+            text-decoration: none;
+            font-family: var(--font-accent);
+            font-size: 0.9rem;
+        }
+
+        .upload-back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="upload-card">
+        <p class="upload-brand">C &amp; O</p>
+        <h1>Share your photos &amp; videos 📸</h1>
+        <p class="subtitle">Help us capture every moment from our wedding day!</p>
+
+        <!--
+          ▼▼▼  PASTE YOUR GOOGLE PHOTOS SHARED-ALBUM LINK HERE  ▼▼▼
+          Create an album in Google Photos → Share → turn ON "Collaborate / Add photos"
+          → copy the share link and replace the href below.
+        -->
+        <a class="upload-btn" href="https://photos.app.goo.gl/nzRJCdgoY5UCu4dJA" target="_blank"
+            rel="noopener noreferrer">
+            Add to our Google Photos album
+        </a>
+        <p class="upload-signin-note">Requires signing in to a Google account</p>
+
+  
+
+        <div class="upload-divider"><span>or</span></div>
+
+        <button type="button" id="no-account-toggle" class="upload-btn upload-btn-secondary"
+            aria-expanded="false" aria-controls="uploader-panel">
+            Upload without a Google account
+        </button>
+        <p class="upload-signin-note">No login needed — files go straight to us</p>
+
+        <div id="uploader-panel" class="uploader-panel" hidden>
+            <label class="uploader-label" for="uploader-name">Your name</label>
+            <input type="text" id="uploader-name" class="uploader-input" placeholder="e.g. Uncle Jack"
+                autocomplete="name">
+
+            <label class="uploader-label" for="uploader-files">Photos &amp; videos</label>
+            <input type="file" id="uploader-files" class="uploader-input" accept="image/*,video/*" multiple>
+
+            <div id="uploader-list" class="uploader-list"></div>
+
+            <button type="button" id="uploader-start" class="upload-btn" disabled>Upload</button>
+            <p id="uploader-status" class="uploader-status" role="status" aria-live="polite"></p>
+        </div>
+
+        <p class="upload-note">Thank you for helping us remember the day 💛</p>
+        <a class="upload-back" href="/">← Back to our wedding site</a>
+    </main>
+
+    <script src="../js/upload.js"></script>
+</body>
+
+</html>

@@ -50,6 +50,7 @@
             <li><a href="#registry">Registry</a></li>
             <li><a href="#rsvp">RSVP</a></li>
             <li><a href="#gallery">Gallery</a></li>
+            <li class="after-wedding" style="display:none"><a href="/upload">Share Photos</a></li>
         </ul>
     </nav>
 
@@ -1152,6 +1153,22 @@
         </div>
     </section>
 
+    <!-- Share Your Photos — revealed after the wedding (June 20, 2026) -->
+    <section id="upload" class="section after-wedding" style="display:none">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-in">Share Your Photos</h2>
+                <p class="section-subtitle">Thank you for celebrating with us! Help us relive the day — share the
+                    photos and videos you captured.</p>
+            </div>
+            <div style="text-align:center; margin-top:2rem;">
+                <a href="/upload" class="registry-btn" style="display:inline-block; width:auto; padding-left:3rem; padding-right:3rem;">
+                    Share your photos &amp; videos
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -1161,6 +1178,19 @@
 </div>
 
 <script src="js/script.js?v=041920261605"></script>
+
+<!-- Reveal the "Share Your Photos" link only on/after the wedding day.
+     Add ?showupload=1 to the URL to preview it before then. -->
+<script>
+    (function () {
+        var REVEAL_ON = new Date(2026, 5, 20, 0, 0, 0); // June 20, 2026 (month is 0-based)
+        var preview = location.search.indexOf('showupload') !== -1;
+        if (preview || new Date() >= REVEAL_ON) {
+            var els = document.querySelectorAll('.after-wedding');
+            for (var i = 0; i < els.length; i++) els[i].style.display = '';
+        }
+    })();
+</script>
 
 </body>
 
