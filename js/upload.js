@@ -80,9 +80,15 @@
       .then(function (results) {
         var ok = results.filter(function (r) { return r.ok; }).length;
         var failed = results.length - ok;
-        statusEl.textContent = failed === 0
-          ? 'Thank you, ' + guestName + '! ' + ok + ' file' + (ok === 1 ? '' : 's') + ' uploaded 🎉'
-          : ok + ' uploaded, ' + failed + ' failed. You can retry the failed ones.';
+        if (failed === 0) {
+          statusEl.textContent = 'Thank you, ' + guestName + '! ' + ok + ' file' + (ok === 1 ? '' : 's') + ' uploaded 🎉';
+          fileInput.value = '';
+          nameInput.value = '';
+          listEl.innerHTML = '';
+          startBtn.disabled = true;
+        } else {
+          statusEl.textContent = ok + ' uploaded, ' + failed + ' failed. You can retry the failed ones.';
+        }
       })
       .catch(function (err) {
         statusEl.textContent = 'Something went wrong: ' + err.message;

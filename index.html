@@ -48,9 +48,9 @@
             <li><a href="#recs">Things to do</a></li>
             <li><a href="#accommodations">Stay</a></li>
             <li><a href="#registry">Registry</a></li>
-            <li><a href="#rsvp">RSVP</a></li>
-            <li><a href="#gallery">Gallery</a></li>
+            <li class="before-wedding"><a href="#rsvp">RSVP</a></li>
             <li class="after-wedding" style="display:none"><a href="/upload">Share Photos</a></li>
+            <li><a href="#gallery">Gallery</a></li>
         </ul>
     </nav>
 
@@ -1188,6 +1188,8 @@
         if (preview || new Date() >= REVEAL_ON) {
             var els = document.querySelectorAll('.after-wedding');
             for (var i = 0; i < els.length; i++) els[i].style.display = '';
+            var pre = document.querySelectorAll('.before-wedding');
+            for (var i = 0; i < pre.length; i++) pre[i].style.display = 'none';
         }
     })();
 </script>
