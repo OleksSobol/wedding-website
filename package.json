@@ -6,6 +6,7 @@
     "start": "node server.js",
     "static": "http-server -p 8888 -c-1 .",
     "build": "echo Static site - no build step needed",
+    "predeploy": "node scripts/bump-version.js",
     "deploy": "wrangler pages deploy . --project-name=wedding-website",
     "server": "node server.js"
   },
