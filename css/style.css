@@ -2627,19 +2627,38 @@ section:nth-child(odd):not(.hero) {
 
   .schedule-grid {
     grid-template-columns: 1fr auto;
-    gap: 0.25rem 1rem;
+    gap: 0 1rem;
+    align-items: start;
   }
 
   .sg-day {
     grid-column: 1 / -1;
     padding-top: 1rem;
+    padding-bottom: 0.25rem;
     font-size: 0.8rem;
     border-top: 1px solid rgba(168, 184, 160, 0.15);
     margin-top: 0.25rem;
   }
 
+  .sg-event {
+    grid-column: 1;
+    padding-top: 0.25rem;
+    padding-bottom: 0;
+  }
+
   .sg-meta {
-    display: none;
+    display: block;
+    grid-column: 1;
+    font-size: 0.75rem;
+    padding-top: 0.15rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .sg-time {
+    grid-column: 2;
+    grid-row: span 2;
+    align-self: center;
+    padding-top: 0;
   }
 
   .section-header {
