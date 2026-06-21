@@ -336,12 +336,12 @@ function applyDateRules() {
 }
 
 function applyPostWeddingState() {
-    ['#details', '#map', '#recs', '#accommodations', '#registry', '#rsvp'].forEach(function(id) {
+    ['#details', '#map', '#recs', '#accommodations', '#rsvp'].forEach(function(id) {
         var el = document.querySelector(id);
         if (el) el.style.display = 'none';
     });
 
-    ['#details', '#map', '#recs', '#accommodations', '#registry', '#rsvp'].forEach(function(href) {
+    ['#details', '#map', '#recs', '#accommodations', '#rsvp'].forEach(function(href) {
         var link = document.querySelector('.nav-menu a[href="' + href + '"]');
         if (link) link.parentElement.style.display = 'none';
     });
