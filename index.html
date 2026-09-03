@@ -10,7 +10,7 @@
         href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;❤️&lt;/text&gt;&lt;/svg&gt;">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="css/style.css?v=5c247d62">
+    <link rel="stylesheet" href="css/style.css?v=5ac674ea">
     <!-- Load fonts async so they don't block first paint -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap"></noscript>
@@ -53,10 +53,10 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <picture class="hero-bg-picture">
+        <picture class="hero-bg-picture" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;">
             <source media="(max-width: 768px)" srcset="assets/images/background/485A1091-mobile.webp" type="image/webp">
             <source srcset="assets/images/background/485A1091.webp" type="image/webp">
-            <img class="hero-bg-image" src="assets/images/background/485A1091.webp" alt="Catherine &amp; Oleksandr" fetchpriority="high" decoding="async">
+            <img class="hero-bg-image" src="assets/images/background/485A1091.webp" alt="Catherine &amp; Oleksandr" fetchpriority="high" decoding="async" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; pointer-events: none;">
         </picture>
         <div class="hero-content animate-in">
             <p class="hero-welcome hero-welcome--married">We're Married!</p>
@@ -1141,7 +1141,7 @@
     </footer>
 </div>
 
-<script src="js/script.js?v=5c247d62"></script>
+<script src="js/script.js?v=5ac674ea"></script>
 </body>
 
 </html>
