@@ -14,6 +14,8 @@
     <!-- Load fonts async so they don't block first paint -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap"></noscript>
+    <link rel="preload" as="image" href="assets/images/background/485A1091.webp" type="image/webp" media="(min-width: 769px)">
+    <link rel="preload" as="image" href="assets/images/background/485A1091-mobile.webp" type="image/webp" media="(max-width: 768px)">
     <!-- GLightbox loaded lazily via JS when gallery is visible -->
     <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"></noscript>
 </head>
@@ -56,11 +58,11 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <video class="hero-bg-video" autoplay="" loop="" muted="" playsinline="" preload="none"
-            poster="assets/videos/proposal-poster-optimized.jpg">
-            <source src="assets/videos/proposal.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+        <picture class="hero-bg-picture">
+            <source media="(max-width: 768px)" srcset="assets/images/background/485A1091-mobile.webp" type="image/webp">
+            <source srcset="assets/images/background/485A1091.webp" type="image/webp">
+            <img class="hero-bg-image" src="assets/images/background/485A1091.webp" alt="Catherine &amp; Oleksandr" fetchpriority="high" decoding="async">
+        </picture>
         <div class="hero-content animate-in">
             <p class="hero-welcome">We're getting married!</p>
             <h1>Catherine &amp; Oleksandr</h1>
