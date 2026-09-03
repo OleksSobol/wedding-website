@@ -87,9 +87,7 @@ async function checkPassword() {
             mainContent.style.display = 'block';
             
             // Initialize site features
-            startCountdown();
             initializeAnimations();
-            applyDateRules();
 
             // console.log('🔐 Authentication successful');
         } else {
@@ -167,9 +165,7 @@ window.addEventListener('load', function() {
             }
 
             // Initialize site features
-            startCountdown();
             initializeAnimations();
-            applyDateRules();
 
             // Animate hero content in after load (if visible)
             setTimeout(function() {
@@ -190,9 +186,7 @@ window.addEventListener('load', function() {
     if (hasAccess && token && authTime && isValidSession(token, authTime)) {
         document.getElementById('password-modal').style.display = 'none';
         document.getElementById('main-content').style.display = 'block';
-        startCountdown();
         initializeAnimations();
-        applyDateRules();
     } else {
         // Clear invalid session data
         clearAuthSession();
@@ -240,156 +234,6 @@ document.getElementById('password-input').addEventListener('keypress', function(
     }
 });
 
-// Countdown Timer with Marriage Celebration
-function startCountdown() {
-    const weddingDate = new Date('June 20, 2026 16:00:00').getTime();
-    
-    function updateCountdown() {
-        const now = new Date().getTime();
-        const timeLeft = weddingDate - now;
-        
-        if (timeLeft > 0) {
-            // Countdown to wedding
-            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').textContent = days.toString().padStart(3, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-        } else {
-            // Wedding day has passed - start counting up!
-            startCountUp();
-        }
-    }
-    
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-}
-
-// Count Up Timer - Celebrating Time Since Marriage
-function startCountUp() {
-    const weddingDate = new Date('June 20, 2026 16:00:00').getTime();
-
-    function updateCountUp() {
-        const now = new Date().getTime();
-        const timeElapsed = now - weddingDate;
-
-        const days = Math.floor(timeElapsed / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeElapsed % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeElapsed % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeElapsed % (1000 * 60)) / 1000);
-
-        // Replace the countdown display with marriage celebration
-        const countdownElement = document.getElementById('countdown');
-        if (countdownElement) {
-            countdownElement.innerHTML = `
-                <div class="married-celebration">
-                    <h3 style="color: var(--primary-color); font-family: 'Dancing Script', cursive; font-size: 2.5rem; margin-bottom: 1rem;">
-                        We are married now! 💕
-                    </h3>
-                    <p style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--text-secondary);">
-                        Time since we said "I do":
-                    </p>
-                    <div class="count-up-display" style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                        <span class="time-unit">
-                            <span style="font-size: 2rem; font-weight: bold; color: var(--primary-color);">${days.toString().padStart(3, '0')}</span>
-                            <label style="display: block; font-size: 0.9rem;">days</label>
-                        </span>
-                        <span class="time-unit">
-                            <span style="font-size: 2rem; font-weight: bold; color: var(--primary-color);">${hours.toString().padStart(2, '0')}</span>
-                            <label style="display: block; font-size: 0.9rem;">hours</label>
-                        </span>
-                        <span class="time-unit">
-                            <span style="font-size: 2rem; font-weight: bold; color: var(--primary-color);">${minutes.toString().padStart(2, '0')}</span>
-                            <label style="display: block; font-size: 0.9rem;">minutes</label>
-                        </span>
-                        <span class="time-unit">
-                            <span style="font-size: 2rem; font-weight: bold; color: var(--primary-color);">${seconds.toString().padStart(2, '0')}</span>
-                            <label style="display: block; font-size: 0.9rem;">seconds</label>
-                        </span>
-                    </div>
-                </div>
-            `;
-        }
-    }
-
-    updateCountUp();
-    setInterval(updateCountUp, 1000);
-}
-
-
-// Date-based visibility rules
-const RSVP_CLOSE_DATE = new Date('2026-05-30T00:00:00');
-const WEDDING_DATE    = new Date('2026-06-20T16:00:00');
-
-function applyDateRules() {
-    const now = new Date();
-
-    if (now >= WEDDING_DATE) {
-        applyPostWeddingState();
-    } else if (now >= RSVP_CLOSE_DATE) {
-        applyRsvpClosedState();
-    }
-}
-
-function applyPostWeddingState() {
-    ['#details', '#map', '#recs', '#accommodations', '#rsvp'].forEach(function(id) {
-        var el = document.querySelector(id);
-        if (el) el.style.display = 'none';
-    });
-
-    ['#details', '#map', '#recs', '#accommodations', '#rsvp'].forEach(function(href) {
-        var link = document.querySelector('.nav-menu a[href="' + href + '"]');
-        if (link) link.parentElement.style.display = 'none';
-    });
-
-    var heroWelcome = document.querySelector('.hero-welcome');
-    if (heroWelcome) {
-        heroWelcome.textContent = "We're Married!";
-        heroWelcome.classList.add('hero-welcome--married');
-    }
-
-    var heroBtn = document.querySelector('.hero-rsvp-btn');
-    if (heroBtn) heroBtn.style.display = 'none';
-
-    var countdown = document.getElementById('countdown');
-    if (countdown) countdown.style.display = 'none';
-
-    var heroQuickInfo = document.querySelector('.hero-quick-info');
-    if (heroQuickInfo) heroQuickInfo.style.display = 'none';
-
-    var heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
-        var thankYou = document.createElement('p');
-        thankYou.className = 'hero-thankyou';
-        thankYou.textContent = 'Thank you all from Catherine and Oleksandr Sobol';
-        heroContent.appendChild(thankYou);
-    }
-}
-
-function applyRsvpClosedState() {
-    var rsvpNavLink = document.querySelector('.nav-menu a[href="#rsvp"]');
-    if (rsvpNavLink) rsvpNavLink.parentElement.style.display = 'none';
-
-    var heroBtn = document.querySelector('.hero-rsvp-btn');
-    if (heroBtn) heroBtn.style.display = 'none';
-
-    var formWrapper = document.querySelector('#rsvp .rsvp-form-wrapper');
-    if (formWrapper) {
-        formWrapper.innerHTML = '<div class="rsvp-closed-message">' +
-            '<div class="rsvp-closed-icon">💌</div>' +
-            '<h3>RSVP is Now Closed</h3>' +
-            '<p>Thank you so much for your responses! We can\'t wait to celebrate with everyone joining us in Montana.</p>' +
-            '<p>Questions? Reach us at <a href="mailto:wedding@solstice2026.party">wedding@solstice2026.party</a></p>' +
-            '</div>';
-    }
-
-    var rsvpInfo = document.querySelector('#rsvp .rsvp-info');
-    if (rsvpInfo) rsvpInfo.style.display = 'none';
-}
 
 // Smooth Scrolling for Navigation Links
 document.addEventListener('DOMContentLoaded', function() {
